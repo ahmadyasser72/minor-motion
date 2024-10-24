@@ -35,7 +35,9 @@ const { Content } = await render();
 
   <Separator class="my-4" />
 
-  <Content />
+  <div class="content">
+    <Content />
+  </div>
 
   <Separator class="my-4" />
 
@@ -43,28 +45,27 @@ const { Content } = await render();
 </DefaultLayout>
 
 <style is:global>
-  p {
+  .content p {
     @apply leading-7 [&:not(:first-child)]:mt-6;
   }
 
-  a {
+  .content a {
     @apply text-indigo-700 underline break-all;
   }
 
-  blockquote {
+  .content blockquote {
     @apply mt-6 border-l-2 pl-6 italic;
   }
 
-  ol,
-  ul {
+  .content :is(ol, ul) {
     @apply my-4 ml-6 [&>li]:mt-2;
   }
 
-  ol {
+  .content ol {
     list-style: decimal;
   }
 
-  ul {
+  .content ul {
     list-style-type: disc;
   }
 </style>
