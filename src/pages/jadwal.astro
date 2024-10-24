@@ -1,0 +1,58 @@
+---
+import CardJadwal from "$lib/components/card-jadwal.svelte";
+import DefaultLayout from "$lib/layouts/default-layout.astro";
+import { daftarHari } from "$lib/utils";
+
+import { getCollection } from "astro:content";
+
+const daftarMataKuliah = await getCollection("mata-kuliah");
+
+const daftarJadwal = Object.entries(
+  daftarMataKuliah.reduce(
+    (acc, value) => {
+      acc[value.data.hari]!.push(value);
+      return acc;
+    },
+    Object.fromEntries(
+      daftarHari.map((hari) => [hari, [] as typeof daftarMataKuliah])
+    )
+  )
+)
+  .filter(([_, values]) => values.length > 0)
+  .toSorted(
+    ([hari1], [hari2]) => daftarHari.indexOf(hari1) - daftarHari.indexOf(hari2)
+  )
+  .map(
+    ([key, values]) =>
+      [
+        key,
+        values.toSorted(
+          ({ data: { start: start1 } }, { data: { start: start2 } }) =>
+            start1.hour - start2.hour || start1.minute - start2.minute
+        ),
+      ] as const
+  );
+
+const daftarJumlahTugas: Record<string, JumlahTugas> = Object.fromEntries(
+  daftarMataKuliah.map(({ id }) => [id, { normal: 0, terlewat: 0 }])
+);
+
+const tugas = await getCollection("tugas");
+for (const { data } of tugas) {
+  if (data["batas-waktu"].valueOf() > Date.now()) {
+    daftarJumlahTugas[data["mata-kuliah"].id]!.normal += 1;
+  } else {
+    daftarJumlahTugas[data["mata-kuliah"].id]!.terlewat += 1;
+  }
+}
+---
+
+<DefaultLayout class="flex items-center my-8 md:my-0">
+  <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-8">
+    {
+      daftarJadwal.map(([hari, jadwal]) => (
+        <CardJadwal client:load {hari} {jadwal} {daftarJumlahTugas} />
+      ))
+    }
+  </div>
+</DefaultLayout>

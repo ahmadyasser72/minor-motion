@@ -1,0 +1,13 @@
+{
+  "nama": "E-Commerce",
+  "dosen": null,
+  "hari": "rabu",
+  "start": {
+    "hour": 14,
+    "minute": 40
+  },
+  "end": {
+    "hour": 16,
+    "minute": 10
+  }
+}

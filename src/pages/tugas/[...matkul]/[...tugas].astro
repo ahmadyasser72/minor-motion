@@ -1,0 +1,69 @@
+---
+import BadgeTugas from "$lib/components/badge-tugas.svelte";
+import ButtonTugas from "$lib/components/button-tugas.svelte";
+import { Separator } from "$lib/components/ui/separator";
+import DefaultLayout from "$lib/layouts/default-layout.astro";
+
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+
+export const getStaticPaths = (async () => {
+  const daftarTugas = await getCollection("tugas");
+  return daftarTugas.map((tugas) => ({
+    params: {
+      matkul: tugas.data["mata-kuliah"].id,
+      tugas: tugas.slug.split("/").at(-1),
+    },
+    props: { tugas },
+  }));
+}) satisfies GetStaticPaths;
+
+const {
+  tugas: { data, render },
+} = Astro.props;
+const { Content } = await render();
+---
+
+<DefaultLayout class="py-8">
+  <h2
+    class="scroll-m-20 pb-2 text-3xl text-center sm:text-start font-semibold tracking-tight transition-colors first:mt-0"
+  >
+    {data.judul}
+  </h2>
+  <BadgeTugas {data} />
+
+  <Separator class="my-4" />
+
+  <Content />
+
+  <Separator class="my-4" />
+
+  <ButtonTugas client:load {data} />
+</DefaultLayout>
+
+<style is:global>
+  p {
+    @apply leading-7 [&:not(:first-child)]:mt-6;
+  }
+
+  a {
+    @apply text-indigo-700 underline break-all;
+  }
+
+  blockquote {
+    @apply mt-6 border-l-2 pl-6 italic;
+  }
+
+  ol,
+  ul {
+    @apply my-4 ml-6 [&>li]:mt-2;
+  }
+
+  ol {
+    list-style: decimal;
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+</style>

@@ -1,0 +1,37 @@
+---
+import TableTugas from "$lib/components/table-tugas.svelte";
+import { Separator } from "$lib/components/ui/separator";
+import DefaultLayout from "$lib/layouts/default-layout.astro";
+
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+
+export const getStaticPaths = (async () => {
+  const daftarMataKuliah = await getCollection("mata-kuliah");
+  return daftarMataKuliah.map((matkul) => ({
+    params: { matkul: matkul.id },
+    props: { matkul },
+  }));
+}) satisfies GetStaticPaths;
+
+const { matkul } = Astro.props;
+const tugas = await getCollection(
+  "tugas",
+  ({ data }) => data["mata-kuliah"].id === matkul.id
+).then((tugas) => tugas.map(({ data, slug }) => ({ ...data, slug })));
+---
+
+<DefaultLayout class="py-8">
+  <div class="flex items-end space-x-2">
+    <h1
+      class="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl uppercase"
+    >
+      {matkul.id}
+    </h1>
+    <p class="text-muted-foreground text-xl">{matkul.data.nama}</p>
+  </div>
+
+  <Separator class="my-4" />
+
+  <TableTugas client:load matkul={matkul.data.nama} {tugas} />
+</DefaultLayout>

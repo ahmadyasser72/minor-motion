@@ -1,0 +1,13 @@
+{
+  "nama": "Pemrograman Visual",
+  "dosen": null,
+  "hari": "kamis",
+  "start": {
+    "hour": 7,
+    "minute": 30
+  },
+  "end": {
+    "hour": 9,
+    "minute": 0
+  }
+}

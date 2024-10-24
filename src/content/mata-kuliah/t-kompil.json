@@ -1,0 +1,13 @@
+{
+  "nama": "Teknik Kompilasi",
+  "dosen": null,
+  "hari": "kamis",
+  "start": {
+    "hour": 9,
+    "minute": 10
+  },
+  "end": {
+    "hour": 10,
+    "minute": 40
+  }
+}

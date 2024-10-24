@@ -1,0 +1,8 @@
+{
+  "json.schemas": [
+    {
+      "fileMatch": ["/src/content/mata-kuliah/**"],
+      "url": "./.astro/collections/mata-kuliah.schema.json"
+    }
+  ]
+}

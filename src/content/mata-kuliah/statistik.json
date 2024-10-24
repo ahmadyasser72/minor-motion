@@ -1,0 +1,13 @@
+{
+  "nama": "Statistik",
+  "dosen": null,
+  "hari": "senin",
+  "start": {
+    "hour": 9,
+    "minute": 10
+  },
+  "end": {
+    "hour": 10,
+    "minute": 40
+  }
+}

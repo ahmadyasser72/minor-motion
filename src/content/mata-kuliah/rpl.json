@@ -1,0 +1,13 @@
+{
+  "nama": "Rekayasa Perangkat Lunak",
+  "dosen": null,
+  "hari": "selasa",
+  "start": {
+    "hour": 14,
+    "minute": 40
+  },
+  "end": {
+    "hour": 16,
+    "minute": 10
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "nama": "Pemrograman Berbasis Objek",
+  "dosen": null,
+  "hari": "rabu",
+  "start": {
+    "hour": 10,
+    "minute": 50
+  },
+  "end": {
+    "hour": 12,
+    "minute": 20
+  }
+}

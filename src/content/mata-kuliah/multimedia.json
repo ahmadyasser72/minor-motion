@@ -1,0 +1,13 @@
+{
+  "nama": "Multimedia",
+  "dosen": null,
+  "hari": "selasa",
+  "start": {
+    "hour": 13,
+    "minute": 0
+  },
+  "end": {
+    "hour": 14,
+    "minute": 30
+  }
+}
