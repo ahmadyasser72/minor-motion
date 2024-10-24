@@ -16,10 +16,12 @@
   <div class="grid sm:flex gap-2">
     <ButtonDoneTask class="sm:w-24" {id} />
 
-    <Button href={data["link-pengumpulan"]} target="_blank" class="uppercase">
-      link pengumpulan
-      <SquareArrowOutUpRight class="ml-2 w-4 h-4" />
-    </Button>
+    {#if data["link-pengumpulan"] !== undefined}
+      <Button href={data["link-pengumpulan"]} target="_blank" class="uppercase">
+        link pengumpulan
+        <SquareArrowOutUpRight class="ml-2 w-4 h-4" />
+      </Button>
+    {/if}
   </div>
 
   <Button on:click={() => history.back()} class="uppercase" variant="outline">

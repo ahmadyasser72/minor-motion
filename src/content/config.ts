@@ -31,7 +31,7 @@ const tugas = defineCollection({
     tipe: z.enum(["individu", "kelompok"]),
     "mata-kuliah": reference("mata-kuliah"),
     "batas-waktu": z.date(),
-    "link-pengumpulan": z.string().url(),
+    "link-pengumpulan": z.string().url().optional(),
     "tempat-pengumpulan": z.enum([
       "e-learning",
       "google-classroom",
