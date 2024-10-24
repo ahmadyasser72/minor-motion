@@ -11,6 +11,6 @@
   </Badge>
   <Badge class="uppercase bg-red-600 hover:bg-red-800">
     <CircleAlert class="mr-1 w-4 h-4" />
-    tugas (terlewat)
+    tugas (telat)
   </Badge>
 </div>

@@ -1,21 +1,36 @@
 <script lang="ts">
   import { Badge } from "$lib/components/ui/badge";
+  import { tasks } from "$lib/stores";
+  import type { DaftarTugas, SubjectId } from "$lib/types";
 
   import type { CollectionEntry } from "astro:content";
 
   import { CircleAlert, Info, SquareArrowOutUpRight } from "lucide-svelte";
 
   export let entry: CollectionEntry<"mata-kuliah">;
-  export let jumlahTugas: JumlahTugas;
+  export let tugas: DaftarTugas[SubjectId];
 
   $: ({
     id,
-    data: { nama, start, end },
+    data: { start, end },
   } = entry);
+  const { completed } = tasks;
 
   const pad = (n: number) => n.toString().padStart(2, "0");
   const formatTime = ({ hour, minute }: typeof start) =>
     `${pad(hour)}:${pad(minute)}`;
+
+  let jumlahTugas = 0;
+  let jumlahTugasLewat = 0;
+  $: {
+    jumlahTugas = jumlahTugasLewat = 0;
+    for (const [id, status] of tugas) {
+      if ($completed.has(id)) continue;
+
+      if (status === "normal") jumlahTugas += 1;
+      else if (status === "lewat") jumlahTugasLewat += 1;
+    }
+  }
 </script>
 
 <div class="inline-flex items-center space-x-1.5">
@@ -26,17 +41,17 @@
     <SquareArrowOutUpRight class="ml-1 w-4 h-4" />
   </Badge>
 
-  {#if jumlahTugas.normal > 0}
+  {#if jumlahTugas > 0}
     <Badge class="bg-indigo-600 hover:bg-indigo-800">
       <Info class="mr-1 w-4 h-4" />
-      {jumlahTugas.normal}
+      {jumlahTugas}
     </Badge>
   {/if}
 
-  {#if jumlahTugas.terlewat > 0}
+  {#if jumlahTugasLewat > 0}
     <Badge class="bg-red-600 hover:bg-red-800">
       <CircleAlert class="mr-1 w-4 h-4" />
-      {jumlahTugas.terlewat}
+      {jumlahTugasLewat}
     </Badge>
   {/if}
 </div>

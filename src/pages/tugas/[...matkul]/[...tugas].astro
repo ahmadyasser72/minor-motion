@@ -20,7 +20,7 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 const {
-  tugas: { data, render },
+  tugas: { data, render, slug },
 } = Astro.props;
 const { Content } = await render();
 ---
@@ -31,17 +31,17 @@ const { Content } = await render();
   >
     {data.judul}
   </h2>
-  <BadgeTugas {data} />
+  <BadgeTugas client:load id={slug} {data} />
+
+  <Separator class="my-4" />
+
+  <ButtonTugas client:load id={slug} {data} />
 
   <Separator class="my-4" />
 
   <div class="content">
     <Content />
   </div>
-
-  <Separator class="my-4" />
-
-  <ButtonTugas client:load {data} />
 </DefaultLayout>
 
 <style is:global>

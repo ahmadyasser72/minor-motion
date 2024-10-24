@@ -2,6 +2,7 @@
 import BadgeKeteranganJadwal from "$lib/components/badge-keterangan-jadwal.svelte";
 import CardJadwal from "$lib/components/card-jadwal.svelte";
 import DefaultLayout from "$lib/layouts/default-layout.astro";
+import type { DaftarTugas } from "$lib/types";
 import { daftarHari } from "$lib/utils";
 
 import { getCollection } from "astro:content";
@@ -34,17 +35,17 @@ const daftarJadwal = Object.entries(
       ] as const
   );
 
-const daftarJumlahTugas: Record<string, JumlahTugas> = Object.fromEntries(
-  daftarMataKuliah.map(({ id }) => [id, { normal: 0, terlewat: 0 }])
+// @ts-ignore Object.fromEntries tolol
+const daftarTugas: DaftarTugas = Object.fromEntries(
+  daftarMataKuliah.map(({ id }) => [id, []])
 );
 
 const tugas = await getCollection("tugas");
-for (const { data } of tugas) {
-  if (data["batas-waktu"].valueOf() > Date.now()) {
-    daftarJumlahTugas[data["mata-kuliah"].id]!.normal += 1;
-  } else {
-    daftarJumlahTugas[data["mata-kuliah"].id]!.terlewat += 1;
-  }
+for (const { data, slug } of tugas) {
+  daftarTugas[data["mata-kuliah"].id].push([
+    slug,
+    data["batas-waktu"].valueOf() > Date.now() ? "normal" : "lewat",
+  ]);
 }
 ---
 
@@ -53,7 +54,7 @@ for (const { data } of tugas) {
   <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-8">
     {
       daftarJadwal.map(([hari, jadwal]) => (
-        <CardJadwal {hari} {jadwal} {daftarJumlahTugas} />
+        <CardJadwal client:load {hari} {jadwal} {daftarTugas} />
       ))
     }
   </div>

@@ -3,6 +3,7 @@
 
   import * as Card from "$lib/components/ui/card";
   import { Separator } from "$lib/components/ui/separator";
+  import type { DaftarTugas } from "$lib/types";
   import { daftarHari } from "$lib/utils";
 
   import type { CollectionEntry } from "astro:content";
@@ -10,10 +11,7 @@
   export let hari: string;
   export let active = daftarHari[new Date().getDay() - 1] === hari;
   export let jadwal: Array<CollectionEntry<"mata-kuliah">>;
-  export let daftarJumlahTugas: Record<
-    CollectionEntry<"mata-kuliah">["id"],
-    JumlahTugas
-  >;
+  export let daftarTugas: DaftarTugas;
 </script>
 
 <Card.Root
@@ -28,7 +26,7 @@
         <Separator class="my-2" />
       {/if}
 
-      <CardJadwalItem {entry} jumlahTugas={daftarJumlahTugas[entry.id]} />
+      <CardJadwalItem {entry} tugas={daftarTugas[entry.id]} />
     {/each}
   </Card.Content>
 </Card.Root>
