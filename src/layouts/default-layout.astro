@@ -3,6 +3,8 @@ import "$lib/styles/app.css";
 
 import { ViewTransitions } from "astro:transitions";
 
+import LoadingIndicator from "astro-loading-indicator/component";
+
 interface Props {
   class?: string;
 }
@@ -13,6 +15,8 @@ const { class: classList } = Astro.props;
 <html lang="en" transition:animate="slide">
   <head>
     <ViewTransitions fallback="swap" />
+    <LoadingIndicator color="unset" height="4px" threshold={false} />
+
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
@@ -25,3 +29,14 @@ const { class: classList } = Astro.props;
     </div>
   </body>
 </html>
+
+<style is:global>
+  .astro-loading-indicator {
+    background: linear-gradient(
+      270deg,
+      theme("colors.indigo.400") 25%,
+      theme("colors.indigo.800") 50%,
+      theme("colors.indigo.600") 25%
+    );
+  }
+</style>
