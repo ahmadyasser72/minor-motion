@@ -1,6 +1,5 @@
 <script lang="ts">
   import { Badge } from "$lib/components/ui/badge";
-  import * as Tooltip from "$lib/components/ui/tooltip";
 
   import type { CollectionEntry } from "astro:content";
 
@@ -22,43 +21,22 @@
 <div class="inline-flex items-center space-x-1.5">
   <Badge variant="secondary">{formatTime(start)} - {formatTime(end)}</Badge>
 
-  <Tooltip.Root openDelay={200}>
-    <Tooltip.Trigger asChild let:builder>
-      <Badge class="uppercase" href="/tugas/{id}" builders={[builder]}>
-        {id}
-        <SquareArrowOutUpRight class="ml-1 w-4 h-4" />
-      </Badge>
-    </Tooltip.Trigger>
-    <Tooltip.Content sideOffset={4}>
-      <p>{nama}</p>
-    </Tooltip.Content>
-  </Tooltip.Root>
+  <Badge class="uppercase" href="/tugas/{id}">
+    {id}
+    <SquareArrowOutUpRight class="ml-1 w-4 h-4" />
+  </Badge>
 
   {#if jumlahTugas.normal > 0}
-    <Tooltip.Root openDelay={200}>
-      <Tooltip.Trigger asChild let:builder>
-        <Badge class="bg-indigo-600 hover:bg-indigo-800" builders={[builder]}>
-          <Info class="mr-1 w-4 h-4" />
-          {jumlahTugas.normal}
-        </Badge>
-      </Tooltip.Trigger>
-      <Tooltip.Content sideOffset={4}>
-        <p>{jumlahTugas.normal} Tugas</p>
-      </Tooltip.Content>
-    </Tooltip.Root>
+    <Badge class="bg-indigo-600 hover:bg-indigo-800">
+      <Info class="mr-1 w-4 h-4" />
+      {jumlahTugas.normal}
+    </Badge>
   {/if}
 
   {#if jumlahTugas.terlewat > 0}
-    <Tooltip.Root openDelay={200}>
-      <Tooltip.Trigger asChild let:builder>
-        <Badge variant="destructive" builders={[builder]}>
-          <CircleAlert class="mr-1 w-4 h-4" />
-          {jumlahTugas.terlewat}
-        </Badge>
-      </Tooltip.Trigger>
-      <Tooltip.Content sideOffset={4}>
-        <p>{jumlahTugas.terlewat} Tugas Terlewat</p>
-      </Tooltip.Content>
-    </Tooltip.Root>
+    <Badge variant="destructive">
+      <CircleAlert class="mr-1 w-4 h-4" />
+      {jumlahTugas.terlewat}
+    </Badge>
   {/if}
 </div>

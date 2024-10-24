@@ -19,14 +19,14 @@ const daftarJadwal = Object.entries(
   )
 )
   .filter(([_, values]) => values.length > 0)
-  .toSorted(
+  .sort(
     ([hari1], [hari2]) => daftarHari.indexOf(hari1) - daftarHari.indexOf(hari2)
   )
   .map(
     ([key, values]) =>
       [
         key,
-        values.toSorted(
+        values.sort(
           ({ data: { start: start1 } }, { data: { start: start2 } }) =>
             start1.hour - start2.hour || start1.minute - start2.minute
         ),

@@ -6,6 +6,7 @@ import DefaultLayout from "$lib/layouts/default-layout.astro";
 import type { GetStaticPaths } from "astro";
 import { getCollection } from "astro:content";
 
+export const prerender = true;
 export const getStaticPaths = (async () => {
   const daftarMataKuliah = await getCollection("mata-kuliah");
   return daftarMataKuliah.map((matkul) => ({
