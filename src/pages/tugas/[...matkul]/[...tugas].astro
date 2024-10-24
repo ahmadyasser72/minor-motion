@@ -57,6 +57,10 @@ const { Content } = await render();
     @apply mt-6 border-l-2 pl-6 italic;
   }
 
+  .content img {
+    @apply p-2 mx-auto border shadow-sm;
+  }
+
   .content :is(ol, ul) {
     @apply my-4 ml-6 [&>li]:mt-2;
   }
