@@ -1,23 +1,27 @@
 import type { TaskId } from "$lib/types";
 
-import { persisted } from "svelte-persisted-store";
+import { persistentAtom } from "@nanostores/persistent";
 
-import { readonly } from "svelte/store";
-
-const completed = persisted("completed-tasks", new Set<TaskId>(), {
-  serializer: {
-    parse: (text) => new Set([...JSON.parse(text)]),
-    stringify: (set) => JSON.stringify([...set.values()]),
-  },
-});
+const completed = persistentAtom<Set<TaskId>>(
+  "completed-tasks",
+  new Set<TaskId>(),
+  {
+    decode: (text) => new Set([...JSON.parse(text)]),
+    encode: (tasks) => JSON.stringify([...tasks.values()]),
+  }
+);
 
 export const tasks = {
-  completed: readonly(completed),
-  complete: (task: TaskId) =>
-    completed.update((completed) => completed.add(task)),
-  undo: (task: TaskId) =>
-    completed.update((completed) => {
-      completed.delete(task);
-      return completed;
-    }),
+  completed,
+  complete: (task: TaskId) => {
+    const tasks = completed.get();
+    completed.set(tasks.add(task));
+    completed.notify();
+  },
+  undo: (task: TaskId) => {
+    const tasks = completed.get();
+    tasks.delete(task);
+    completed.set(tasks);
+    completed.notify();
+  },
 };
