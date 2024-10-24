@@ -16,9 +16,15 @@
   <Table.Header>
     <Table.Row>
       <Table.Head>#</Table.Head>
-      <Table.Head>Judul</Table.Head>
-      <Table.Head>Tipe</Table.Head>
-      <Table.Head>Batas Waktu</Table.Head>
+      <Table.Head>
+        <div class="min-w-[180px]">Judul</div>
+      </Table.Head>
+      <Table.Head class="max-sm:hidden">
+        <div class="min-w-[60px]">Tipe</div>
+      </Table.Head>
+      <Table.Head>
+        <div class="min-w-[90px]">Batas Waktu</div>
+      </Table.Head>
       <Table.Head>Actions</Table.Head>
     </Table.Row>
   </Table.Header>
@@ -27,7 +33,7 @@
       <Table.Row>
         <Table.Cell>-</Table.Cell>
         <Table.Cell>-</Table.Cell>
-        <Table.Cell>-</Table.Cell>
+        <Table.Cell class="max-sm:hidden">-</Table.Cell>
         <Table.Cell>-</Table.Cell>
         <Table.Cell>-</Table.Cell>
       </Table.Row>
@@ -37,8 +43,10 @@
           <Table.Cell class="font-medium"
             >{(idx + 1).toString().padStart(2, "0")}</Table.Cell
           >
-          <Table.Cell>{data.judul}</Table.Cell>
-          <Table.Cell>{data.tipe}</Table.Cell>
+          <Table.Cell>
+            <a class="underline" href="/tugas/{data.slug}">{data.judul}</a>
+          </Table.Cell>
+          <Table.Cell class="max-sm:hidden">{data.tipe}</Table.Cell>
           <Table.Cell>{formatDate(data["batas-waktu"])}</Table.Cell>
           <Table.Cell>
             <Button
