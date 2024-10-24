@@ -1,6 +1,8 @@
 ---
 import "$lib/styles/app.css";
 
+import { ViewTransitions } from "astro:transitions";
+
 interface Props {
   class?: string;
 }
@@ -8,8 +10,9 @@ interface Props {
 const { class: classList } = Astro.props;
 ---
 
-<html lang="en">
+<html lang="en" transition:animate="slide">
   <head>
+    <ViewTransitions fallback="swap" />
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
