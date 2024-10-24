@@ -34,7 +34,7 @@
   {/if}
 
   {#if jumlahTugas.terlewat > 0}
-    <Badge variant="destructive">
+    <Badge class="bg-red-600 hover:bg-red-800">
       <CircleAlert class="mr-1 w-4 h-4" />
       {jumlahTugas.terlewat}
     </Badge>
