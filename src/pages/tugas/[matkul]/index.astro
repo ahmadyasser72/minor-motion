@@ -3,22 +3,23 @@ import TableTugas from "$lib/components/table-tugas.svelte";
 import { Separator } from "$lib/components/ui/separator";
 import DefaultLayout from "$lib/layouts/default-layout.astro";
 
-import type { GetStaticPaths } from "astro";
+import { getEntry } from "astro:content";
 import { getCollection } from "astro:content";
 
-export const prerender = true;
-export const getStaticPaths = (async () => {
-  const daftarMataKuliah = await getCollection("mata-kuliah");
-  return daftarMataKuliah.map((matkul) => ({
-    params: { matkul: matkul.id },
-    props: { matkul },
-  }));
-}) satisfies GetStaticPaths;
+const { matkul } = Astro.params;
+if (matkul === undefined) throw new Error("link tidak valid");
 
-const { matkul } = Astro.props;
+const entry = await getEntry("mata-kuliah", matkul);
+if (entry === undefined) throw new Error("mata kuliah tidak ditemukan");
+
+const {
+  id,
+  data: { nama },
+} = entry;
+
 const tugas = await getCollection(
   "tugas",
-  ({ data }) => data["mata-kuliah"].id === matkul.id
+  ({ data }) => data["mata-kuliah"].id === matkul
 ).then((tugas) => tugas.map(({ data, slug }) => ({ ...data, slug })));
 ---
 
@@ -27,12 +28,12 @@ const tugas = await getCollection(
     <h1
       class="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl uppercase"
     >
-      {matkul.id}
+      {id}
     </h1>
-    <p class="text-muted-foreground text-xl">{matkul.data.nama}</p>
+    <p class="text-muted-foreground text-xl">{nama}</p>
   </div>
 
   <Separator class="my-4" />
 
-  <TableTugas client:load matkul={matkul.data.nama} {tugas} />
+  <TableTugas client:load matkul={nama} {tugas} />
 </DefaultLayout>
