@@ -1,6 +1,7 @@
 ---
 import "$lib/styles/app.css";
 
+import { Toaster } from "$lib/components/ui/sonner";
 import { fetchCompletedTasks } from "$lib/google-drive";
 import type { TaskId } from "$lib/types";
 
@@ -33,6 +34,7 @@ if (session !== undefined) {
     <title>Astro</title>
   </head>
   <body>
+    <Toaster client:only="svelte" richColors />
     <div class:list={["container lg:w-3/4 md:min-h-[100vh]", classList]}>
       <slot />
     </div>
