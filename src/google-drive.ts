@@ -4,6 +4,7 @@ const completedTasksFilename = "completed-tasks.json";
 
 export const fetchCompletedTasks = async (token: string) => {
   const fileId = await getCompletedTasksFileId(token);
+  if (fileId === undefined) return [];
 
   const fileUrl = new URL(
     `https://www.googleapis.com/drive/v3/files/${fileId}`
@@ -25,7 +26,7 @@ export const getCompletedTasksFileId = async (token: string) => {
 
   const response = await fetchWithToken(token, listFilesUrl);
   const json: { files: Array<{ id: string }> } = await response.json();
-  return json.files.at(0)?.id;
+  return json.files?.at(0)?.id;
 };
 
 export const uploadCompletedTasks = async (token: string, data: object) => {
