@@ -6,6 +6,9 @@ import { get, readonly } from "svelte/store";
 import { persisted } from "svelte-persisted-store";
 import { toast } from "svelte-sonner";
 
+const login = persisted<App.Locals["login"]>("login", undefined, {
+  serializer: { parse: (x) => x as App.Locals["login"], stringify: String },
+});
 const completed = persisted("completed-tasks", new Set<TaskId>(), {
   serializer: {
     parse: (text) => new Set([...JSON.parse(text)]),
@@ -14,6 +17,8 @@ const completed = persisted("completed-tasks", new Set<TaskId>(), {
 });
 
 const _syncDataToGoogleDrive = async () => {
+  if (get(login) !== "google") return;
+
   toast.promise(
     async () => {
       const response = await fetch("/api/sync-data", {

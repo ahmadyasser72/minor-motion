@@ -51,7 +51,10 @@ if (session !== undefined) {
   import type { TaskId } from "$lib/types";
 
   const dataElement = document.querySelector("#tasks-data") as HTMLElement;
-  if (dataElement.dataset.login === "google") {
+
+  const login = dataElement.dataset.login!;
+  localStorage.setItem("login", login);
+  if (login === "google") {
     const googleDriveData: TaskId[] = JSON.parse(dataElement.dataset.value!);
     if (googleDriveData.length > 0)
       localStorage.setItem("completed-tasks", JSON.stringify(googleDriveData));
