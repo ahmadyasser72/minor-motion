@@ -14,4 +14,10 @@ export default defineConfig({
   output: "server",
   integrations: [svelte(), tailwind({ applyBaseStyles: false }), auth()],
   adapter: cloudflare(),
+  vite: {
+    // https://github.com/withastro/astro/issues/4416#issuecomment-2208336818
+    define: { "process.env": process.env },
+    // https://docs.astro.build/en/guides/integrations-guide/cloudflare/#nodejs-compatibility
+    ssr: { external: ["node:path"] },
+  },
 });
