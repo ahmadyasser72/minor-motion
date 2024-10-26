@@ -14,7 +14,7 @@ interface Props {
 
 const { class: classList } = Astro.props;
 
-const { session } = Astro.locals;
+const { login, session } = Astro.locals;
 let completed: TaskId[] = [];
 if (session !== undefined) {
   completed = await fetchCompletedTasks(session?.token);
@@ -36,18 +36,28 @@ if (session !== undefined) {
     <div class:list={["container lg:w-3/4 md:min-h-[100vh]", classList]}>
       <slot />
     </div>
-    {
-      completed.length > 0 && (
-        <div id="completed-tasks-list" data-value={JSON.stringify(completed)} />
-      )
-    }
+    <div
+      id="tasks-data"
+      data-value={JSON.stringify(completed)}
+      data-login={login}
+    >
+    </div>
   </body>
 </html>
 
 <script>
-  const dataElement = document.querySelector("#completed-tasks-list");
-  if (dataElement instanceof HTMLElement)
-    localStorage.setItem("completed-tasks", dataElement.dataset.value!);
+  import type { TaskId } from "$lib/types";
+
+  const dataElement = document.querySelector("#tasks-data") as HTMLElement;
+  if (dataElement.dataset.login === "google") {
+    const googleDriveData: TaskId[] = JSON.parse(dataElement.dataset.value!);
+    if (googleDriveData.length > 0)
+      localStorage.setItem("completed-tasks", JSON.stringify(googleDriveData));
+    else {
+      const { syncDataToGoogleDrive } = await import("$lib/stores");
+      await syncDataToGoogleDrive();
+    }
+  }
 </script>
 
 <style is:global>

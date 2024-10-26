@@ -3,11 +3,9 @@ import PageIndexDefault from "$lib/components/page-index-default.astro";
 import PageIndexLoggedIn from "$lib/components/page-index-logged-in.astro";
 import DefaultLayout from "$lib/layouts/default-layout.astro";
 
-const { session } = Astro.locals;
-const loggedIn =
-  session !== undefined || Astro.cookies.get("login")?.value === "local";
+const { login, session } = Astro.locals;
 ---
 
 <DefaultLayout class="flex flex-col items-center justify-center py-8 h-[100vh]">
-  {loggedIn ? <PageIndexLoggedIn {session} /> : <PageIndexDefault />}
+  {login !== undefined ? <PageIndexLoggedIn {session} /> : <PageIndexDefault />}
 </DefaultLayout>

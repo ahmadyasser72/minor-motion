@@ -9,5 +9,6 @@ declare namespace App {
       };
       token: string;
     };
+    login?: "local" | "google";
   }
 }

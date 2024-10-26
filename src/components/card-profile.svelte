@@ -7,7 +7,7 @@
 
   export let image: string | undefined;
   export let name: string;
-  export let login: "local" | "google";
+  export let login: "local" | "google" | undefined;
 
   const logOut = async () => {
     if (login === "google") await signOut();

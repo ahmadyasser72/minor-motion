@@ -1,12 +1,9 @@
 ---
 import CardProfile from "./card-profile.svelte";
 
-const { session } = Astro.locals;
+const { login, session } = Astro.locals;
 const name = session?.user.name ?? "Local data";
 const image = session?.user.image ?? undefined;
-
-const loginCookie = Astro.cookies.get("login")?.value;
-const login = loginCookie === "local" ? "local" : "google";
 ---
 
 <CardProfile client:load {name} {image} {login} />

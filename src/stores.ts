@@ -12,7 +12,7 @@ const completed = persisted("completed-tasks", new Set<TaskId>(), {
   },
 });
 
-const syncDataToGoogleDrive = debounce(async () => {
+const _syncDataToGoogleDrive = async () => {
   const response = await fetch("/api/sync-data", {
     method: "POST",
     body: JSON.stringify([...get(completed).values()]),
@@ -20,7 +20,9 @@ const syncDataToGoogleDrive = debounce(async () => {
   });
 
   if (!response.ok) throw new Error(await response.text());
-}, 5000);
+};
+
+const syncDataToGoogleDrive = debounce(_syncDataToGoogleDrive, 5000);
 
 export const tasks = {
   completed: readonly(completed),
@@ -36,3 +38,5 @@ export const tasks = {
     await syncDataToGoogleDrive();
   },
 };
+
+export { _syncDataToGoogleDrive as syncDataToGoogleDrive };
