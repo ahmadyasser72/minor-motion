@@ -74,3 +74,30 @@ export const daftarHari = [
 
 const formatter = new DateFormatter("id-ID");
 export const formatDate = (date: Date) => formatter.format(date);
+
+/** ChatGPT snip */
+export function debounce<T extends (...args: any[]) => Promise<any>>(
+  func: T,
+  delay: number
+): (...args: Parameters<T>) => Promise<ReturnType<T>> {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+  let promise: Promise<ReturnType<T>> | undefined;
+
+  return (...args: Parameters<T>): Promise<ReturnType<T>> => {
+    // Clear the previous timeout
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+
+    // Create a new promise for the debounced call
+    promise = new Promise((resolve) => {
+      timeoutId = setTimeout(async () => {
+        const result = await func(...args); // Wait for the async function to complete
+        resolve(result); // Resolve with the result of the function
+      }, delay);
+    });
+
+    // Return the debounced promise
+    return promise;
+  };
+}

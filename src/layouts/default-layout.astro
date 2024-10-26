@@ -1,6 +1,9 @@
 ---
 import "$lib/styles/app.css";
 
+import { fetchCompletedTasks } from "$lib/google-drive";
+import type { TaskId } from "$lib/types";
+
 import { ViewTransitions } from "astro:transitions";
 
 import LoadingIndicator from "astro-loading-indicator/component";
@@ -10,6 +13,12 @@ interface Props {
 }
 
 const { class: classList } = Astro.props;
+
+const { session } = Astro.locals;
+let completed: TaskId[] = [];
+if (session !== undefined) {
+  completed = await fetchCompletedTasks(session?.token);
+}
 ---
 
 <html lang="en" transition:animate="slide">
@@ -27,8 +36,19 @@ const { class: classList } = Astro.props;
     <div class:list={["container lg:w-3/4 md:min-h-[100vh]", classList]}>
       <slot />
     </div>
+    {
+      completed.length > 0 && (
+        <div id="completed-tasks-list" data-value={JSON.stringify(completed)} />
+      )
+    }
   </body>
 </html>
+
+<script>
+  const dataElement = document.querySelector("#completed-tasks-list");
+  if (dataElement instanceof HTMLElement)
+    localStorage.setItem("completed-tasks", dataElement.dataset.value!);
+</script>
 
 <style is:global>
   .astro-loading-indicator {
