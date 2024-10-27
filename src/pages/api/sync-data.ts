@@ -1,5 +1,3 @@
-import { uploadCompletedTasks } from "$lib/google-drive";
-
 import type { APIRoute } from "astro";
 
 export const POST: APIRoute = async ({ request, locals }) => {
@@ -10,7 +8,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     });
 
   const data = await request.json();
-  const success = await uploadCompletedTasks(session.token, data);
+  const success = await session.drive.uploadCompletedTasks(data);
 
   if (success)
     return new Response("200 OK: data google-drive berhasil diupdate");

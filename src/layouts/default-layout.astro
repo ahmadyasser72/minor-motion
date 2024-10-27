@@ -2,7 +2,6 @@
 import "$lib/styles/app.css";
 
 import { Toaster } from "$lib/components/ui/sonner";
-import { fetchCompletedTasks } from "$lib/google-drive";
 import type { TaskId } from "$lib/types";
 
 import { ViewTransitions } from "astro:transitions";
@@ -18,7 +17,7 @@ const { class: classList } = Astro.props;
 const { login, session } = Astro.locals;
 let completed: TaskId[] = [];
 if (session !== undefined) {
-  completed = await fetchCompletedTasks(session?.token);
+  completed = await session.drive.fetchCompletedTasks();
 }
 ---
 

@@ -2,13 +2,12 @@
 
 declare namespace App {
   interface Locals {
-    session?: {
-      user: {
-        name: string;
-        image: string;
-      };
-      token: string;
-    };
+    session?: Session;
     login?: "local" | "google";
+  }
+
+  type BaseSession = import("@auth/core/types").Session;
+  interface Session extends BaseSession {
+    drive: import("$lib/google-drive").GoogleDrive;
   }
 }

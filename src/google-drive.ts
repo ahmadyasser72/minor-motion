@@ -2,84 +2,88 @@ import type { TaskId } from "./types";
 
 const completedTasksFilename = "completed-tasks.json";
 
-export const fetchCompletedTasks = async (token: string) => {
-  const fileId = await getCompletedTasksFileId(token);
-  if (fileId === undefined) return [];
+export class GoogleDrive {
+  private token: string;
 
-  const fileUrl = new URL(
-    `https://www.googleapis.com/drive/v3/files/${fileId}`
-  );
-  fileUrl.searchParams.set("alt", "media");
+  constructor({ token }: Pick<App.Session, "token">) {
+    this.token = token;
+  }
 
-  const response = await fetchWithToken(token, fileUrl);
-  const json: TaskId[] = await response.json();
-  return json;
-};
+  fetchCompletedTasks = async () => {
+    const fileId = await this.getCompletedTasksFileId();
+    if (fileId === undefined) return [];
 
-export const getCompletedTasksFileId = async (token: string) => {
-  const listFilesUrl = new URL("https://www.googleapis.com/drive/v3/files");
-  listFilesUrl.searchParams.set(
-    "q",
-    `'appDataFolder' in parents and name = '${completedTasksFilename}'`
-  );
-  listFilesUrl.searchParams.set("spaces", "appDataFolder");
+    const fileUrl = new URL(
+      `https://www.googleapis.com/drive/v3/files/${fileId}`
+    );
+    fileUrl.searchParams.set("alt", "media");
 
-  const response = await fetchWithToken(token, listFilesUrl);
-  const json: { files: Array<{ id: string }> } = await response.json();
-  return json.files?.at(0)?.id;
-};
+    const response = await this.fetch(fileUrl);
+    const json: TaskId[] = await response.json();
+    return json;
+  };
 
-export const uploadCompletedTasks = async (token: string, data: object) => {
-  const fileId = await getCompletedTasksFileId(token);
-  if (fileId !== undefined) return updateCompletedTasks(token, fileId, data);
+  getCompletedTasksFileId = async () => {
+    const listFilesUrl = new URL("https://www.googleapis.com/drive/v3/files");
+    listFilesUrl.searchParams.set(
+      "q",
+      `'appDataFolder' in parents and name = '${completedTasksFilename}'`
+    );
+    listFilesUrl.searchParams.set("spaces", "appDataFolder");
 
-  const uploadFileUrl = new URL(
-    "https://www.googleapis.com/upload/drive/v3/files"
-  );
-  uploadFileUrl.searchParams.set("uploadType", "multipart");
+    const response = await this.fetch(listFilesUrl);
+    const json: { files: Array<{ id: string }> } = await response.json();
+    return json.files?.at(0)?.id;
+  };
 
-  const body = new FormData();
-  body.append(
-    "metadata",
-    jsonToBlob({
-      name: completedTasksFilename,
-      parents: ["appDataFolder"],
-    })
-  );
-  body.append("file", jsonToBlob(data));
+  uploadCompletedTasks = async (data: object) => {
+    const fileId = await this.getCompletedTasksFileId();
+    if (fileId !== undefined) return this.updateCompletedTasks(fileId, data);
 
-  const response = await fetchWithToken(token, uploadFileUrl, {
-    body,
-    method: "POST",
-  });
+    const uploadFileUrl = new URL(
+      "https://www.googleapis.com/upload/drive/v3/files"
+    );
+    uploadFileUrl.searchParams.set("uploadType", "multipart");
 
-  return response.ok;
-};
+    const body = new FormData();
+    body.append(
+      "metadata",
+      jsonToBlob({
+        name: completedTasksFilename,
+        parents: ["appDataFolder"],
+      })
+    );
+    body.append("file", jsonToBlob(data));
 
-const updateCompletedTasks = async (
-  token: string,
-  fileId: string,
-  data: object
-) => {
-  const updateFileUrl = new URL(
-    `https://www.googleapis.com/upload/drive/v3/files/${fileId}`
-  );
-  updateFileUrl.searchParams.set("uploadType", "media");
+    const response = await this.fetch(uploadFileUrl, {
+      body,
+      method: "POST",
+    });
 
-  const response = await fetchWithToken(token, updateFileUrl, {
-    method: "PATCH",
-    body: JSON.stringify(data),
-    headers: { "content-type": "application/json" },
-  });
+    return response.ok;
+  };
 
-  return response.ok;
-};
+  updateCompletedTasks = async (fileId: string, data: object) => {
+    const updateFileUrl = new URL(
+      `https://www.googleapis.com/upload/drive/v3/files/${fileId}`
+    );
+    updateFileUrl.searchParams.set("uploadType", "media");
 
-const fetchWithToken = (token: string, url: URL, init: RequestInit = {}) =>
-  fetch(url, {
-    ...init,
-    headers: { authorization: `Bearer ${token}`, ...init.headers },
-  });
+    const response = await this.fetch(updateFileUrl, {
+      method: "PATCH",
+      body: JSON.stringify(data),
+      headers: { "content-type": "application/json" },
+    });
+
+    return response.ok;
+  };
+
+  private fetch = (url: URL, init: RequestInit = {}) =>
+    fetch(url, {
+      ...init,
+      headers: { authorization: `Bearer ${this.token}`, ...init.headers },
+    });
+}
 
 const jsonToBlob = (content: object) =>
   new Blob([JSON.stringify(content)], { type: "application/json" });
