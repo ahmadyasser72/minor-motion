@@ -2,11 +2,11 @@
 import "$lib/styles/app.css";
 
 import { Toaster } from "$lib/components/ui/sonner";
-import type { TaskId } from "$lib/types";
 
 import { ViewTransitions } from "astro:transitions";
 
 import LoadingIndicator from "astro-loading-indicator/component";
+import * as devalue from "devalue";
 
 interface Props {
   class?: string;
@@ -15,10 +15,7 @@ interface Props {
 const { class: classList } = Astro.props;
 
 const { login, session } = Astro.locals;
-let completed: TaskId[] = [];
-if (session !== undefined) {
-  completed = await session.drive.fetchCompletedTasks();
-}
+const data = await session?.drive.fetchData();
 ---
 
 <html lang="en" transition:animate="slide">
@@ -38,8 +35,8 @@ if (session !== undefined) {
       <slot />
     </div>
     <div
-      id="tasks-data"
-      data-value={JSON.stringify(completed)}
+      id="state-data"
+      data-value={devalue.stringify(data)}
       data-login={login}
     >
     </div>
@@ -47,21 +44,32 @@ if (session !== undefined) {
 </html>
 
 <script>
-  import type { TaskId } from "$lib/types";
+  import type { GoogleDriveData } from "$lib/google-drive";
+  import { state, updateGoogleDriveData } from "$lib/stores";
 
-  const dataElement = document.querySelector("#tasks-data") as HTMLElement;
+  import * as devalue from "devalue";
+  import { get } from "svelte/store";
 
-  const login = dataElement.dataset.login!;
-  localStorage.setItem("login", login);
-  if (login === "google") {
-    const googleDriveData: TaskId[] = JSON.parse(dataElement.dataset.value!);
-    if (googleDriveData.length > 0)
-      localStorage.setItem("completed-tasks", JSON.stringify(googleDriveData));
-    else {
-      const { syncDataToGoogleDrive } = await import("$lib/stores");
-      await syncDataToGoogleDrive();
+  document.addEventListener("astro:page-load", async () => {
+    const dataElement = document.querySelector("#state-data");
+    if (!(dataElement instanceof HTMLElement)) return;
+
+    const { login, value: data } = dataElement.dataset;
+    sessionStorage.setItem("login", login!);
+
+    if (login === "google") {
+      const local = get(state);
+      const remote: GoogleDriveData | undefined = devalue.parse(data!);
+
+      if (remote === undefined || remote.last_update < local.last_update) {
+        console.log("[sync] local >> google-drive");
+        await updateGoogleDriveData();
+      } else if (remote.last_update > local.last_update) {
+        console.log("[sync] google-drive >> local");
+        state.set(remote);
+      }
     }
-  }
+  });
 </script>
 
 <style is:global>

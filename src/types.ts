@@ -6,3 +6,9 @@ export type TaskId = CollectionEntry<"tugas">["slug"];
 export type TaskStatus = "normal" | "lewat";
 
 export type DaftarTugas = Record<SubjectId, Array<[TaskId, TaskStatus]>>;
+
+export interface State {
+  readonly login?: App.Locals["login"];
+  completed_tasks: Set<TaskId>;
+  last_update: Date;
+}

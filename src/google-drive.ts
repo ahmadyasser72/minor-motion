@@ -1,6 +1,10 @@
-import type { TaskId } from "./types";
+import type { State } from "$lib/types";
 
-const completedTasksFilename = "completed-tasks.json";
+import * as devalue from "devalue";
+
+const dataFilename = "state.json";
+
+export type GoogleDriveData = Omit<State, "login">;
 
 export class GoogleDrive {
   private token: string;
@@ -9,73 +13,73 @@ export class GoogleDrive {
     this.token = token;
   }
 
-  fetchCompletedTasks = async () => {
-    const fileId = await this.getCompletedTasksFileId();
-    if (fileId === undefined) return [];
+  fetchData = async (_fileId?: string) => {
+    const fileId = _fileId ?? (await this.getFileId());
+    if (fileId === undefined) return;
 
-    const fileUrl = new URL(
-      `https://www.googleapis.com/drive/v3/files/${fileId}`
-    );
-    fileUrl.searchParams.set("alt", "media");
+    // https://developers.google.com/drive/api/guides/manage-downloads
+    const url = new URL(`https://www.googleapis.com/drive/v3/files/${fileId}`);
+    url.searchParams.set("alt", "media");
 
-    const response = await this.fetch(fileUrl);
-    const json: TaskId[] = await response.json();
-    return json;
+    const response = await this.fetch(url);
+    const data: GoogleDriveData = await response.text().then(devalue.parse);
+    return data;
   };
 
-  getCompletedTasksFileId = async () => {
-    const listFilesUrl = new URL("https://www.googleapis.com/drive/v3/files");
-    listFilesUrl.searchParams.set(
-      "q",
-      `'appDataFolder' in parents and name = '${completedTasksFilename}'`
+  getFileId = async () => {
+    const results = await this.listFiles(
+      `'appDataFolder' in parents and name = '${dataFilename}'`
     );
-    listFilesUrl.searchParams.set("spaces", "appDataFolder");
-
-    const response = await this.fetch(listFilesUrl);
-    const json: { files: Array<{ id: string }> } = await response.json();
-    return json.files?.at(0)?.id;
+    return results.files.at(0)?.id;
   };
 
-  uploadCompletedTasks = async (data: object) => {
-    const fileId = await this.getCompletedTasksFileId();
-    if (fileId !== undefined) return this.updateCompletedTasks(fileId, data);
+  uploadData = async (data: GoogleDriveData) => {
+    const fileId = await this.getFileId();
+    if (fileId !== undefined) return this.updateData(fileId, data);
 
-    const uploadFileUrl = new URL(
-      "https://www.googleapis.com/upload/drive/v3/files"
-    );
-    uploadFileUrl.searchParams.set("uploadType", "multipart");
+    // https://developers.google.com/drive/api/guides/manage-uploads#multipart
+    const url = new URL("https://www.googleapis.com/upload/drive/v3/files");
+    url.searchParams.set("uploadType", "multipart");
+
+    const metadata = {
+      name: dataFilename,
+      parents: ["appDataFolder"],
+    };
 
     const body = new FormData();
-    body.append(
-      "metadata",
-      jsonToBlob({
-        name: completedTasksFilename,
-        parents: ["appDataFolder"],
-      })
-    );
-    body.append("file", jsonToBlob(data));
+    body.append("metadata", jsonBlob(JSON.stringify(metadata)));
+    body.append("file", jsonBlob(devalue.stringify(data)));
 
-    const response = await this.fetch(uploadFileUrl, {
-      body,
-      method: "POST",
-    });
+    const response = await this.fetch(url, { body, method: "POST" });
 
     return response.ok;
   };
 
-  updateCompletedTasks = async (fileId: string, data: object) => {
-    const updateFileUrl = new URL(
+  updateData = async (fileId: string, data: GoogleDriveData) => {
+    // https://developers.google.com/drive/api/reference/rest/v3/files/update
+    const url = new URL(
       `https://www.googleapis.com/upload/drive/v3/files/${fileId}`
     );
-    updateFileUrl.searchParams.set("uploadType", "media");
+    url.searchParams.set("uploadType", "media");
 
-    const response = await this.fetch(updateFileUrl, {
+    const response = await this.fetch(url, {
       method: "PATCH",
-      body: JSON.stringify(data),
+      body: devalue.stringify(data),
       headers: { "content-type": "application/json" },
     });
 
     return response.ok;
+  };
+
+  listFiles = async (query: string) => {
+    // https://developers.google.com/drive/api/reference/rest/v3/files/list
+    const url = new URL("https://www.googleapis.com/drive/v3/files");
+    url.searchParams.set("q", query);
+    url.searchParams.set("spaces", "appDataFolder");
+
+    const response = await this.fetch(url);
+    const results: { files: Array<{ id: string }> } = await response.json();
+    return results;
   };
 
   private fetch = (url: URL, init: RequestInit = {}) =>
@@ -85,5 +89,5 @@ export class GoogleDrive {
     });
 }
 
-const jsonToBlob = (content: object) =>
-  new Blob([JSON.stringify(content)], { type: "application/json" });
+const jsonBlob = (json: string) =>
+  new Blob([json], { type: "application/json" });

@@ -1,36 +1,41 @@
-import type { TaskId } from "$lib/types";
+import type { State, TaskId } from "$lib/types";
 import { debounce } from "$lib/utils";
 
-import { get, readonly } from "svelte/store";
+import { derived, get } from "svelte/store";
 
+import * as devalue from "devalue";
 import { persisted } from "svelte-persisted-store";
 import { toast } from "svelte-sonner";
 
-const login = persisted<App.Locals["login"]>("login", undefined, {
-  serializer: { parse: (x) => x as App.Locals["login"], stringify: String },
-});
-const completed = persisted("completed-tasks", new Set<TaskId>(), {
-  serializer: {
-    parse: (text) => new Set([...JSON.parse(text)]),
-    stringify: (set) => JSON.stringify([...set.values()]),
-  },
-});
+const state = persisted<State>(
+  "state",
+  { completed_tasks: new Set(), last_update: new Date(0) },
+  {
+    serializer: devalue,
+    beforeRead: (state) => ({
+      ...state,
+      login: sessionStorage.getItem("login") as State["login"],
+    }),
+  }
+);
 
-const _syncDataToGoogleDrive = async () => {
-  if (get(login) !== "google") return;
+const _updateGoogleDriveData = async () => {
+  const { login, completed_tasks, last_update } = get(state);
+
+  if (login !== "google") return;
 
   toast.promise(
     async () => {
       const response = await fetch("/api/sync-data", {
         method: "POST",
-        body: JSON.stringify([...get(completed).values()]),
+        body: devalue.stringify({ completed_tasks, last_update }),
         headers: { "content-type": "application/json" },
       });
 
       if (!response.ok) throw await response.text();
     },
     {
-      duration: 2000,
+      duration: 3000,
       loading: "Sedang sinkronisasi data ke server...",
       success: "Sinkronisasi selesai!",
       error: (err) => err as string,
@@ -38,21 +43,28 @@ const _syncDataToGoogleDrive = async () => {
   );
 };
 
-const syncDataToGoogleDrive = debounce(_syncDataToGoogleDrive, 2000);
+const updateGoogleDriveData = debounce(_updateGoogleDriveData, 1000);
 
 export const tasks = {
-  completed: readonly(completed),
+  completed: derived(state, ({ completed_tasks }) => completed_tasks),
   complete: async (task: TaskId) => {
-    completed.update((completed) => completed.add(task));
-    await syncDataToGoogleDrive();
+    state.update((state) => {
+      state.completed_tasks.add(task);
+      state.last_update = new Date();
+      return state;
+    });
+
+    await updateGoogleDriveData();
   },
   undo: async (task: TaskId) => {
-    completed.update((completed) => {
-      completed.delete(task);
-      return completed;
+    state.update((state) => {
+      state.completed_tasks.delete(task);
+      state.last_update = new Date();
+      return state;
     });
-    await syncDataToGoogleDrive();
+
+    await updateGoogleDriveData();
   },
 };
 
-export { _syncDataToGoogleDrive as syncDataToGoogleDrive };
+export { state, _updateGoogleDriveData as updateGoogleDriveData };
