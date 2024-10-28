@@ -1,6 +1,7 @@
 ---
 import "$lib/styles/app.css";
 
+import { Button } from "$lib/components/ui/button";
 import { Toaster } from "$lib/components/ui/sonner";
 
 import { ViewTransitions } from "astro:transitions";
@@ -34,11 +35,28 @@ export type RemoteState = typeof state;
     <title>Astro</title>
   </head>
   <body>
-    <Toaster client:only="svelte" richColors />
-    <div class:list={["container lg:w-3/4 md:min-h-[100vh]", classList]}>
-      <slot />
+    <div
+      class="flex flex-col justify-center container lg:w-3/4 min-h-[100vh] py-8"
+    >
+      <main class:list={["flex-1", classList]}>
+        <slot />
+      </main>
+
+      <footer class="flex items-center justify-end mt-4">
+        <Button
+          client:only="svelte"
+          href=`${import.meta.env._GITHUB_URL}/tree/${import.meta.env._GIT_HASH}`
+          target="_blank"
+          variant="outline"
+        >
+          source code ({import.meta.env._GIT_HASH})
+        </Button>
+      </footer>
     </div>
-    <div id="state-data" data-value={devalue.stringify(state)}></div>
+
+    <Toaster client:only="svelte" richColors />
+    <div id="state-data" class="hidden" data-value={devalue.stringify(state)}>
+    </div>
   </body>
 </html>
 
