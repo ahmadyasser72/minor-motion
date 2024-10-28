@@ -15,7 +15,11 @@ interface Props {
 const { class: classList } = Astro.props;
 
 const { login, session } = Astro.locals;
-const data = await session?.drive.fetchData();
+const valid = session?.valid ?? false;
+const data = valid ? await session?.drive.fetchData() : undefined;
+
+const state = { login, data, isValid: valid };
+export type RemoteState = typeof state;
 ---
 
 <html lang="en" transition:animate="slide">
@@ -34,19 +38,16 @@ const data = await session?.drive.fetchData();
     <div class:list={["container lg:w-3/4 md:min-h-[100vh]", classList]}>
       <slot />
     </div>
-    <div
-      id="state-data"
-      data-value={devalue.stringify(data)}
-      data-login={login}
-    >
-    </div>
+    <div id="state-data" data-value={devalue.stringify(state)}></div>
   </body>
 </html>
 
 <script>
-  import type { GoogleDriveData } from "$lib/google-drive";
-  import { state, updateGoogleDriveData } from "$lib/stores";
+  import type { RemoteState } from "./default-layout.astro";
 
+  import { state as localState, updateGoogleDriveData } from "$lib/stores";
+
+  import { signIn } from "auth-astro/client";
   import * as devalue from "devalue";
   import { get } from "svelte/store";
 
@@ -54,20 +55,32 @@ const data = await session?.drive.fetchData();
     const dataElement = document.querySelector("#state-data");
     if (!(dataElement instanceof HTMLElement)) return;
 
-    const { login, value: data } = dataElement.dataset;
-    sessionStorage.setItem("login", login!);
+    const remoteState = devalue.parse(
+      dataElement.dataset.value!
+    ) as RemoteState;
 
-    if (login === "google") {
-      const local = get(state);
-      const remote: GoogleDriveData | undefined = devalue.parse(data!);
+    if (remoteState.login === undefined) {
+      sessionStorage.removeItem("login");
+      return;
+    }
 
-      if (remote === undefined || remote.last_update < local.last_update) {
-        console.log("[sync] local >> google-drive");
-        await updateGoogleDriveData();
-      } else if (remote.last_update > local.last_update) {
-        console.log("[sync] google-drive >> local");
-        state.set(remote);
-      }
+    sessionStorage.setItem("login", remoteState.login);
+    if (remoteState.login !== "google") return;
+
+    if (!remoteState.isValid) {
+      await signIn("google");
+      return;
+    }
+
+    const local = get(localState);
+    const { data: remote } = remoteState;
+
+    if (remote === undefined || remote.last_update < local.last_update) {
+      console.log("[sync] local >> google-drive");
+      await updateGoogleDriveData();
+    } else if (remote.last_update > local.last_update) {
+      console.log("[sync] google-drive >> local");
+      localState.set(remote);
     }
   });
 </script>
