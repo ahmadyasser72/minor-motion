@@ -35,6 +35,7 @@ const tugas = defineCollection({
     "tempat-pengumpulan": z.enum([
       "e-learning",
       "google-classroom",
+      "google-form",
       "ketua-kelas",
       "langsung",
     ]),
