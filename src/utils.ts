@@ -2,6 +2,7 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { cubicOut } from "svelte/easing";
 import type { TransitionConfig } from "svelte/transition";
+
 import { DateFormatter } from "@internationalized/date";
 
 export function cn(...inputs: ClassValue[]) {
@@ -72,7 +73,10 @@ export const daftarHari = [
   "minggu",
 ];
 
-const formatter = new DateFormatter("id-ID");
+const formatter = new DateFormatter("id-ID", {
+  dateStyle: "short",
+  timeStyle: "short",
+});
 export const formatDate = (date: Date) => formatter.format(date);
 
 /** ChatGPT snip */
