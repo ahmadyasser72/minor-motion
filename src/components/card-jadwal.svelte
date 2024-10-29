@@ -3,15 +3,13 @@
 
   import * as Card from "$lib/components/ui/card";
   import { Separator } from "$lib/components/ui/separator";
-  import type { DaftarTugas } from "$lib/types";
-  import { daftarHari } from "$lib/utils";
-
-  import type { CollectionEntry } from "astro:content";
+  import type { ListJadwal, ListStatusTugasMap } from "$lib/types";
+  import { allHari } from "$lib/utils";
 
   export let hari: string;
-  export let active = daftarHari[new Date().getDay() - 1] === hari;
-  export let jadwal: Array<CollectionEntry<"mata-kuliah">>;
-  export let daftarTugas: DaftarTugas;
+  export let active = allHari[new Date().getDay() - 1] === hari;
+  export let dailyJadwal: ListJadwal;
+  export let allStatusTugasMap: ListStatusTugasMap;
 </script>
 
 <Card.Root
@@ -21,12 +19,15 @@
     <Card.Title class="uppercase">{hari}</Card.Title>
   </Card.Header>
   <Card.Content>
-    {#each jadwal as entry, idx}
+    {#each dailyJadwal as jadwal, idx}
       {#if idx > 0}
         <Separator class="my-2" />
       {/if}
 
-      <CardJadwalContent {entry} tugas={daftarTugas[entry.id]} />
+      <CardJadwalContent
+        {jadwal}
+        allStatusTugas={allStatusTugasMap[jadwal.id]}
+      />
     {/each}
   </Card.Content>
 </Card.Root>

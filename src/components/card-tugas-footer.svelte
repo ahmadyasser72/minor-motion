@@ -2,11 +2,11 @@
   import ButtonDoneTask from "./button-done-task.svelte";
 
   import { Button } from "$lib/components/ui/button";
-  import type { TaskId } from "$lib/types";
+  import type { TugasId } from "$lib/types";
 
   import { Info } from "lucide-svelte";
 
-  export let id: TaskId;
+  export let id: TugasId;
 </script>
 
 <div class="w-full flex justify-end space-x-1">

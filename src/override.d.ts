@@ -16,3 +16,17 @@ declare module "@auth/core/jwt" {
     error?: "RefreshTokenError";
   }
 }
+
+// object.* type hack
+declare global {
+  interface ObjectConstructor {
+    // https://stackoverflow.com/a/73913412
+    entries<T extends object>(o: T): { [K in keyof T]: [K, T[K]] }[keyof T][];
+    keys<T extends object>(o: T): (keyof T)[];
+
+    // https://stackoverflow.com/a/76176570
+    fromEntries<const T extends ReadonlyArray<readonly [PropertyKey, unknown]>>(
+      entries: T
+    ): { [K in T[number] as K[0]]: K[1] };
+  }
+}

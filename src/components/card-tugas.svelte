@@ -4,19 +4,14 @@
 
   import * as Card from "$lib/components/ui/card";
   import { tasks } from "$lib/stores";
-  import type { TaskId, TaskState } from "$lib/types";
+  import type { TugasId } from "$lib/types";
 
   import type { CollectionEntry } from "astro:content";
 
-  export let id: TaskId;
+  export let id: TugasId;
   export let data: CollectionEntry<"tugas">["data"];
 
-  let state: TaskState;
-  $: {
-    if ($tasks.isDone(id)) state = "sudah";
-    else if (new Date() > data["batas-waktu"]) state = "telat";
-    else state = "belum";
-  }
+  $: state = $tasks.getTugasState(id, data);
 </script>
 
 <Card.Root class="border-primary">

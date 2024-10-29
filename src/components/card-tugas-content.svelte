@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Badge } from "$lib/components/ui/badge";
-  import type { TaskState } from "$lib/types";
+  import type { TugasState } from "$lib/types";
   import { formatDate } from "$lib/utils";
 
   import type { CollectionEntry } from "astro:content";
@@ -8,7 +8,7 @@
   import { ClockAlert, User, Users } from "lucide-svelte";
   import BadgeTaskState from "./badge-task-state.svelte";
 
-  export let state: TaskState;
+  export let state: TugasState;
   export let data: Pick<
     CollectionEntry<"tugas">["data"],
     "tipe" | "batas-waktu"

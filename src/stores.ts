@@ -1,5 +1,7 @@
-import type { State, TaskId } from "$lib/types";
+import type { State, TugasId, TugasState } from "$lib/types";
 import { debounce } from "$lib/utils";
+
+import type { CollectionEntry } from "astro:content";
 
 import { derived, get } from "svelte/store";
 
@@ -46,15 +48,23 @@ const _updateGoogleDriveData = async () => {
 const updateGoogleDriveData = debounce(_updateGoogleDriveData, 1000);
 
 export const tasks = derived(state, ($state) => ({
-  isDone: (id: TaskId) => $state.completed_tasks.has(id),
-  done: async (id: TaskId) => {
+  getTugasState: (
+    id: TugasId,
+    data: Pick<CollectionEntry<"tugas">["data"], "batas-waktu">
+  ): TugasState => {
+    if ($state.completed_tasks.has(id)) return "sudah";
+    else if (new Date() > data["batas-waktu"]) return "telat";
+    else return "belum";
+  },
+  isDone: (id: TugasId) => $state.completed_tasks.has(id),
+  done: async (id: TugasId) => {
     $state.completed_tasks.add(id);
     $state.last_update = new Date();
     state.set($state);
 
     await updateGoogleDriveData();
   },
-  undo: async (id: TaskId) => {
+  undo: async (id: TugasId) => {
     $state.completed_tasks.delete(id);
     $state.last_update = new Date();
     state.set($state);

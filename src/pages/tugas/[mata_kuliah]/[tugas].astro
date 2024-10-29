@@ -1,16 +1,17 @@
 ---
-import BadgeTugas from "$lib/components/badge-tugas.svelte";
-import ButtonTugas from "$lib/components/button-tugas.svelte";
+import PageTugasActions from "$lib/components/page-tugas-actions.svelte";
+import PageTugasHeading from "$lib/components/page-tugas-heading.svelte";
+
 import { Separator } from "$lib/components/ui/separator";
 import DefaultLayout from "$lib/layouts/default-layout.astro";
 
 import { getEntry } from "astro:content";
 
-const { matkul, tugas } = Astro.params;
-if (matkul === undefined || tugas === undefined)
+const { mata_kuliah, tugas } = Astro.params;
+if (mata_kuliah === undefined || tugas === undefined)
   throw new Error("link tidak valid");
 
-const entry = await getEntry("tugas", `${matkul}/${tugas}`);
+const entry = await getEntry("tugas", `${mata_kuliah}/${tugas}`);
 if (entry === undefined) throw new Error("tugas tidak ditemukan!");
 
 const { data, render, slug } = entry;
@@ -23,11 +24,11 @@ const { Content } = await render();
   >
     {data.judul}
   </h2>
-  <BadgeTugas client:load id={slug} {data} />
+  <PageTugasHeading client:load id={slug} {data} />
 
   <Separator class="my-4" />
 
-  <ButtonTugas client:load id={slug} {data} />
+  <PageTugasActions client:load id={slug} {data} />
 
   <Separator class="my-4" />
 

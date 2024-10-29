@@ -63,7 +63,7 @@ export const flyAndScale = (
   };
 };
 
-export const daftarHari = [
+export const allHari = [
   "senin",
   "selasa",
   "rabu",
@@ -71,7 +71,7 @@ export const daftarHari = [
   "jum'at",
   "sabtu",
   "minggu",
-];
+] as const;
 
 const formatter = new DateFormatter("id-ID", {
   year: "numeric",

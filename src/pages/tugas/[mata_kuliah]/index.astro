@@ -7,20 +7,15 @@ import DefaultLayout from "$lib/layouts/default-layout.astro";
 import { getEntry } from "astro:content";
 import { getCollection } from "astro:content";
 
-const { matkul } = Astro.params;
-if (matkul === undefined) throw new Error("link tidak valid");
+const { mata_kuliah } = Astro.params;
+if (mata_kuliah === undefined) throw new Error("link tidak valid");
 
-const entry = await getEntry("mata-kuliah", matkul);
+const entry = await getEntry("mata-kuliah", mata_kuliah);
 if (entry === undefined) throw new Error("mata kuliah tidak ditemukan");
-
-const {
-  id,
-  data: { nama },
-} = entry;
 
 const allTugas = await getCollection(
   "tugas",
-  ({ data }) => data["mata-kuliah"].id === matkul
+  ({ data }) => data["mata-kuliah"].id === mata_kuliah
 );
 ---
 
@@ -29,9 +24,9 @@ const allTugas = await getCollection(
     <h1
       class="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl uppercase"
     >
-      {id}
+      {entry.id}
     </h1>
-    <p class="text-muted-foreground text-xl">{nama}</p>
+    <p class="text-muted-foreground text-xl">{entry.data.nama}</p>
   </div>
 
   <Separator class="my-4" />

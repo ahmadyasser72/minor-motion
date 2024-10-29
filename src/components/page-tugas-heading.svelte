@@ -1,38 +1,24 @@
 <script lang="ts">
   import { Badge } from "$lib/components/ui/badge";
   import { tasks } from "$lib/stores";
-  import type { TaskId } from "$lib/types";
+  import type { TugasId } from "$lib/types";
   import { formatDate } from "$lib/utils";
 
   import type { CollectionEntry } from "astro:content";
 
-  import {
-    BookCheck,
-    Check,
-    ClockAlert,
-    TriangleAlert,
-    User,
-    Users,
-  } from "lucide-svelte";
+  import { BookCheck, ClockAlert, User, Users } from "lucide-svelte";
+  import BadgeTaskState from "./badge-task-state.svelte";
 
-  export let id: TaskId;
+  export let id: TugasId;
   export let data: CollectionEntry<"tugas">["data"];
+
+  $: state = $tasks.getTugasState(id, data);
 </script>
 
 <div
   class="uppercase flex flex-wrap items-center justify-center sm:justify-start gap-1"
 >
-  {#if $tasks.isDone(id)}
-    <Badge class="bg-indigo-600 hover:bg-indigo-800 w-20">
-      <Check class="w-4 h-4 mr-1" />
-      done
-    </Badge>
-  {:else}
-    <Badge class="bg-red-700 hover:bg-red-900 w-20">
-      <TriangleAlert class="w-4 h-4 mr-1" />
-      belum
-    </Badge>
-  {/if}
+  <BadgeTaskState {state} />
 
   <Badge>{data["mata-kuliah"].id}</Badge>
 

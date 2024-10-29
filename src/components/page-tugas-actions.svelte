@@ -2,13 +2,13 @@
   import ButtonDoneTask from "./button-done-task.svelte";
 
   import { Button } from "$lib/components/ui/button";
-  import type { TaskId } from "$lib/types";
+  import type { TugasId } from "$lib/types";
 
   import type { CollectionEntry } from "astro:content";
 
   import { CornerDownLeft, SquareArrowOutUpRight } from "lucide-svelte";
 
-  export let id: TaskId;
+  export let id: TugasId;
   export let data: CollectionEntry<"tugas">["data"];
 </script>
 

@@ -1,61 +1,45 @@
 ---
-import BadgeKeteranganJadwal from "$lib/components/badge-keterangan-jadwal.svelte";
-import CardJadwal from "$lib/components/card-jadwal.svelte";
+import GridCardJadwal from "$lib/components/grid-card-jadwal.svelte";
 import DefaultLayout from "$lib/layouts/default-layout.astro";
-import type { DaftarTugas } from "$lib/types";
-import { daftarHari } from "$lib/utils";
+import type { ListStatusTugasMap, ListJadwalMap } from "$lib/types";
+import { allHari } from "$lib/utils";
 
 import { getCollection } from "astro:content";
 
-const daftarMataKuliah = await getCollection("mata-kuliah");
+const dailyJadwalMap = Object.fromEntries(
+  allHari.map((hari) => [hari, []])
+) as ListJadwalMap;
 
-const daftarJadwal = Object.entries(
-  daftarMataKuliah.reduce(
-    (acc, value) => {
-      acc[value.data.hari]!.push(value);
-      return acc;
-    },
-    Object.fromEntries(
-      daftarHari.map((hari) => [hari, [] as typeof daftarMataKuliah])
-    )
-  )
-)
-  .filter(([_, values]) => values.length > 0)
-  .sort(
-    ([hari1], [hari2]) => daftarHari.indexOf(hari1) - daftarHari.indexOf(hari2)
-  )
-  .map(
-    ([key, values]) =>
-      [
-        key,
-        values.sort(
-          ({ data: { start: start1 } }, { data: { start: start2 } }) =>
-            start1.hour - start2.hour || start1.minute - start2.minute
-        ),
-      ] as const
+const allMataKuliah = await getCollection("mata-kuliah");
+for (const { data, id } of allMataKuliah) {
+  dailyJadwalMap[data.hari].push({ ...data, id });
+}
+
+for (const [key, value] of Object.entries(dailyJadwalMap)) {
+  if (value.length === 0) {
+    delete dailyJadwalMap[key];
+    continue;
+  }
+
+  dailyJadwalMap[key] = value.sort(
+    ({ start: a }, { start: b }) => a.hour - b.hour || a.minute - b.minute
   );
+}
 
-// @ts-ignore Object.fromEntries tolol
-const daftarTugas: DaftarTugas = Object.fromEntries(
-  daftarMataKuliah.map(({ id }) => [id, []])
+const allStatusTugasMap: ListStatusTugasMap = Object.fromEntries(
+  allMataKuliah.map(({ id }) => [id, []])
 );
 
-const tugas = await getCollection("tugas");
-for (const { data, slug } of tugas) {
-  daftarTugas[data["mata-kuliah"].id].push([
+const allTugas = await getCollection("tugas");
+for (const { data, slug } of allTugas) {
+  const mataKuliah = data["mata-kuliah"].id;
+  allStatusTugasMap[mataKuliah].push([
     slug,
-    data["batas-waktu"].valueOf() > Date.now() ? "normal" : "lewat",
+    data["batas-waktu"] > new Date() ? "normal" : "lewat",
   ]);
 }
 ---
 
-<DefaultLayout class="flex flex-col justify-center space-y-2">
-  <BadgeKeteranganJadwal />
-  <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-8">
-    {
-      daftarJadwal.map(([hari, jadwal]) => (
-        <CardJadwal client:load {hari} {jadwal} {daftarTugas} />
-      ))
-    }
-  </div>
+<DefaultLayout>
+  <GridCardJadwal client:load {dailyJadwalMap} {allStatusTugasMap} />
 </DefaultLayout>

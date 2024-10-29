@@ -1,10 +1,10 @@
 <script lang="ts">
   import { Badge } from "$lib/components/ui/badge";
-  import type { TaskState } from "$lib/types";
+  import type { TugasState } from "$lib/types";
 
   import { Ban, TrendingDown, TrendingUp } from "lucide-svelte";
 
-  export let state: TaskState;
+  export let state: TugasState;
 </script>
 
 {#if state === "sudah"}

@@ -1,12 +1,12 @@
 <script lang="ts">
   import { Button } from "$lib/components/ui/button";
   import { tasks } from "$lib/stores";
-  import type { TaskId } from "$lib/types";
+  import type { TugasId } from "$lib/types";
 
   import { Check, Undo2 } from "lucide-svelte";
 
   let className: string | undefined = undefined;
-  export let id: TaskId;
+  export let id: TugasId;
   export { className as class };
 </script>
 
