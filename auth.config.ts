@@ -32,12 +32,13 @@ export default defineConfig({
           // i.e. https://accounts.google.com/.well-known/openid-configuration
           const response = await fetch("https://oauth2.googleapis.com/token", {
             method: "POST",
+            headers: { "content-type": "application/x-www-form-urlencoded" },
             body: new URLSearchParams({
               client_id: import.meta.env.GOOGLE_CLIENT_ID,
               client_secret: import.meta.env.GOOGLE_CLIENT_SECRET,
               grant_type: "refresh_token",
               refresh_token: token.refresh_token,
-            }),
+            }).toString(),
           });
 
           const tokensOrError = await response.json();
@@ -73,7 +74,7 @@ export default defineConfig({
       clientSecret: import.meta.env.GOOGLE_CLIENT_SECRET,
       authorization: {
         params: {
-          // prompt: "consent",
+          prompt: "consent",
           access_type: "offline",
           response_type: "code",
           scope: "openid profile https://www.googleapis.com/auth/drive.appdata",
