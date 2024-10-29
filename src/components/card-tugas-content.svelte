@@ -20,7 +20,7 @@
 >
   <BadgeTaskState {state} />
 
-  <Badge>
+  <Badge variant="secondary">
     {#if data.tipe === "individu"}
       <User class="w-4 h-4 mr-1" />
     {:else if data.tipe === "kelompok"}
@@ -30,7 +30,7 @@
     {data.tipe}
   </Badge>
 
-  <Badge>
+  <Badge variant="secondary">
     <ClockAlert class="w-4 h-4 mr-1" />
     {formatDate(data["batas-waktu"])}
   </Badge>

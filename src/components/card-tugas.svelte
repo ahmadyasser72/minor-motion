@@ -14,13 +14,19 @@
   $: state = $tasks.getTugasState(id, data);
 </script>
 
-<Card.Root class="border-primary">
+<Card.Root>
   <Card.Header>
     <Card.Title
-      class="text-ellipsis whitespace-nowrap overflow-hidden
-      {state === 'sudah' ? 'line-through' : 'underline'}"
+      class="text-ellipsis hover:text-clip whitespace-nowrap overflow-hidden"
     >
-      <a href="/tugas/{id}">{data.judul}</a>
+      <a
+        href="/tugas/{id}"
+        class={state === "sudah"
+          ? "line-through"
+          : "transition-colors duration-300 ease-in-out hover:text-card underline hover:no-underline hover:bg-indigo-600"}
+      >
+        {data.judul}
+      </a>
     </Card.Title>
   </Card.Header>
 
