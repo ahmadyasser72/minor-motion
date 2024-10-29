@@ -1,5 +1,5 @@
 <script lang="ts">
-  import CardJadwalItem from "./card-jadwal-item.svelte";
+  import CardJadwalContent from "./card-jadwal-content.svelte";
 
   import * as Card from "$lib/components/ui/card";
   import { Separator } from "$lib/components/ui/separator";
@@ -26,7 +26,7 @@
         <Separator class="my-2" />
       {/if}
 
-      <CardJadwalItem {entry} tugas={daftarTugas[entry.id]} />
+      <CardJadwalContent {entry} tugas={daftarTugas[entry.id]} />
     {/each}
   </Card.Content>
 </Card.Root>
