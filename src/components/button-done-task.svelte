@@ -7,13 +7,12 @@
 
   let className: string | undefined = undefined;
   export let id: TaskId;
-  export let done: boolean | undefined = undefined;
   export { className as class };
 
   const { completed } = tasks;
 </script>
 
-{#if done ?? $completed.has(id)}
+{#if $completed.has(id)}
   <Button
     on:click={() => tasks.undo(id)}
     class="uppercase bg-indigo-500 hover:bg-indigo-700 {className}"

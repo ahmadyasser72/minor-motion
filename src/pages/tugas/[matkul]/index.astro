@@ -1,5 +1,6 @@
 ---
-import TableTugas from "$lib/components/table-tugas.svelte";
+import GridCardTugas from "$lib/components/grid-card-tugas.svelte";
+
 import { Separator } from "$lib/components/ui/separator";
 import DefaultLayout from "$lib/layouts/default-layout.astro";
 
@@ -17,10 +18,10 @@ const {
   data: { nama },
 } = entry;
 
-const tugas = await getCollection(
+const allTugas = await getCollection(
   "tugas",
   ({ data }) => data["mata-kuliah"].id === matkul
-).then((tugas) => tugas.map(({ data, slug }) => ({ ...data, slug })));
+);
 ---
 
 <DefaultLayout>
@@ -35,5 +36,5 @@ const tugas = await getCollection(
 
   <Separator class="my-4" />
 
-  <TableTugas client:load matkul={nama} {tugas} />
+  <GridCardTugas client:load {allTugas} />
 </DefaultLayout>
