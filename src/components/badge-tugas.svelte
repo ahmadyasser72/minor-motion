@@ -17,14 +17,12 @@
 
   export let id: TaskId;
   export let data: CollectionEntry<"tugas">["data"];
-
-  const { completed } = tasks;
 </script>
 
 <div
   class="uppercase flex flex-wrap items-center justify-center sm:justify-start gap-1"
 >
-  {#if $completed.has(id)}
+  {#if $tasks.isDone(id)}
     <Badge class="bg-indigo-600 hover:bg-indigo-800 w-20">
       <Check class="w-4 h-4 mr-1" />
       done

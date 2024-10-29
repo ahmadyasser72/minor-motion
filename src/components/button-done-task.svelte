@@ -8,13 +8,11 @@
   let className: string | undefined = undefined;
   export let id: TaskId;
   export { className as class };
-
-  const { completed } = tasks;
 </script>
 
-{#if $completed.has(id)}
+{#if $tasks.isDone(id)}
   <Button
-    on:click={() => tasks.undo(id)}
+    on:click={() => $tasks.undo(id)}
     class="uppercase bg-indigo-500 hover:bg-indigo-700 {className}"
   >
     <Undo2 class="mr-1 w-4 h-4" />
@@ -22,7 +20,7 @@
   </Button>
 {:else}
   <Button
-    on:click={() => tasks.complete(id)}
+    on:click={() => $tasks.done(id)}
     class="uppercase bg-indigo-600 hover:bg-indigo-800 {className}"
   >
     <Check class="mr-1 w-4 h-4" />

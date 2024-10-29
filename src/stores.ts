@@ -45,26 +45,22 @@ const _updateGoogleDriveData = async () => {
 
 const updateGoogleDriveData = debounce(_updateGoogleDriveData, 1000);
 
-export const tasks = {
-  completed: derived(state, ({ completed_tasks }) => completed_tasks),
-  complete: async (task: TaskId) => {
-    state.update((state) => {
-      state.completed_tasks.add(task);
-      state.last_update = new Date();
-      return state;
-    });
+export const tasks = derived(state, ($state) => ({
+  isDone: (id: TaskId) => $state.completed_tasks.has(id),
+  done: async (id: TaskId) => {
+    $state.completed_tasks.add(id);
+    $state.last_update = new Date();
+    state.set($state);
 
     await updateGoogleDriveData();
   },
-  undo: async (task: TaskId) => {
-    state.update((state) => {
-      state.completed_tasks.delete(task);
-      state.last_update = new Date();
-      return state;
-    });
+  undo: async (id: TaskId) => {
+    $state.completed_tasks.delete(id);
+    $state.last_update = new Date();
+    state.set($state);
 
     await updateGoogleDriveData();
   },
-};
+}));
 
 export { state, _updateGoogleDriveData as updateGoogleDriveData };

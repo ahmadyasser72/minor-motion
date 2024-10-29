@@ -10,10 +10,9 @@
 
   export let allTugas: CollectionEntry<"tugas">[];
 
-  const { completed } = tasks;
   $: sortedAllTugas = [...allTugas].sort(
     // sort tugas selesai keakhir
-    (a, b) => Number($completed.has(a.slug)) - Number($completed.has(b.slug))
+    (a, b) => Number($tasks.isDone(a.slug)) - Number($tasks.isDone(b.slug))
   );
 </script>
 

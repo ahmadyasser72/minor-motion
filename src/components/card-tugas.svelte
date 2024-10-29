@@ -11,10 +11,9 @@
   export let id: TaskId;
   export let data: CollectionEntry<"tugas">["data"];
 
-  const { completed } = tasks;
   let state: TaskState;
   $: {
-    if ($completed.has(id)) state = "sudah";
+    if ($tasks.isDone(id)) state = "sudah";
     else if (new Date() > data["batas-waktu"]) state = "telat";
     else state = "belum";
   }

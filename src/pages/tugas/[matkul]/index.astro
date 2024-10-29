@@ -36,5 +36,5 @@ const allTugas = await getCollection(
 
   <Separator class="my-4" />
 
-  <GridCardTugas client:load {allTugas} />
+  <GridCardTugas client:only="svelte" {allTugas} />
 </DefaultLayout>

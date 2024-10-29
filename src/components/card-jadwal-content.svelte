@@ -14,7 +14,6 @@
     id,
     data: { start, end },
   } = entry);
-  const { completed } = tasks;
 
   const pad = (n: number) => n.toString().padStart(2, "0");
   const formatTime = ({ hour, minute }: typeof start) =>
@@ -25,7 +24,7 @@
   $: {
     jumlahTugas = jumlahTugasLewat = 0;
     for (const [id, status] of tugas) {
-      if ($completed.has(id)) continue;
+      if ($tasks.isDone(id)) continue;
 
       if (status === "normal") jumlahTugas += 1;
       else if (status === "lewat") jumlahTugasLewat += 1;
