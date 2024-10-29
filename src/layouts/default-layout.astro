@@ -21,6 +21,14 @@ const data = valid ? await session?.drive.fetchData() : undefined;
 
 const state = { login, data, isValid: valid };
 export type RemoteState = typeof state;
+
+const loadingImages = Object.values(
+  import.meta.glob<{ default: ImageMetadata }>("../assets/loading-*.gif", {
+    eager: true,
+  })
+);
+const loadingImage =
+  loadingImages[Math.floor(Math.random() * loadingImages.length)]!.default;
 ---
 
 <html lang="en" transition:animate="slide">
@@ -33,16 +41,28 @@ export type RemoteState = typeof state;
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>Astro</title>
+
+    <link rel="preload" as="image" href={loadingImage.src} />
   </head>
   <body>
     <div
       class="flex flex-col justify-center container lg:w-3/4 min-h-[100vh] py-8"
     >
-      <main class:list={["flex-1", classList]}>
+      <main id="content" class:list={["flex-1 hidden", classList]}>
         <slot />
       </main>
 
-      <footer class="flex items-center justify-end mt-4">
+      <div id="loading" class="flex items-center flex-1 self-center">
+        <img
+          id="loading"
+          class="object-cover max-h-[450px]"
+          alt="loading..."
+          src={loadingImage.src}
+          style={{ height: Math.max(loadingImage.height, 450) + "px" }}
+        />
+      </div>
+
+      <footer class="flex items-center justify-end pt-4">
         <Button
           client:only="svelte"
           href=`${import.meta.env._GITHUB_URL}/tree/${import.meta.env._GIT_HASH}`
@@ -59,6 +79,17 @@ export type RemoteState = typeof state;
     </div>
   </body>
 </html>
+
+<script is:inline>
+  document.addEventListener("astro:before-preparation", () => {
+    document.querySelector("#loading").classList.remove("hidden");
+    document.querySelector("main#content").classList.add("hidden");
+  });
+  document.addEventListener("astro:page-load", () => {
+    document.querySelector("#loading").classList.add("hidden");
+    document.querySelector("main#content").classList.remove("hidden");
+  });
+</script>
 
 <script>
   import type { RemoteState } from "./default-layout.astro";
