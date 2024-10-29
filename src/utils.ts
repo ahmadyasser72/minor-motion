@@ -74,8 +74,12 @@ export const daftarHari = [
 ];
 
 const formatter = new DateFormatter("id-ID", {
-  dateStyle: "short",
-  timeStyle: "short",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+  hour: "2-digit",
+  hour12: true,
+  minute: "2-digit",
 });
 export const formatDate = (date: Date) => formatter.format(date);
 
