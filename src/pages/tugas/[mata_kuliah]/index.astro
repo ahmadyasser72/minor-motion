@@ -22,7 +22,7 @@ const allTugas: ListTugas = (
 ).map(({ slug, data }) => ({ ...data, id: slug }));
 ---
 
-<DefaultLayout>
+<DefaultLayout title=`Daftar Tugas ${mata_kuliah.toUpperCase()}`>
   <div class="sm:flex items-end space-x-2">
     <h1
       class="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl uppercase"

@@ -11,9 +11,14 @@ import * as devalue from "devalue";
 
 interface Props {
   class?: string;
+  title: string;
+  description?: string;
 }
 
-const { class: classList } = Astro.props;
+const hostnameWithoutDomain =
+  Astro.url.hostname.split(".").slice(0, -1).join(".") || Astro.url.hostname;
+
+const { class: classList, title, description } = Astro.props;
 
 const { login, session } = Astro.locals;
 const valid = session?.valid ?? false;
@@ -40,7 +45,9 @@ const loadingImage =
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
+
+    <title>{`${title} @ ${hostnameWithoutDomain}`}</title>
+    {description && <meta name="description" content={description} />}
 
     <link rel="preload" as="image" href={loadingImage.src} />
   </head>

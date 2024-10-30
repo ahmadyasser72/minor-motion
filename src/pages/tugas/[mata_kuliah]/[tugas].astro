@@ -19,7 +19,7 @@ const data: Tugas = { ...entry.data, id: entry.slug };
 const { Content } = await entry.render();
 ---
 
-<DefaultLayout>
+<DefaultLayout title={data.judul} description={entry.body}>
   <h2
     class="scroll-m-20 pb-2 text-3xl text-center sm:text-start font-semibold tracking-tight transition-colors first:mt-0"
   >

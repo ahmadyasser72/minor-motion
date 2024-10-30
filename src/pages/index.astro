@@ -6,6 +6,9 @@ import DefaultLayout from "$lib/layouts/default-layout.astro";
 const { login, session } = Astro.locals;
 ---
 
-<DefaultLayout class="flex flex-col items-center justify-center">
+<DefaultLayout
+  title="Homepage"
+  class="flex flex-col items-center justify-center"
+>
   {login !== undefined ? <PageIndexLoggedIn {session} /> : <PageIndexDefault />}
 </DefaultLayout>
