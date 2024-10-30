@@ -1,4 +1,6 @@
 <script lang="ts">
+  import ClientOnly from "$lib/components/client-only.svelte";
+
   import * as Breadcrumb from "$lib/components/ui/breadcrumb";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
   import type { BreadcrumbItem } from "$lib/types";
@@ -22,19 +24,23 @@
 
         <Breadcrumb.Item>
           {#if Array.isArray(label)}
-            <DropdownMenu.Root>
-              <DropdownMenu.Trigger class="flex items-center gap-1">
-                <Breadcrumb.Ellipsis class="h-4 w-4" />
-                <span class="sr-only">Toggle menu</span>
-              </DropdownMenu.Trigger>
-              <DropdownMenu.Content align="start">
-                {#each label as child}
-                  <DropdownMenu.Item href={child.href} class="cursor-pointer">
-                    {child.label}
-                  </DropdownMenu.Item>
-                {/each}
-              </DropdownMenu.Content>
-            </DropdownMenu.Root>
+            <ClientOnly>
+              <DropdownMenu.Root>
+                <DropdownMenu.Trigger class="flex items-center gap-1">
+                  <Breadcrumb.Ellipsis class="h-4 w-4" />
+                  <span class="sr-only">Toggle menu</span>
+                </DropdownMenu.Trigger>
+                <DropdownMenu.Content align="start">
+                  {#each label as child}
+                    <DropdownMenu.Item href={child.href} class="cursor-pointer">
+                      {child.label}
+                    </DropdownMenu.Item>
+                  {/each}
+                </DropdownMenu.Content>
+              </DropdownMenu.Root>
+
+              <Breadcrumb.Ellipsis class="h-4 w-4" slot="fallback" />
+            </ClientOnly>
           {:else if href !== undefined}
             <Breadcrumb.Link {href}>{label}</Breadcrumb.Link>
           {:else}
