@@ -3,6 +3,7 @@ import GridCardTugas from "$lib/components/grid-card-tugas.svelte";
 
 import { Separator } from "$lib/components/ui/separator";
 import DefaultLayout from "$lib/layouts/default-layout.astro";
+import type { ListTugas } from "$lib/types";
 
 import { getEntry } from "astro:content";
 import { getCollection } from "astro:content";
@@ -13,10 +14,12 @@ if (mata_kuliah === undefined) throw new Error("link tidak valid");
 const entry = await getEntry("mata-kuliah", mata_kuliah);
 if (entry === undefined) throw new Error("mata kuliah tidak ditemukan");
 
-const allTugas = await getCollection(
-  "tugas",
-  ({ data }) => data["mata-kuliah"].id === mata_kuliah
-);
+const allTugas: ListTugas = (
+  await getCollection(
+    "tugas",
+    ({ data }) => data["mata-kuliah"].id === mata_kuliah
+  )
+).map(({ slug, data }) => ({ ...data, id: slug }));
 ---
 
 <DefaultLayout>
@@ -31,5 +34,5 @@ const allTugas = await getCollection(
 
   <Separator class="my-4" />
 
-  <GridCardTugas client:only="svelte" {allTugas} />
+  <GridCardTugas client:load {allTugas} />
 </DefaultLayout>

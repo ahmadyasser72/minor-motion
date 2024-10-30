@@ -4,14 +4,11 @@
 
   import * as Card from "$lib/components/ui/card";
   import { tasks } from "$lib/stores";
-  import type { TugasId } from "$lib/types";
+  import type { Tugas } from "$lib/types";
 
-  import type { CollectionEntry } from "astro:content";
+  export let data: Tugas;
 
-  export let id: TugasId;
-  export let data: CollectionEntry<"tugas">["data"];
-
-  $: state = $tasks.getTugasState(id, data);
+  $: state = $tasks.getTugasState(data);
 </script>
 
 <Card.Root>
@@ -20,7 +17,7 @@
       class="text-ellipsis hover:text-clip whitespace-nowrap overflow-hidden"
     >
       <a
-        href="/tugas/{id}"
+        href="/tugas/{data.id}"
         class={state === "sudah"
           ? "line-through"
           : "transition-colors duration-300 ease-in-out hover:text-card underline hover:no-underline hover:bg-indigo-600"}
@@ -35,6 +32,6 @@
   </Card.Content>
 
   <Card.Footer>
-    <CardTugasFooter {id} />
+    <CardTugasFooter {data} />
   </Card.Footer>
 </Card.Root>

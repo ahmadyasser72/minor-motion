@@ -4,6 +4,8 @@ import type { CollectionEntry } from "astro:content";
 
 export type MataKuliahId = CollectionEntry<"mata-kuliah">["id"];
 
+export type Tugas = CollectionEntry<"tugas">["data"] & { id: TugasId };
+export type ListTugas = Tugas[];
 export type TugasId = CollectionEntry<"tugas">["slug"];
 export type TugasStatus = "normal" | "lewat";
 export type TugasState = "sudah" | "belum" | "telat";

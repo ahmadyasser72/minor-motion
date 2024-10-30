@@ -1,18 +1,15 @@
 <script lang="ts">
   import { Badge } from "$lib/components/ui/badge";
   import { tasks } from "$lib/stores";
-  import type { TugasId } from "$lib/types";
+  import type { Tugas } from "$lib/types";
   import { formatDate } from "$lib/utils";
-
-  import type { CollectionEntry } from "astro:content";
 
   import { BookCheck, ClockAlert, User, Users } from "lucide-svelte";
   import BadgeTaskState from "./badge-task-state.svelte";
 
-  export let id: TugasId;
-  export let data: CollectionEntry<"tugas">["data"];
+  export let data: Tugas;
 
-  $: state = $tasks.getTugasState(id, data);
+  $: state = $tasks.getTugasState(data);
 </script>
 
 <div

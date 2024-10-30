@@ -2,19 +2,16 @@
   import ButtonDoneTask from "./button-done-task.svelte";
 
   import { Button } from "$lib/components/ui/button";
-  import type { TugasId } from "$lib/types";
-
-  import type { CollectionEntry } from "astro:content";
+  import type { Tugas } from "$lib/types";
 
   import { CornerDownLeft, SquareArrowOutUpRight } from "lucide-svelte";
 
-  export let id: TugasId;
-  export let data: CollectionEntry<"tugas">["data"];
+  export let data: Tugas;
 </script>
 
 <div class="grid sm:flex items-center sm:justify-between gap-2">
   <div class="grid sm:flex gap-2">
-    <ButtonDoneTask class="sm:w-24" {id} />
+    <ButtonDoneTask class="sm:w-24" id={data.id} />
 
     {#if data["link-pengumpulan"] !== undefined}
       <Button href={data["link-pengumpulan"]} target="_blank" class="uppercase">

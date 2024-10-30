@@ -4,6 +4,7 @@ import PageTugasHeading from "$lib/components/page-tugas-heading.svelte";
 
 import { Separator } from "$lib/components/ui/separator";
 import DefaultLayout from "$lib/layouts/default-layout.astro";
+import type { Tugas } from "$lib/types";
 
 import { getEntry } from "astro:content";
 
@@ -14,8 +15,8 @@ if (mata_kuliah === undefined || tugas === undefined)
 const entry = await getEntry("tugas", `${mata_kuliah}/${tugas}`);
 if (entry === undefined) throw new Error("tugas tidak ditemukan!");
 
-const { data, render, slug } = entry;
-const { Content } = await render();
+const data: Tugas = { ...entry.data, id: entry.slug };
+const { Content } = await entry.render();
 ---
 
 <DefaultLayout>
@@ -24,11 +25,11 @@ const { Content } = await render();
   >
     {data.judul}
   </h2>
-  <PageTugasHeading client:load id={slug} {data} />
+  <PageTugasHeading client:load {data} />
 
   <Separator class="my-4" />
 
-  <PageTugasActions client:load id={slug} {data} />
+  <PageTugasActions client:load {data} />
 
   <Separator class="my-4" />
 
