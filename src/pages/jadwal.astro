@@ -40,6 +40,6 @@ for (const { data, slug } of allTugas) {
 }
 ---
 
-<DefaultLayout title="Daftar Jadwal Harian">
+<DefaultLayout title="Daftar Jadwal Harian" breadcrumbs={[{ label: "jadwal" }]}>
   <GridCardJadwal client:load {dailyJadwalMap} {allStatusTugasMap} />
 </DefaultLayout>

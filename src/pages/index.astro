@@ -8,6 +8,7 @@ const { login, session } = Astro.locals;
 
 <DefaultLayout
   title="Homepage"
+  breadcrumbs={[]}
   class="flex flex-col items-center justify-center"
 >
   {login !== undefined ? <PageIndexLoggedIn {session} /> : <PageIndexDefault />}

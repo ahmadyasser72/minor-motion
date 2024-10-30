@@ -19,6 +19,15 @@ export type ListJadwalMap = Record<(typeof allHari)[number], ListJadwal>;
 export type ListStatusTugas = Array<[TugasId, TugasStatus]>;
 export type ListStatusTugasMap = Record<MataKuliahId, ListStatusTugas>;
 
+interface BreadcrumbItemBase {
+  label: string;
+  href: string;
+}
+export interface BreadcrumbItem {
+  label: string | BreadcrumbItemBase[];
+  href?: string;
+}
+
 export interface State {
   readonly login?: App.Locals["login"];
   completed_tasks: Set<TugasId>;

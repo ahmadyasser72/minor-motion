@@ -19,7 +19,14 @@ const data: Tugas = { ...entry.data, id: entry.slug };
 const { Content } = await entry.render();
 ---
 
-<DefaultLayout title={data.judul} description={entry.body}>
+<DefaultLayout
+  title={data.judul}
+  description={entry.body}
+  breadcrumbs={[
+    { label: mata_kuliah, href: `/tugas/${mata_kuliah}` },
+    { label: tugas },
+  ]}
+>
   <h2
     class="scroll-m-20 pb-2 text-3xl text-center sm:text-start font-semibold tracking-tight transition-colors first:mt-0"
   >

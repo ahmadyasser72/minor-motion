@@ -22,7 +22,10 @@ const allTugas: ListTugas = (
 ).map(({ slug, data }) => ({ ...data, id: slug }));
 ---
 
-<DefaultLayout title=`Daftar Tugas ${mata_kuliah.toUpperCase()}`>
+<DefaultLayout
+  title=`Daftar Tugas ${mata_kuliah.toUpperCase()}`
+  breadcrumbs={[{ label: mata_kuliah }]}
+>
   <div class="sm:flex items-end space-x-2">
     <h1
       class="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl uppercase"

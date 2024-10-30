@@ -1,8 +1,11 @@
 ---
 import "$lib/styles/app.css";
 
+import AppBreadcrumb from "$lib/components/app-breadcrumb.svelte";
+
 import { Button } from "$lib/components/ui/button";
 import { Toaster } from "$lib/components/ui/sonner";
+import type { BreadcrumbItem } from "$lib/types";
 
 import { ViewTransitions } from "astro:transitions";
 
@@ -13,12 +16,15 @@ interface Props {
   class?: string;
   title: string;
   description?: string;
+  breadcrumbs: BreadcrumbItem[];
 }
 
-const hostnameWithoutDomain =
-  Astro.url.hostname.split(".").slice(0, -1).join(".") || Astro.url.hostname;
-
-const { class: classList, title, description } = Astro.props;
+const {
+  class: classList,
+  title,
+  description,
+  breadcrumbs: _breadcrumbs,
+} = Astro.props;
 
 const { login, session } = Astro.locals;
 const valid = session?.valid ?? false;
@@ -34,6 +40,14 @@ const loadingImages = Object.values(
 );
 const loadingImage =
   loadingImages[Math.floor(Math.random() * loadingImages.length)]!.default;
+
+const hostnameWithoutDomain =
+  Astro.url.hostname.split(".").slice(0, -1).join(".") || Astro.url.hostname;
+
+const breadcrumbs: typeof _breadcrumbs =
+  Astro.url.pathname.split("/").length > 2
+    ? [{ label: [{ label: "jadwal", href: "/jadwal" }] }, ..._breadcrumbs]
+    : _breadcrumbs;
 ---
 
 <html lang="en" transition:animate="slide">
@@ -55,6 +69,8 @@ const loadingImage =
     <div
       class="flex flex-col justify-center container lg:w-3/4 min-h-[100vh] py-8"
     >
+      <AppBreadcrumb client:only="svelte" {breadcrumbs} />
+
       <main id="content" class:list={["flex-1 hidden", classList]}>
         <slot />
       </main>
