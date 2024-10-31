@@ -9,20 +9,22 @@
   }
 
   let { state }: Props = $props();
+
+  const className = "w-20 uppercase";
 </script>
 
 {#if state === "sudah"}
-  <Badge class="bg-indigo-600 hover:bg-indigo-800 w-20">
+  <Badge class="bg-indigo-600 hover:bg-indigo-800 {className}">
     <TrendingUp class="w-4 h-4 mr-1" />
     done
   </Badge>
 {:else if state === "belum"}
-  <Badge class="bg-orange-500 hover:bg-orange-700 w-20">
+  <Badge class="bg-orange-500 hover:bg-orange-700 {className}">
     <TrendingDown class="w-4 h-4 mr-1" />
     belum
   </Badge>
 {:else if state === "telat"}
-  <Badge class="bg-red-700 hover:bg-red-900 w-20">
+  <Badge class="bg-red-700 hover:bg-red-900 {className}">
     <Ban class="w-4 h-4 mr-1" />
     telat
   </Badge>
