@@ -47,7 +47,9 @@
 </script>
 
 <ClientOnly>
-  {#snippet fallback()}loading Calendar...{/snippet}
+  {#snippet fallback()}
+    <p>loading Calendar...</p>
+  {/snippet}
 
   <Calendar
     type="single"
