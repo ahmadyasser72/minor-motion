@@ -15,7 +15,7 @@
 
   const logOut = async () => {
     if ($state.login === "google") await signOut();
-    else if ($state.login === "local") {
+    else {
       document.cookie = `login=; expires=${new Date(0).toISOString()}`;
       document.location.reload();
     }
@@ -43,6 +43,7 @@
 
   <Card.Content>
     <div class="grid gap-2">
+      <Button href="/calendar">Calendar Tugas</Button>
       <Button href="/jadwal">List Jadwal</Button>
     </div>
   </Card.Content>

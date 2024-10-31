@@ -5,7 +5,7 @@
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
   import type { BreadcrumbItem } from "$lib/types";
 
-  import { House } from "lucide-svelte";
+  import { ChevronDown, House } from "lucide-svelte";
 
   interface Props {
     breadcrumbs: BreadcrumbItem[];
@@ -23,31 +23,46 @@
         </Breadcrumb.Link>
       </Breadcrumb.Item>
 
-      {#each breadcrumbs as { label, href }}
+      {#each breadcrumbs as { children, label, href }}
         <Breadcrumb.Separator />
 
         <Breadcrumb.Item>
-          {#if Array.isArray(label)}
-            <ClientOnly>
+          {#if Array.isArray(children)}
+            {#snippet content()}
+              {#if label === undefined}
+                <Breadcrumb.Ellipsis class="h-4 w-4" />
+              {:else}
+                <Breadcrumb.Page class="flex items-center">
+                  {label}
+                  <ChevronDown class="h-4 w-4 ml-1" />
+                </Breadcrumb.Page>
+              {/if}
+              <span class="sr-only">Toggle menu</span>
+            {/snippet}
+
+            <ClientOnly fallback={content}>
               <DropdownMenu.Root>
                 <DropdownMenu.Trigger class="flex items-center gap-1">
-                  <Breadcrumb.Ellipsis class="h-4 w-4" />
-                  <span class="sr-only">Toggle menu</span>
+                  {@render content()}
                 </DropdownMenu.Trigger>
-                <DropdownMenu.Content align="start">
-                  {#each label as child}
-                    <DropdownMenu.Item>
-                      <a href={child.href} class="cursor-pointer">
+                <DropdownMenu.Content>
+                  {#each children as child}
+                    {#snippet content()}
+                      <DropdownMenu.Item class="cursor-pointer">
                         {child.label}
+                      </DropdownMenu.Item>
+                    {/snippet}
+
+                    {#if child.href !== undefined}
+                      <a href={child.href}>
+                        {@render content()}
                       </a>
-                    </DropdownMenu.Item>
+                    {:else}
+                      {@render content()}
+                    {/if}
                   {/each}
                 </DropdownMenu.Content>
               </DropdownMenu.Root>
-
-              {#snippet fallback()}
-                <Breadcrumb.Ellipsis class="h-4 w-4" />
-              {/snippet}
             </ClientOnly>
           {:else if href !== undefined}
             <Breadcrumb.Link {href}>{label}</Breadcrumb.Link>

@@ -17,7 +17,7 @@
     done
   </Badge>
 {:else if state === "belum"}
-  <Badge class="bg-sky-500 hover:bg-sky-700 w-20">
+  <Badge class="bg-orange-500 hover:bg-orange-700 w-20">
     <TrendingDown class="w-4 h-4 mr-1" />
     belum
   </Badge>

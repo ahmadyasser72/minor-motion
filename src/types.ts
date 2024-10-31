@@ -19,13 +19,10 @@ export type ListJadwalMap = Record<(typeof allHari)[number], ListJadwal>;
 export type ListStatusTugas = Array<[TugasId, TugasStatus]>;
 export type ListStatusTugasMap = Record<MataKuliahId, ListStatusTugas>;
 
-interface BreadcrumbItemBase {
-  label: string;
-  href: string;
-}
 export interface BreadcrumbItem {
-  label: string | BreadcrumbItemBase[];
-  href?: string;
+  label?: string;
+  href?: string | undefined;
+  children?: Omit<BreadcrumbItem, "children">[];
 }
 
 export interface State {

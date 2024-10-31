@@ -41,10 +41,23 @@ const loadingImages = Object.values(
 const loadingImage =
   loadingImages[Math.floor(Math.random() * loadingImages.length)]!.default;
 
-const breadcrumbs: typeof _breadcrumbs =
-  Astro.url.pathname.split("/").length > 2
-    ? [{ label: [{ label: "jadwal", href: "/jadwal" }] }, ..._breadcrumbs]
-    : _breadcrumbs;
+const breadcrumbs = _breadcrumbs;
+const rootPages = [
+  { label: "calendar", href: "/calendar" },
+  { label: "jadwal", href: "/jadwal" },
+];
+const pathDepth = Astro.url.pathname.split("/").length;
+if (pathDepth > 2) breadcrumbs.unshift({ children: rootPages });
+else if (pathDepth === 2 && breadcrumbs.length > 0) {
+  const first = breadcrumbs[0]!;
+  breadcrumbs[0] = {
+    ...first,
+    children: rootPages.map(({ label, href }) => ({
+      label,
+      href: first.label === label ? undefined : href,
+    })),
+  };
+}
 ---
 
 <html lang="en" transition:animate="slide">
