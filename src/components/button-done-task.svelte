@@ -5,14 +5,17 @@
 
   import { Check, Undo2 } from "lucide-svelte";
 
-  let className: string | undefined = undefined;
-  export let id: TugasId;
-  export { className as class };
+  interface Props {
+    class?: string | undefined;
+    id: TugasId;
+  }
+
+  let { class: className = undefined, id }: Props = $props();
 </script>
 
 {#if $tasks.isDone(id)}
   <Button
-    on:click={() => $tasks.undo(id)}
+    onclick={() => $tasks.undo(id)}
     class="uppercase bg-indigo-500 hover:bg-indigo-700 {className}"
   >
     <Undo2 class="mr-1 w-4 h-4" />
@@ -20,7 +23,7 @@
   </Button>
 {:else}
   <Button
-    on:click={() => $tasks.done(id)}
+    onclick={() => $tasks.done(id)}
     class="uppercase bg-indigo-600 hover:bg-indigo-800 {className}"
   >
     <Check class="mr-1 w-4 h-4" />

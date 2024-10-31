@@ -1,17 +1,21 @@
 <script lang="ts">
   import * as Card from "$lib/components/ui/card";
   import { Button } from "$lib/components/ui/button";
+  import { state } from "$lib/stores";
 
   import { signOut } from "auth-astro/client";
   import { LogOut, User } from "lucide-svelte";
 
-  export let image: string | undefined;
-  export let name: string;
-  export let login: "local" | "google" | undefined;
+  interface Props {
+    image: string | undefined;
+    name: string;
+  }
+
+  let { image, name }: Props = $props();
 
   const logOut = async () => {
-    if (login === "google") await signOut();
-    else if (login === "local") {
+    if ($state.login === "google") await signOut();
+    else if ($state.login === "local") {
       document.cookie = `login=; expires=${new Date(0).toISOString()}`;
       document.location.reload();
     }
@@ -44,7 +48,7 @@
   </Card.Content>
 
   <Card.Footer class="justify-end">
-    <Button on:click={logOut} variant="outline">
+    <Button onclick={logOut} variant="outline">
       <LogOut class="w-4 h-4 mr-2" />
       Logout
     </Button>

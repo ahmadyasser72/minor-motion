@@ -6,10 +6,19 @@
   import type { ListJadwal, ListStatusTugasMap } from "$lib/types";
   import { allHari } from "$lib/utils";
 
-  export let hari: string;
-  export let active = allHari[new Date().getDay() - 1] === hari;
-  export let dailyJadwal: ListJadwal;
-  export let allStatusTugasMap: ListStatusTugasMap;
+  interface Props {
+    hari: string;
+    active?: any;
+    dailyJadwal: ListJadwal;
+    allStatusTugasMap: ListStatusTugasMap;
+  }
+
+  let {
+    hari,
+    active = allHari[new Date().getDay() - 1] === hari,
+    dailyJadwal,
+    allStatusTugasMap,
+  }: Props = $props();
 </script>
 
 <Card.Root

@@ -6,8 +6,12 @@
   import { ClockAlert, User, Users } from "lucide-svelte";
   import BadgeTaskState from "./badge-task-state.svelte";
 
-  export let state: TugasState;
-  export let data: Tugas;
+  interface Props {
+    state: TugasState;
+    data: Tugas;
+  }
+
+  let { state, data }: Props = $props();
 </script>
 
 <div

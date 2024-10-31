@@ -1,15 +1,20 @@
 <script lang="ts">
+  import BadgeTaskState from "./badge-task-state.svelte";
+
   import { Badge } from "$lib/components/ui/badge";
   import { tasks } from "$lib/stores";
   import type { Tugas } from "$lib/types";
   import { formatDate } from "$lib/utils";
 
   import { BookCheck, ClockAlert, User, Users } from "lucide-svelte";
-  import BadgeTaskState from "./badge-task-state.svelte";
 
-  export let data: Tugas;
+  interface Props {
+    data: Tugas;
+  }
 
-  $: state = $tasks.getTugasState(data);
+  let { data }: Props = $props();
+
+  let state = $derived($tasks.getTugasState(data));
 </script>
 
 <div

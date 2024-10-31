@@ -6,7 +6,11 @@
 
   import { CornerDownLeft, SquareArrowOutUpRight } from "lucide-svelte";
 
-  export let data: Tugas;
+  interface Props {
+    data: Tugas;
+  }
+
+  let { data }: Props = $props();
 </script>
 
 <div class="grid sm:flex items-center sm:justify-between gap-2">
@@ -21,7 +25,7 @@
     {/if}
   </div>
 
-  <Button on:click={() => history.back()} class="uppercase" variant="outline">
+  <Button onclick={() => history.back()} class="uppercase" variant="outline">
     kembali
     <CornerDownLeft class="ml-2 w-4 h-4" />
   </Button>

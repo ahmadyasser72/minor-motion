@@ -3,7 +3,11 @@
 
   import type { Tugas } from "$lib/types";
 
-  export let data: Tugas;
+  interface Props {
+    data: Tugas;
+  }
+
+  let { data }: Props = $props();
 </script>
 
 <div class="w-full flex justify-end space-x-1">

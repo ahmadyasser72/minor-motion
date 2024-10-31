@@ -6,9 +6,13 @@
   import { tasks } from "$lib/stores";
   import type { Tugas } from "$lib/types";
 
-  export let data: Tugas;
+  interface Props {
+    data: Tugas;
+  }
 
-  $: state = $tasks.getTugasState(data);
+  let { data }: Props = $props();
+
+  let state = $derived($tasks.getTugasState(data));
 </script>
 
 <Card.Root>

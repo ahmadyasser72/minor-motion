@@ -7,7 +7,11 @@
 
   import { House } from "lucide-svelte";
 
-  export let breadcrumbs: BreadcrumbItem[];
+  interface Props {
+    breadcrumbs: BreadcrumbItem[];
+  }
+
+  let { breadcrumbs }: Props = $props();
 </script>
 
 {#if breadcrumbs.length > 0}
@@ -32,14 +36,18 @@
                 </DropdownMenu.Trigger>
                 <DropdownMenu.Content align="start">
                   {#each label as child}
-                    <DropdownMenu.Item href={child.href} class="cursor-pointer">
-                      {child.label}
+                    <DropdownMenu.Item>
+                      <a href={child.href} class="cursor-pointer">
+                        {child.label}
+                      </a>
                     </DropdownMenu.Item>
                   {/each}
                 </DropdownMenu.Content>
               </DropdownMenu.Root>
 
-              <Breadcrumb.Ellipsis class="h-4 w-4" slot="fallback" />
+              {#snippet fallback()}
+                <Breadcrumb.Ellipsis class="h-4 w-4" />
+              {/snippet}
             </ClientOnly>
           {:else if href !== undefined}
             <Breadcrumb.Link {href}>{label}</Breadcrumb.Link>

@@ -41,9 +41,6 @@ const loadingImages = Object.values(
 const loadingImage =
   loadingImages[Math.floor(Math.random() * loadingImages.length)]!.default;
 
-const hostnameWithoutDomain =
-  Astro.url.hostname.split(".").slice(0, -1).join(".") || Astro.url.hostname;
-
 const breadcrumbs: typeof _breadcrumbs =
   Astro.url.pathname.split("/").length > 2
     ? [{ label: [{ label: "jadwal", href: "/jadwal" }] }, ..._breadcrumbs]
@@ -60,7 +57,7 @@ const breadcrumbs: typeof _breadcrumbs =
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
 
-    <title>{`${title} @ ${hostnameWithoutDomain}`}</title>
+    <title>{`${title} @ ${Astro.url.hostname}`}</title>
     {description && <meta name="description" content={description} />}
 
     <link rel="preload" as="image" href={loadingImage.src} />

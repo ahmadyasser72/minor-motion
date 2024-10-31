@@ -7,11 +7,17 @@
   import { flip } from "svelte/animate";
   import { expoInOut } from "svelte/easing";
 
-  export let allTugas: ListTugas;
+  interface Props {
+    allTugas: ListTugas;
+  }
 
-  $: sortedAllTugas = [...allTugas].sort(
-    // sort tugas selesai keakhir
-    (a, b) => Number($tasks.isDone(a.id)) - Number($tasks.isDone(b.id))
+  let { allTugas }: Props = $props();
+
+  let sortedAllTugas = $derived(
+    [...allTugas].sort(
+      // sort tugas selesai keakhir
+      (a, b) => Number($tasks.isDone(a.id)) - Number($tasks.isDone(b.id))
+    )
   );
 </script>
 

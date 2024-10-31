@@ -29,12 +29,15 @@
     "@sveltejs/vite-plugin-svelte": "^4.0.0-next.6"
   },
   "devDependencies": {
-    "bits-ui": "^0.21.16",
+    "bits-ui": "^1.0.0-next.34",
     "clsx": "^2.1.1",
     "lucide-svelte": "^0.453.0",
+    "prettier": "^3.3.3",
+    "prettier-plugin-svelte": "^3.2.7",
     "svelte-sonner": "^0.3.28",
     "tailwind-merge": "^2.5.4",
-    "tailwind-variants": "^0.2.1"
+    "tailwind-variants": "^0.2.1",
+    "tailwindcss-animate": "^1.0.7"
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "^4.24.0"

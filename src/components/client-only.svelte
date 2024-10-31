@@ -1,5 +1,16 @@
+<script lang="ts">
+  import type { Snippet } from "svelte";
+
+  interface Props {
+    children: Snippet;
+    fallback: Snippet;
+  }
+
+  let { children, fallback }: Props = $props();
+</script>
+
 {#if typeof document !== "undefined"}
-  <slot />
+  {@render children?.()}
 {:else}
-  <slot name="fallback" />
+  {@render fallback?.()}
 {/if}

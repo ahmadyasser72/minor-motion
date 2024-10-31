@@ -4,7 +4,11 @@
 
   import { Ban, TrendingDown, TrendingUp } from "lucide-svelte";
 
-  export let state: TugasState;
+  interface Props {
+    state: TugasState;
+  }
+
+  let { state }: Props = $props();
 </script>
 
 {#if state === "sudah"}

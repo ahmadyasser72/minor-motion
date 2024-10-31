@@ -5,24 +5,30 @@
 
   import { CircleAlert, Info, SquareArrowOutUpRight } from "lucide-svelte";
 
-  export let jadwal: ListJadwal[number];
-  export let allStatusTugas: ListStatusTugas;
+  interface Props {
+    jadwal: ListJadwal[number];
+    allStatusTugas: ListStatusTugas;
+  }
+
+  let { jadwal, allStatusTugas }: Props = $props();
 
   const pad = (n: number) => n.toString().padStart(2, "0");
   const formatTime = ({ hour, minute }: typeof jadwal.start) =>
     `${pad(hour)}:${pad(minute)}`;
 
-  let jumlahTugas = 0;
-  let jumlahTugasLewat = 0;
-  $: {
-    jumlahTugas = jumlahTugasLewat = 0;
+  const jumlahTugas = $derived.by(() => {
+    let normal = 0;
+    let lewat = 0;
+
     for (const [id, status] of allStatusTugas) {
       if ($tasks.isDone(id)) continue;
 
-      if (status === "normal") jumlahTugas += 1;
-      else if (status === "lewat") jumlahTugasLewat += 1;
+      if (status === "normal") normal += 1;
+      else if (status === "lewat") lewat += 1;
     }
-  }
+
+    return { normal, lewat };
+  });
 </script>
 
 <div class="inline-flex items-center space-x-1.5">
@@ -35,17 +41,17 @@
     <SquareArrowOutUpRight class="ml-1 w-4 h-4" />
   </Badge>
 
-  {#if jumlahTugas > 0}
+  {#if jumlahTugas.normal > 0}
     <Badge class="bg-indigo-600 hover:bg-indigo-800">
       <Info class="mr-1 w-4 h-4" />
-      {jumlahTugas}
+      {jumlahTugas.normal}
     </Badge>
   {/if}
 
-  {#if jumlahTugasLewat > 0}
+  {#if jumlahTugas.lewat > 0}
     <Badge class="bg-red-600 hover:bg-red-800">
       <CircleAlert class="mr-1 w-4 h-4" />
-      {jumlahTugasLewat}
+      {jumlahTugas.lewat}
     </Badge>
   {/if}
 </div>

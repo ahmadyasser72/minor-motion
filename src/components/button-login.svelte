@@ -17,14 +17,14 @@
 
 <div class="grid gap-2 w-full max-w-sm">
   <Button
-    on:click={loginGoogle}
+    onclick={loginGoogle}
     class="bg-indigo-600 hover:bg-indigo-800 flex-1"
   >
     <Google class="w-4 h-4 mr-2" />
     Google
   </Button>
 
-  <Button on:click={loginLocal}>
+  <Button onclick={loginLocal}>
     <Monitor class="w-4 h-4 mr-2" />
     Lokal
   </Button>

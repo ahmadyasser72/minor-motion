@@ -5,8 +5,12 @@
   import type { ListJadwalMap, ListStatusTugasMap } from "$lib/types";
   import { CircleAlert, Info } from "lucide-svelte";
 
-  export let dailyJadwalMap: ListJadwalMap;
-  export let allStatusTugasMap: ListStatusTugasMap;
+  interface Props {
+    dailyJadwalMap: ListJadwalMap;
+    allStatusTugasMap: ListStatusTugasMap;
+  }
+
+  let { dailyJadwalMap, allStatusTugasMap }: Props = $props();
 </script>
 
 <div class="flex justify-end space-x-2">
