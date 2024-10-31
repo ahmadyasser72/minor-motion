@@ -46,7 +46,7 @@ const _updateGoogleDriveData = async () => {
 const updateGoogleDriveData = debounce(_updateGoogleDriveData, 1000);
 
 export const tasks = derived(state, ($state) => ({
-  getTugasState: (data: Tugas): TugasState => {
+  getTugasState: (data: Pick<Tugas, "id" | "batas-waktu">): TugasState => {
     if ($state.completed_tasks.has(data.id)) return "sudah";
     else if (new Date() > data["batas-waktu"]) return "telat";
     else return "belum";

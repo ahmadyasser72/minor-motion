@@ -3,7 +3,7 @@
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
   import { ScrollArea } from "$lib/components/ui/scroll-area";
   import { tasks } from "$lib/stores";
-  import type { ListTugas, TugasState } from "$lib/types";
+  import type { ListBatasWaktuTugas, TugasState } from "$lib/types";
   import { cn } from "$lib/utils";
 
   import {
@@ -15,21 +15,21 @@
   import ClientOnly from "./client-only.svelte";
 
   interface Props {
-    allTugas: ListTugas;
+    allBatasWaktuTugas: ListBatasWaktuTugas;
   }
 
-  let { allTugas }: Props = $props();
+  let { allBatasWaktuTugas }: Props = $props();
 
   const getTugasByDate = (date: DateValue) => {
     const stateOrder: TugasState[] = ["telat", "belum", "sudah"];
-    const list = allTugas
-      .filter((tugas) =>
-        isSameDay(
-          parseAbsoluteToLocal(tugas["batas-waktu"].toISOString()),
-          date
-        )
+    const list = allBatasWaktuTugas
+      .filter(([_, batasWaktu]) =>
+        isSameDay(parseAbsoluteToLocal(batasWaktu.toISOString()), date)
       )
-      .map((tugas) => ({ ...tugas, state: $tasks.getTugasState(tugas) }))
+      .map(([id, batasWaktu]) => ({
+        id,
+        state: $tasks.getTugasState({ id, "batas-waktu": batasWaktu }),
+      }))
       .sort(
         (a, b) => stateOrder.indexOf(a.state) - stateOrder.indexOf(b.state)
       );

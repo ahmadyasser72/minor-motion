@@ -1,13 +1,13 @@
 ---
 import CalendarTugas from "$lib/components/calendar-tugas.svelte";
 import DefaultLayout from "$lib/layouts/default-layout.astro";
-import type { ListTugas } from "$lib/types";
+import type { ListBatasWaktuTugas } from "$lib/types";
 
 import { getCollection } from "astro:content";
 
-const allTugas: ListTugas = (await getCollection("tugas")).map(
-  ({ slug, data }) => ({ ...data, id: slug })
-);
+const allBatasWaktuTugas: ListBatasWaktuTugas = (
+  await getCollection("tugas")
+).map(({ slug, data }) => [slug, data["batas-waktu"]]);
 ---
 
 <DefaultLayout
@@ -15,5 +15,5 @@ const allTugas: ListTugas = (await getCollection("tugas")).map(
   breadcrumbs={[{ label: "calendar" }]}
   class="flex items-center justify-center"
 >
-  <CalendarTugas client:load {allTugas} />
+  <CalendarTugas client:load {allBatasWaktuTugas} />
 </DefaultLayout>

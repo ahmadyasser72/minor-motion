@@ -18,6 +18,7 @@ export type ListJadwal = Array<
 export type ListJadwalMap = Record<(typeof allHari)[number], ListJadwal>;
 export type ListStatusTugas = Array<[TugasId, TugasStatus]>;
 export type ListStatusTugasMap = Record<MataKuliahId, ListStatusTugas>;
+export type ListBatasWaktuTugas = Array<[TugasId, Date]>;
 
 export interface BreadcrumbItem {
   label?: string;
