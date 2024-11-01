@@ -14,3 +14,4 @@ mode = "smart"
 
 [env.production.vars]
 AUTH_TRUST_HOST = "true"
+UMAMI_WEBSITE_ID = "c3f29f32-1b13-4dde-a08d-c60cf25acbce"

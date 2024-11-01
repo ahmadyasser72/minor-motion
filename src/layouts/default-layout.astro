@@ -74,6 +74,14 @@ else if (pathDepth === 2 && breadcrumbs.length > 0) {
     {description && <meta name="description" content={description} />}
 
     <link rel="preload" as="image" href={loadingImage.src} />
+
+    <script
+      is:inline
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-astro-rerun
+      data-website-id={import.meta.env.UMAMI_WEBSITE_ID}
+      data-auto-track="false"></script>
   </head>
   <body>
     <div
@@ -124,6 +132,10 @@ else if (pathDepth === 2 && breadcrumbs.length > 0) {
   import { get } from "svelte/store";
 
   document.addEventListener("astro:page-load", async () => {
+    if (import.meta.env.PROD) {
+      await window.umami.track();
+    }
+
     const dataElement = document.querySelector("#state-data");
     if (!(dataElement instanceof HTMLElement)) return;
 
