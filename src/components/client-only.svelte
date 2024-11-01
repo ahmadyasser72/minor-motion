@@ -9,7 +9,7 @@
   let { children, fallback }: Props = $props();
 </script>
 
-{#if typeof document !== "undefined"}
+{#if !import.meta.env.SSR}
   {@render children?.()}
 {:else}
   {@render fallback?.()}
