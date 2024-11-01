@@ -11,11 +11,11 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/cloudflare": "^11.1.0",
+    "@astrojs/cloudflare": "^11.2.0",
     "@astrojs/svelte": "^5.7.2",
     "@astrojs/tailwind": "^5.1.2",
     "@auth/core": "^0.32.0",
-    "astro": "4.16.0",
+    "astro": "^4.16.8",
     "astro-loading-indicator": "^0.6.0",
     "auth-astro": "^4.1.2",
     "devalue": "^5.1.1",
@@ -25,7 +25,7 @@
     "typescript": "^5.6.3"
   },
   "overrides": {
-    "@sveltejs/vite-plugin-svelte": "^4.0.0-next.6"
+    "@sveltejs/vite-plugin-svelte": "^4.0.0"
   },
   "devDependencies": {
     "@internationalized/date": "^3.5.6",
