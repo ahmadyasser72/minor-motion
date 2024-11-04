@@ -2,7 +2,7 @@ import type { State } from "$lib/types";
 
 import * as devalue from "devalue";
 
-const dataFilename = "state.json";
+const dataFilename = import.meta.env.PROD ? "state.json" : "state.dev.json";
 
 export type GoogleDriveData = Omit<State, "login">;
 
