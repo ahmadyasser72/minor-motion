@@ -2,7 +2,7 @@
 judul: Tugas 1 - menentukan modus/median
 tipe: individu
 mata-kuliah: statistik
-batas-waktu: 2024-10-28T00:00:00+08:00
+batas-waktu: 2024-11-11T00:00:00+08:00
 tempat-pengumpulan: langsung
 ---
 
