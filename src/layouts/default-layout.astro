@@ -152,7 +152,7 @@ else if (pathDepth === 2 && breadcrumbs.length > 0) {
 
     if (remote === undefined || remote.last_update < local.last_update) {
       console.log("[sync] local >> google-drive");
-      await updateGoogleDriveData();
+      updateGoogleDriveData();
     } else if (remote.last_update > local.last_update) {
       console.log("[sync] google-drive >> local");
       localState.set(remote);

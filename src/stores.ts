@@ -19,7 +19,7 @@ const state = persisted<State>(
   }
 );
 
-const _updateGoogleDriveData = async () => {
+const _updateGoogleDriveData = () => {
   const { login, completed_tasks, last_update } = get(state);
 
   if (login !== "google") return;
@@ -43,7 +43,7 @@ const _updateGoogleDriveData = async () => {
   );
 };
 
-const updateGoogleDriveData = debounce(_updateGoogleDriveData, 1000);
+const updateGoogleDriveData = debounce(_updateGoogleDriveData, 2000);
 
 export const tasks = derived(state, ($state) => ({
   getTugasState: (data: Pick<Tugas, "id" | "batas-waktu">): TugasState => {
@@ -52,19 +52,19 @@ export const tasks = derived(state, ($state) => ({
     else return "belum";
   },
   isDone: (id: TugasId) => $state.completed_tasks.has(id),
-  done: async (id: TugasId) => {
+  done: (id: TugasId) => {
     $state.completed_tasks.add(id);
     $state.last_update = new Date();
     state.set($state);
 
-    await updateGoogleDriveData();
+    updateGoogleDriveData();
   },
-  undo: async (id: TugasId) => {
+  undo: (id: TugasId) => {
     $state.completed_tasks.delete(id);
     $state.last_update = new Date();
     state.set($state);
 
-    await updateGoogleDriveData();
+    updateGoogleDriveData();
   },
 }));
 
