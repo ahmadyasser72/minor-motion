@@ -74,10 +74,11 @@ export default defineConfig({
       clientSecret: import.meta.env.GOOGLE_CLIENT_SECRET,
       authorization: {
         params: {
-          prompt: "consent",
+          // prompt: "consent",
           access_type: "offline",
           response_type: "code",
-          scope: "openid profile https://www.googleapis.com/auth/drive.appdata",
+          scope:
+            "openid profile email https://www.googleapis.com/auth/drive.appdata",
         },
       },
     }),

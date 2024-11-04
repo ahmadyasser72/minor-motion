@@ -31,7 +31,7 @@ const { login, session } = Astro.locals;
 const valid = session?.valid ?? false;
 const data = valid ? await session?.drive.fetchData() : undefined;
 
-const state = { login, data, isValid: valid };
+const state = { login, data, isValid: valid, email: session?.user?.email };
 export type RemoteState = typeof state;
 
 const loadingImages = Object.values(
@@ -135,12 +135,16 @@ else if (pathDepth === 2 && breadcrumbs.length > 0) {
     }
 
     sessionStorage.setItem("login", remoteState.login);
-    if (remoteState.login !== "google") return;
 
-    if (!remoteState.isValid) {
+    if (remoteState.login !== "google") return;
+    else if (!remoteState.isValid) {
       await signIn("google");
       return;
     }
+
+    if (typeof remoteState.email === "string")
+      // @ts-expect-error @types/umami is outdated, see https://umami.is/docs/tracker-functions#session-data
+      window.umami?.identify({ email: remoteState.email });
 
     const local = get(localState);
     const { data: remote } = remoteState;
