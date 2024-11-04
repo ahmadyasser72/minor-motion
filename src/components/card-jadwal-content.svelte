@@ -1,9 +1,16 @@
 <script lang="ts">
+  import ClientOnly from "./client-only.svelte";
+
   import { Badge } from "$lib/components/ui/badge";
   import { tasks } from "$lib/stores";
   import type { ListJadwal, ListStatusTugas } from "$lib/types";
 
-  import { CircleAlert, Info, SquareArrowOutUpRight } from "lucide-svelte";
+  import {
+    CircleAlert,
+    Info,
+    LoaderCircle,
+    SquareArrowOutUpRight,
+  } from "lucide-svelte";
 
   interface Props {
     jadwal: ListJadwal[number];
@@ -41,17 +48,23 @@
     <SquareArrowOutUpRight class="ml-1 w-4 h-4" />
   </Badge>
 
-  {#if jumlahTugas.normal > 0}
-    <Badge class="bg-indigo-600 hover:bg-indigo-800">
-      <Info class="mr-1 w-4 h-4" />
-      {jumlahTugas.normal}
-    </Badge>
-  {/if}
+  <ClientOnly>
+    {#if jumlahTugas.normal > 0}
+      <Badge class="bg-indigo-600 hover:bg-indigo-800">
+        <Info class="mr-1 w-4 h-4" />
+        {jumlahTugas.normal}
+      </Badge>
+    {/if}
 
-  {#if jumlahTugas.lewat > 0}
-    <Badge class="bg-red-600 hover:bg-red-800">
-      <CircleAlert class="mr-1 w-4 h-4" />
-      {jumlahTugas.lewat}
-    </Badge>
-  {/if}
+    {#if jumlahTugas.lewat > 0}
+      <Badge class="bg-red-600 hover:bg-red-800">
+        <CircleAlert class="mr-1 w-4 h-4" />
+        {jumlahTugas.lewat}
+      </Badge>
+    {/if}
+
+    {#snippet fallback()}
+      <LoaderCircle class="ml-1 w-4 h-4 animate-spin" />
+    {/snippet}
+  </ClientOnly>
 </div>
