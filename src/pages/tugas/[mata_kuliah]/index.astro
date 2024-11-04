@@ -1,8 +1,5 @@
 ---
-import GridCardTugas from "$lib/components/grid-card-tugas.svelte";
-
-import { Separator } from "$lib/components/ui/separator";
-import DefaultLayout from "$lib/layouts/default-layout.astro";
+import DaftarTugas from "$lib/layouts/daftar-tugas.astro";
 import type { ListTugas } from "$lib/types";
 
 import { getEntry } from "astro:content";
@@ -22,20 +19,10 @@ const allTugas: ListTugas = (
 ).map(({ slug, data }) => ({ ...data, id: slug }));
 ---
 
-<DefaultLayout
+<DaftarTugas
+  {allTugas}
+  heading1={entry.id}
+  heading2={entry.data.nama}
   title=`Daftar Tugas ${mata_kuliah.toUpperCase()}`
   breadcrumbs={[{ label: mata_kuliah }]}
->
-  <div class="sm:flex items-end space-x-2">
-    <h1
-      class="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl uppercase"
-    >
-      {entry.id}
-    </h1>
-    <p class="text-muted-foreground text-xl">{entry.data.nama}</p>
-  </div>
-
-  <Separator class="my-4" />
-
-  <GridCardTugas client:load {allTugas} />
-</DefaultLayout>
+/>

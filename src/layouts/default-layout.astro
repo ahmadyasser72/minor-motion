@@ -13,7 +13,7 @@ import { ViewTransitions } from "astro:transitions";
 import LoadingIndicator from "astro-loading-indicator/component";
 import * as devalue from "devalue";
 
-interface Props {
+export interface Props {
   class?: string;
   title: string;
   description?: string;
@@ -46,6 +46,7 @@ const breadcrumbs = _breadcrumbs;
 const rootPages = [
   { label: "calendar", href: "/calendar" },
   { label: "jadwal", href: "/jadwal" },
+  { label: "tugas", href: "/tugas" },
 ];
 const pathDepth = Astro.url.pathname.split("/").length;
 if (pathDepth > 2) breadcrumbs.unshift({ children: rootPages });

@@ -1,0 +1,32 @@
+---
+import type { Props as DefaultLayoutProps } from "./default-layout.astro";
+
+import GridCardTugas from "$lib/components/grid-card-tugas.svelte";
+
+import { Separator } from "$lib/components/ui/separator";
+import DefaultLayout from "$lib/layouts/default-layout.astro";
+import type { ListTugas } from "$lib/types";
+
+interface Props extends DefaultLayoutProps {
+  heading1: string;
+  heading2: string;
+  allTugas: ListTugas;
+}
+
+const { heading1, heading2, allTugas } = Astro.props;
+---
+
+<DefaultLayout {...Astro.props}>
+  <div class="sm:flex items-end space-x-2">
+    <h1
+      class="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl uppercase"
+    >
+      {heading1}
+    </h1>
+    <p class="text-muted-foreground text-xl">{heading2}</p>
+  </div>
+
+  <Separator class="my-4" />
+
+  <GridCardTugas client:load {allTugas} />
+</DefaultLayout>
