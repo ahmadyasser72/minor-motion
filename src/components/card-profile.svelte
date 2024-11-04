@@ -45,6 +45,7 @@
     <div class="grid gap-2">
       <Button href="/calendar">Calendar Tugas</Button>
       <Button href="/jadwal">List Jadwal</Button>
+      <Button href="/tugas">List Tugas</Button>
     </div>
   </Card.Content>
 
