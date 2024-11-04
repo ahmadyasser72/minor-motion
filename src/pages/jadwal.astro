@@ -3,6 +3,7 @@ import GridCardJadwal from "$lib/components/grid-card-jadwal.svelte";
 import DefaultLayout from "$lib/layouts/default-layout.astro";
 import type { ListStatusTugasMap, ListJadwalMap } from "$lib/types";
 import { allHari } from "$lib/utils";
+import { getMataKuliah } from "$lib/utils.content";
 
 import { getCollection } from "astro:content";
 
@@ -10,7 +11,7 @@ const dailyJadwalMap = Object.fromEntries(
   allHari.map((hari) => [hari, []])
 ) as ListJadwalMap;
 
-const allMataKuliah = await getCollection("mata-kuliah");
+const allMataKuliah = await getMataKuliah();
 for (const { data, id } of allMataKuliah) {
   dailyJadwalMap[data.hari].push({ ...data, id });
 }
@@ -33,7 +34,7 @@ const allStatusTugasMap: ListStatusTugasMap = Object.fromEntries(
 const allTugas = await getCollection("tugas");
 for (const { data, slug } of allTugas) {
   const mataKuliah = data["mata-kuliah"].id;
-  allStatusTugasMap[mataKuliah].push([
+  allStatusTugasMap[mataKuliah]?.push([
     slug,
     data["batas-waktu"] > new Date() ? "normal" : "lewat",
   ]);

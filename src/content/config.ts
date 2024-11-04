@@ -9,6 +9,7 @@ const mata_kuliah = defineCollection({
   type: "data",
   schema: z.object({
     nama: z.string(),
+    hidden: z.boolean().optional(),
     dosen: z.string().nullable(),
     hari: z.enum([
       "senin",
