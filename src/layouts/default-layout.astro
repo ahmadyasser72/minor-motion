@@ -52,13 +52,7 @@ const pathDepth = Astro.url.pathname.split("/").length;
 if (pathDepth > 2) breadcrumbs.unshift({ children: rootPages });
 else if (pathDepth === 2 && breadcrumbs.length > 0) {
   const first = breadcrumbs[0]!;
-  breadcrumbs[0] = {
-    ...first,
-    children: rootPages.map(({ label, href }) => ({
-      label,
-      href: first.label === label ? undefined : href,
-    })),
-  };
+  first.children = rootPages.filter(({ label }) => first.label !== label);
 }
 ---
 
