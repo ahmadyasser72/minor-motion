@@ -24,7 +24,7 @@
   </Badge>
 </div>
 
-<div class="w-full grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
+<div class="w-full grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
   {#each Object.entries(dailyJadwalMap) as [hari, dailyJadwal]}
     <CardJadwal {hari} {dailyJadwal} {allStatusTugasMap} />
   {/each}
