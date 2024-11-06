@@ -2,7 +2,8 @@
 import "$lib/styles/app.css";
 
 import AnalyticsUmami from "$lib/components/analytics-umami.astro";
-import AppBreadcrumb from "$lib/components/app-breadcrumb.svelte";
+import AppBreadcrumb from "$lib/components/app-breadcrumb.astro";
+import AppData from "$lib/components/app-data.astro";
 import AppFooter from "$lib/components/app-footer.svelte";
 
 import { Toaster } from "$lib/components/ui/sonner";
@@ -11,7 +12,6 @@ import type { BreadcrumbItem } from "$lib/types";
 import { ViewTransitions } from "astro:transitions";
 
 import LoadingIndicator from "astro-loading-indicator/component";
-import * as devalue from "devalue";
 
 export interface Props {
   class?: string;
@@ -20,19 +20,7 @@ export interface Props {
   breadcrumbs: BreadcrumbItem[];
 }
 
-const {
-  class: classList,
-  title,
-  description,
-  breadcrumbs: _breadcrumbs,
-} = Astro.props;
-
-const { login, session } = Astro.locals;
-const valid = session?.valid ?? false;
-const data = valid ? await session?.drive.fetchData() : undefined;
-
-const state = { login, data, isValid: valid, email: session?.user?.email };
-export type RemoteState = typeof state;
+const { class: classList, title, description, breadcrumbs } = Astro.props;
 
 const loadingImages = Object.values(
   import.meta.glob<{ default: ImageMetadata }>("../assets/loading-*.gif", {
@@ -41,19 +29,6 @@ const loadingImages = Object.values(
 );
 const loadingImage =
   loadingImages[Math.floor(Math.random() * loadingImages.length)]!.default;
-
-const breadcrumbs = _breadcrumbs;
-const rootPages = [
-  { label: "calendar", href: "/calendar" },
-  { label: "jadwal", href: "/jadwal" },
-  { label: "tugas", href: "/tugas" },
-];
-const pathDepth = Astro.url.pathname.split("/").length;
-if (pathDepth > 2) breadcrumbs.unshift({ children: rootPages });
-else if (pathDepth === 2 && breadcrumbs.length > 0) {
-  const first = breadcrumbs[0]!;
-  first.children = rootPages.filter(({ label }) => first.label !== label);
-}
 ---
 
 <html lang="en" transition:animate="slide">
@@ -77,7 +52,7 @@ else if (pathDepth === 2 && breadcrumbs.length > 0) {
     <div
       class="flex flex-col justify-center container lg:w-3/4 min-h-[100vh] py-8"
     >
-      <AppBreadcrumb client:load {breadcrumbs} />
+      <AppBreadcrumb {breadcrumbs} />
 
       <main id="content" class:list={["flex-1 hidden", classList]}>
         <slot />
@@ -96,8 +71,7 @@ else if (pathDepth === 2 && breadcrumbs.length > 0) {
     </div>
 
     <Toaster client:only="svelte" richColors />
-    <div id="state-data" class="hidden" data-value={devalue.stringify(state)}>
-    </div>
+    <AppData />
   </body>
 </html>
 
@@ -109,52 +83,6 @@ else if (pathDepth === 2 && breadcrumbs.length > 0) {
   document.addEventListener("astro:page-load", () => {
     document.querySelector("#loading").classList.add("hidden");
     document.querySelector("main#content").classList.remove("hidden");
-  });
-</script>
-
-<script>
-  import type { RemoteState } from "./default-layout.astro";
-
-  import { state as localState, updateGoogleDriveData } from "$lib/stores";
-
-  import { signIn } from "auth-astro/client";
-  import * as devalue from "devalue";
-  import { get } from "svelte/store";
-
-  document.addEventListener("astro:page-load", async () => {
-    const dataElement = document.querySelector("#state-data");
-    if (!(dataElement instanceof HTMLElement)) return;
-
-    const remoteState = devalue.parse(
-      dataElement.dataset.value!
-    ) as RemoteState;
-
-    if (remoteState.login === undefined) {
-      sessionStorage.removeItem("login");
-      return;
-    }
-
-    sessionStorage.setItem("login", remoteState.login);
-
-    if (remoteState.login !== "google") return;
-    else if (!remoteState.isValid || typeof remoteState.email !== "string") {
-      await signIn("google");
-      return;
-    }
-
-    // @ts-expect-error @types/umami is outdated, see https://umami.is/docs/tracker-functions#session-data
-    window.umami?.identify({ email: remoteState.email });
-
-    const local = get(localState);
-    const { data: remote } = remoteState;
-
-    if (remote === undefined || remote.last_update < local.last_update) {
-      console.log("[sync] local >> google-drive");
-      updateGoogleDriveData();
-    } else if (remote.last_update > local.last_update) {
-      console.log("[sync] google-drive >> local");
-      localState.set(remote);
-    }
   });
 </script>
 

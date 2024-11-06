@@ -1,0 +1,24 @@
+---
+import AppBreadcrumbSvelte from "$lib/components/app-breadcrumb.svelte";
+
+import type { BreadcrumbItem } from "$lib/types";
+
+interface Props {
+  breadcrumbs: BreadcrumbItem[];
+}
+
+const breadcrumbs = [...Astro.props.breadcrumbs];
+const rootPages = [
+  { label: "calendar", href: "/calendar" },
+  { label: "jadwal", href: "/jadwal" },
+  { label: "tugas", href: "/tugas" },
+];
+const pathDepth = Astro.url.pathname.split("/").length;
+if (pathDepth > 2) breadcrumbs.unshift({ children: rootPages });
+else if (pathDepth === 2 && breadcrumbs.length > 0) {
+  const first = breadcrumbs[0]!;
+  first.children = rootPages.filter(({ label }) => first.label !== label);
+}
+---
+
+<AppBreadcrumbSvelte client:load {breadcrumbs} />
