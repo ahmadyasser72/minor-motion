@@ -29,3 +29,14 @@ tempat-pengumpulan: e-learning
    - Tambahkan fitur pencarian kontak berdasarkan nama atau nomor telepon, lalu tampilkan hasilnya di JTable
    - Buat validasi input untuk memastikan nomor telepon yang dimasukkan hanya berisi angka dan memiliki panjang yang sesuai
    - Sediakan fitur untuk mengekspor daftar kontak ke file CSV dan mengimpor kontak dari file CSV ke database.
+
+## Indikator penilaian
+
+| No  | Komponen         | Persentase |
+| --- | ---------------- | ---------- |
+| 1   | Komponen GUI     | 20         |
+| 2   | Logika program   | 30         |
+| 3   | Events           | 15         |
+| 4   | Kesesuaian UI    | 15         |
+| 5   | Memenuhi variasi | 20         |
+|     | Total            | 100        |

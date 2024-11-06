@@ -28,3 +28,14 @@ tempat-pengumpulan: e-learning
    - KeyAdapter pada JTextField untuk membatasi input hanya angka
    - Gunakan JOptionPane untuk menampilkan error input
    - Implementasikan FocusListener untuk membersihkan JTextField saat mendapatkan fokus.
+
+## Indikator penilaian
+
+| No  | Komponen         | Persentase |
+| --- | ---------------- | ---------- |
+| 1   | Komponen GUI     | 20         |
+| 2   | Logika program   | 20         |
+| 3   | Events           | 15         |
+| 4   | Kesesuaian UI    | 15         |
+| 5   | Memenuhi variasi | 30         |
+|     | Total            | 100        |

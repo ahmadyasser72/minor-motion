@@ -29,3 +29,14 @@ tempat-pengumpulan: e-learning
    - Tambahkan skala suhu lain seperti Reamur dan Kelvin
    - Tambahkan ItemListener pada JRadioButton untuk memilih arah konversi
    - Implementasikan konversi otomatis saat nilai input berubah
+
+## Indikator penilaian
+
+| No  | Komponen         | Persentase |
+| --- | ---------------- | ---------- |
+| 1   | Komponen GUI     | 10         |
+| 2   | Logika program   | 20         |
+| 3   | Events           | 15         |
+| 4   | Kesesuaian UI    | 15         |
+| 5   | Memenuhi variasi | 40         |
+|     | Total            | 100        |

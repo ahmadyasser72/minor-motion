@@ -28,3 +28,14 @@ tempat-pengumpulan: e-learning
 
    - Tampilkan informasi tambahan seperti hari pertama dan terakhir dalam bulan tersebut
    - Integrasikan fitur untuk menghitung selisih hari antara dua tanggal
+
+## Indikator penilaian
+
+| No  | Komponen         | Persentase |
+| --- | ---------------- | ---------- |
+| 1   | Komponen GUI     | 10         |
+| 2   | Logika program   | 20         |
+| 3   | Events           | 20         |
+| 4   | Kesesuaian UI    | 20         |
+| 5   | Memenuhi variasi | 30         |
+|     | Total            | 100        |

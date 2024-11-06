@@ -28,3 +28,14 @@ tempat-pengumpulan: e-learning
    - Tambahkan kemampuan untuk menyimpan kota yang sering dicek ke dalam daftar lokasi favorit, sehingga dapat dipilih dengan cepat dari JComboBox
    - Sediakan tombol untuk menyimpan data dari tabel ke dalam file CSV atau teks agar data cuaca dapat diakses kembali
    - Tambahkan fitur untuk memuat data cuaca yang tersimpan dan menampilkannya di JTable.
+
+## Indikator penilaian
+
+| No  | Komponen         | Persentase |
+| --- | ---------------- | ---------- |
+| 1   | Komponen GUI     | 10         |
+| 2   | Logika program   | 20         |
+| 3   | Events           | 10         |
+| 4   | Kesesuaian UI    | 20         |
+| 5   | Memenuhi variasi | 40         |
+|     | Total            | 100        |

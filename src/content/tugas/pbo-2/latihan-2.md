@@ -27,3 +27,14 @@ tempat-pengumpulan: e-learning
 
    - Sediakan informasi tambahan seperti hari ulang tahun berikutnya
    - Integrasikan dengan API eksternal untuk menampilkan peristiwa penting pada tanggal lahir
+
+## Indikator penilaian
+
+| No  | Komponen         | Persentase |
+| --- | ---------------- | ---------- |
+| 1   | Komponen GUI     | 10         |
+| 2   | Logika program   | 10         |
+| 3   | Events           | 20         |
+| 4   | Kesesuaian UI    | 10         |
+| 5   | Memenuhi variasi | 50         |
+|     | Total            | 100        |

@@ -28,3 +28,14 @@ tempat-pengumpulan: e-learning
    - Tambahkan fitur untuk memeriksa apakah angka tersebut adalah bilangan prima
    - Gunakan JOptionPane untuk menampilkan pesan hasil dan error
    - Implementasikan FocusListener untuk membersihkan JTextField saat mendapatkan fokus
+
+## Indikator penilaian
+
+| No  | Komponen         | Persentase |
+| --- | ---------------- | ---------- |
+| 1   | Komponen GUI     | 20         |
+| 2   | Logika program   | 20         |
+| 3   | Events           | 15         |
+| 4   | Kesesuaian UI    | 15         |
+| 5   | Memenuhi variasi | 30         |
+|     | Total            | 100        |

@@ -28,3 +28,14 @@ tempat-pengumpulan: e-learning
    - Tambahkan opsi untuk memasukkan kode kupon diskon tambahan
    - Tambahkan JSlider sebagai alternatif JComboBox untuk memilih persentase diskon
    - Sediakan riwayat perhitungan diskon yang telah dilakukan.
+
+## Indikator penilaian
+
+| No  | Komponen         | Persentase |
+| --- | ---------------- | ---------- |
+| 1   | Komponen GUI     | 20         |
+| 2   | Logika program   | 20         |
+| 3   | Events           | 15         |
+| 4   | Kesesuaian UI    | 15         |
+| 5   | Memenuhi variasi | 30         |
+|     | Total            | 100        |

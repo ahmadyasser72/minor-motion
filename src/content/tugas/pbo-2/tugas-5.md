@@ -28,3 +28,14 @@ tempat-pengumpulan: e-learning
    - Tambahkan fitur untuk menghitung jumlah kalimat dan paragraf
    - Implementasikan fungsi pencarian kata tertentu dalam teks
    - Sediakan opsi untuk menyimpan teks dan hasil perhitungan ke file
+
+## Indikator penilaian
+
+| No  | Komponen         | Persentase |
+| --- | ---------------- | ---------- |
+| 1   | Komponen GUI     | 10         |
+| 2   | Logika program   | 20         |
+| 3   | Events           | 10         |
+| 4   | Kesesuaian UI    | 20         |
+| 5   | Memenuhi variasi | 40         |
+|     | Total            | 100        |
