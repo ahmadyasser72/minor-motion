@@ -19,25 +19,26 @@ Aplikasi web tracking tugas dengan fitur-fitur seperti tracking tugas (sudah/bel
 
 Aplikasi web tracking tugas ini menggunakan library/teknologi berikut:
 
-- [Astro](https://astro.build/) **(full-stack)**: Framework web yang mudah integrasi pembuatan kontennya (konten disini adalah data tugas).
+- [Astro](https://astro.build/) **(full-stack)**: Framework web yang mudah integrasi pembuatan konten (yang disini adalah data tugas), bisa dilihat di folder [content/tugas](./src/content/tugas).
 - [Svelte 5](https://svelte.dev/) **(frontend)**: Framework UI interaktif yang mudah digunakan.
 - [Tailwind CSS](https://tailwindcss.com/) **(frontend)**: Framework CSS Atomic.
 - [shadcn/ui](https://ui.shadcn.com/) **(frontend)**: Komponen UI tambahan.
 - [Google Drive API V3](https://developers.google.com/drive/api/reference/rest/v3) **(backend)**: Bila login Google akan menggunakan scope [appdata](https://developers.google.com/drive/api/guides/appdata) untuk menyimpan data user.
-- [Umami](https://umami.is/) **(analytics)**: Public share url umami [disini](https://eu.umami.is/share/oW5KJW0dHx8i2EEx/minor-motion.pages.dev).
-- [Cloudflare Pages](https://pages.cloudflare.com/) **(hosting)**: Mudah digunakan dengan github karena bisa deploy otomatis setiap commit.
+- [Umami](https://umami.is/) **(analytics)**: Public share url umami https://eu.umami.is/share/oW5KJW0dHx8i2EEx/minor-motion.pages.dev.
+- [Cloudflare Pages](https://pages.cloudflare.com/) **(hosting)**: Mudah digunakan dengan github karena bisa deploy otomatis setiap commit dan subdomainnya juga lebih universal dan keren (`pages.dev`) dibanding vercel (`vercel.app`) dan netlify (`netlify.app`).
 
 ## Features
 
 Berikut fitur-fitur dari [minor-motion](https://minor-motion.pages.dev):
 
 - Tracking tugas (sudah/belum), tugas yang telat akan dibedakan.
+- Data tugas selalu update! bila ada yang tertinggal silahkan [buka issue](https://github.com/ahmadyasser72/minor-motion/issues/new).
 - [Calendar tugas](https://minor-motion.pages.dev/calendar) yang menandai tugas pada hari tenggatnya.
 - [Listing jadwal](https://minor-motion.pages.dev/jadwal) berisi jadwal harian disertai jumlah tugas pada tiap mata kuliah (bila ada).
 - Listing tugas berdasarkan mata kuliah (bisa dibuka melalui listing jadwal, [contoh](https://minor-motion.pages.dev/tugas/pbo-2/)).
 - Halaman tugas berisi penanda selesai, deskripsi tugas, link pengumpulan, dan detail tugas lainnya ([contoh](https://minor-motion.pages.dev/tugas/pbo-2/latihan-1)).
 - Login menggunakan Google untuk sinkronisasi data antar perangkat.
-- Open source (bebas bisa kontribusi code atau menambah data tugas).
+- Open source, jadi semua bebas bisa berkontribusi code atau menambah data tugas.
 
 ## Installation
 
