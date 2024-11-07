@@ -1,5 +1,5 @@
 ---
-judul: Tugas 4 - Aplikasi Penampil Gambar
+judul: Tugas 4 - Aplikasi Perhitungan Hari
 tipe: individu
 mata-kuliah: pbo-2
 batas-waktu: 2024-11-17T22:00:00+08:00
