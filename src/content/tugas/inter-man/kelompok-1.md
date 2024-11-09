@@ -9,6 +9,21 @@ tempat-pengumpulan: google-form
 
 Buat makalah dengan referensi sesuai dengan nomor kelompok, batas waktu sebelum UTS.
 
+## Struktur makalah
+
+1. Latar belakang masalah
+2. Perumusan masalah
+3. Tujuan dan manfaat
+4. Pembahasan:
+   1. Pengertian IMK
+   2. Tujuan IMK
+   3. Hubungan timbal balik manusia dan komputer
+   4. Perkembangan IMK
+   5. Kesimpulan
+5. Daftar pustaka (sesuai nomor kelompok)
+
+## Daftar referensi kelompok
+
 Kelompok 1:
 
 1. https://eprints.unhasy.ac.id/231/1/4.Interaksi%20Manusia%20%26%20Komputer%202021.pdf
