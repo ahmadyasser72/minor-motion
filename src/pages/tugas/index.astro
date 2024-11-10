@@ -1,10 +1,10 @@
 ---
 import DaftarTugas from "$lib/layouts/daftar-tugas.astro";
-import type { ListTugas } from "$lib/types";
+import type { Tugas } from "$lib/types";
 
 import { getCollection } from "astro:content";
 
-const allTugas: ListTugas = (await getCollection("tugas"))
+const allTugas: Tugas[] = (await getCollection("tugas"))
   .map(({ slug, data }) => ({ ...data, id: slug }))
   .sort((a, b) => a["batas-waktu"].valueOf() - b["batas-waktu"].valueOf());
 ---

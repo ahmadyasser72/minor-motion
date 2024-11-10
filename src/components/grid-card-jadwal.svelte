@@ -2,12 +2,12 @@
   import CardJadwal from "./card-jadwal.svelte";
 
   import { Badge } from "$lib/components/ui/badge";
-  import type { ListJadwalMap, ListStatusTugasMap } from "$lib/types";
+  import type { MapListJadwal, MapListTugasLewat } from "$lib/types";
   import { CircleAlert, Info } from "lucide-svelte";
 
   interface Props {
-    dailyJadwalMap: ListJadwalMap;
-    allStatusTugasMap: ListStatusTugasMap;
+    dailyJadwalMap: MapListJadwal;
+    allStatusTugasMap: MapListTugasLewat;
   }
 
   let { dailyJadwalMap, allStatusTugasMap }: Props = $props();

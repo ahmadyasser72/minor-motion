@@ -5,7 +5,7 @@
   import { Badge } from "$lib/components/ui/badge";
   import { ScrollArea } from "$lib/components/ui/scroll-area";
   import { tasks } from "$lib/stores";
-  import type { ListJadwal, ListStatusTugas, TugasId } from "$lib/types";
+  import type { ListJadwal, ListTugasLewat, TugasId } from "$lib/types";
 
   import {
     CircleAlert,
@@ -17,7 +17,7 @@
 
   interface Props {
     jadwal: ListJadwal[number];
-    allStatusTugas: ListStatusTugas;
+    allStatusTugas: ListTugasLewat;
   }
 
   let { jadwal, allStatusTugas }: Props = $props();
@@ -27,17 +27,17 @@
     `${pad(hour)}:${pad(minute)}`;
 
   const tugas = $derived.by(() => {
-    const normal: TugasId[] = [];
+    const belum: TugasId[] = [];
     const lewat: TugasId[] = [];
 
-    for (const [id, status] of allStatusTugas) {
+    for (const [id, sudahLewat] of allStatusTugas) {
       if ($tasks.isDone(id)) continue;
 
-      if (status === "normal") normal.push(id);
-      else if (status === "lewat") lewat.push(id);
+      if (sudahLewat) lewat.push(id);
+      else belum.push(id);
     }
 
-    return { normal, lewat };
+    return { belum, lewat };
   });
 </script>
 
@@ -80,9 +80,9 @@
   {/snippet}
 
   <ClientOnly>
-    {#if tugas.normal.length > 0}
+    {#if tugas.belum.length > 0}
       {@render tugasBadgeDropdown(
-        tugas.normal,
+        tugas.belum,
         "bg-indigo-600 hover:bg-indigo-800",
         Info
       )}

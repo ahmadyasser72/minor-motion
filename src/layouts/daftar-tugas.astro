@@ -5,12 +5,12 @@ import GridCardTugas from "$lib/components/grid-card-tugas.svelte";
 
 import { Separator } from "$lib/components/ui/separator";
 import DefaultLayout from "$lib/layouts/default-layout.astro";
-import type { ListTugas } from "$lib/types";
+import type { Tugas } from "$lib/types";
 
 interface Props extends DefaultLayoutProps {
   heading1: string;
   heading2: string;
-  allTugas: ListTugas;
+  allTugas: Tugas[];
   displaySubject: boolean;
 }
 

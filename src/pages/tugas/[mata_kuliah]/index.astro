@@ -1,6 +1,6 @@
 ---
 import DaftarTugas from "$lib/layouts/daftar-tugas.astro";
-import type { ListTugas } from "$lib/types";
+import type { Tugas } from "$lib/types";
 
 import { getEntry } from "astro:content";
 import { getCollection } from "astro:content";
@@ -11,7 +11,7 @@ if (mata_kuliah === undefined) throw new Error("link tidak valid");
 const entry = await getEntry("mata-kuliah", mata_kuliah);
 if (entry === undefined) throw new Error("mata kuliah tidak ditemukan");
 
-const allTugas: ListTugas = (
+const allTugas: Tugas[] = (
   await getCollection(
     "tugas",
     ({ data }) => data["mata-kuliah"].id === mata_kuliah

@@ -2,13 +2,13 @@
   import CardTugas from "./card-tugas.svelte";
 
   import { tasks } from "$lib/stores";
-  import type { ListTugas } from "$lib/types";
+  import type { Tugas } from "$lib/types";
 
   import { flip } from "svelte/animate";
   import { expoInOut } from "svelte/easing";
 
   interface Props {
-    allTugas: ListTugas;
+    allTugas: Tugas[];
     displaySubject: boolean;
   }
 

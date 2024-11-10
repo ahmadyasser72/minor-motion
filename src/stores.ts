@@ -1,4 +1,4 @@
-import type { State, Tugas, TugasId, TugasState } from "$lib/types";
+import { StatusTugas, type State, type Tugas, type TugasId } from "$lib/types";
 import { debounce } from "$lib/utils";
 
 import { derived, get } from "svelte/store";
@@ -46,10 +46,10 @@ const _updateGoogleDriveData = () => {
 const updateGoogleDriveData = debounce(_updateGoogleDriveData, 2000);
 
 export const tasks = derived(state, ($state) => ({
-  getTugasState: (data: Pick<Tugas, "id" | "batas-waktu">): TugasState => {
-    if ($state.completed_tasks.has(data.id)) return "sudah";
-    else if (new Date() > data["batas-waktu"]) return "telat";
-    else return "belum";
+  getTugasState: (data: Pick<Tugas, "id" | "batas-waktu">): StatusTugas => {
+    if ($state.completed_tasks.has(data.id)) return StatusTugas.sudah;
+    else if (new Date() > data["batas-waktu"]) return StatusTugas.terlambat;
+    else return StatusTugas.belum;
   },
   isDone: (id: TugasId) => $state.completed_tasks.has(id),
   done: (id: TugasId) => {

@@ -3,14 +3,14 @@
 
   import * as Card from "$lib/components/ui/card";
   import { Separator } from "$lib/components/ui/separator";
-  import type { ListJadwal, ListStatusTugasMap } from "$lib/types";
+  import type { ListJadwal, MapListTugasLewat } from "$lib/types";
   import { allHari } from "$lib/utils";
 
   interface Props {
     hari: string;
     active?: any;
     dailyJadwal: ListJadwal;
-    allStatusTugasMap: ListStatusTugasMap;
+    allStatusTugasMap: MapListTugasLewat;
   }
 
   let {

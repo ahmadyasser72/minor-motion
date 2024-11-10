@@ -26,11 +26,6 @@ const { Content } = await entry.render();
     { label: tugas },
   ]}
 >
-  <h2
-    class="scroll-m-20 pb-2 text-3xl text-center sm:text-start font-semibold tracking-tight transition-colors first:mt-0"
-  >
-    {data.judul}
-  </h2>
   <PageTugasHeading client:load {data} />
 
   <Separator class="my-4" />

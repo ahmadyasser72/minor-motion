@@ -1,9 +1,12 @@
 <script lang="ts">
+  import BadgeStatusTugas from "./badge-status-tugas.svelte";
+  import ClientOnly from "./client-only.svelte";
+
   import { Calendar } from "$lib/components/ui/calendar";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
   import { ScrollArea } from "$lib/components/ui/scroll-area";
   import { tasks } from "$lib/stores";
-  import type { ListBatasWaktuTugas, TugasState } from "$lib/types";
+  import { StatusTugas, type ListBatasWaktuTugas } from "$lib/types";
   import { cn } from "$lib/utils";
 
   import {
@@ -11,8 +14,6 @@
     parseAbsoluteToLocal,
     type DateValue,
   } from "@internationalized/date";
-  import BadgeTaskState from "./badge-task-state.svelte";
-  import ClientOnly from "./client-only.svelte";
 
   interface Props {
     allBatasWaktuTugas: ListBatasWaktuTugas;
@@ -21,7 +22,6 @@
   let { allBatasWaktuTugas }: Props = $props();
 
   const getTugasByDate = (date: DateValue) => {
-    const stateOrder: TugasState[] = ["telat", "belum", "sudah"];
     const list = allBatasWaktuTugas
       .filter(([_, batasWaktu]) =>
         isSameDay(parseAbsoluteToLocal(batasWaktu.toISOString()), date)
@@ -30,17 +30,15 @@
         id,
         state: $tasks.getTugasState({ id, "batas-waktu": batasWaktu }),
       }))
-      .sort(
-        (a, b) => stateOrder.indexOf(a.state) - stateOrder.indexOf(b.state)
-      );
+      .sort((a, b) => a.state - b.state);
 
     if (list.length === 0) return false;
 
-    let className: string;
-    if (list.some(({ state }) => state === "telat")) className = "bg-red-200";
-    else if (list.some(({ state }) => state === "belum"))
+    let className = "bg-indigo-200";
+    if (list.some(({ state }) => state === StatusTugas.terlambat))
+      className = "bg-red-200";
+    else if (list.some(({ state }) => state === StatusTugas.belum))
       className = "bg-orange-200";
-    else className = "bg-indigo-200";
 
     return { list, className };
   };
@@ -77,7 +75,7 @@
                 <a href="/tugas/{data.id}">
                   <DropdownMenu.Item class="flex cursor-pointer">
                     <span class="flex-1">{data.id}</span>
-                    <BadgeTaskState state={data.state} />
+                    <BadgeStatusTugas status={data.state} />
                   </DropdownMenu.Item>
                 </a>
               {/each}

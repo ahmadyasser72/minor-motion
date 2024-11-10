@@ -1,10 +1,9 @@
 <script lang="ts">
   import * as Card from "$lib/components/ui/card";
   import { Button } from "$lib/components/ui/button";
-  import { state } from "$lib/stores";
 
-  import { signOut } from "auth-astro/client";
-  import { LogOut, User } from "lucide-svelte";
+  import { User } from "lucide-svelte";
+  import ButtonLogout from "./button-logout.svelte";
 
   interface Props {
     image: string | undefined;
@@ -12,14 +11,6 @@
   }
 
   let { image, name }: Props = $props();
-
-  const logOut = async () => {
-    if ($state.login === "google") await signOut();
-    else {
-      document.cookie = `login=; expires=${new Date(0).toISOString()}`;
-      document.location.reload();
-    }
-  };
 </script>
 
 <Card.Root class="min-w-64">
@@ -50,9 +41,6 @@
   </Card.Content>
 
   <Card.Footer class="justify-end">
-    <Button onclick={logOut} variant="outline">
-      <LogOut class="w-4 h-4 mr-2" />
-      Logout
-    </Button>
+    <ButtonLogout />
   </Card.Footer>
 </Card.Root>

@@ -2,22 +2,26 @@ import type { allHari } from "$lib/utils";
 
 import type { CollectionEntry } from "astro:content";
 
-export type MataKuliahId = CollectionEntry<"mata-kuliah">["id"];
+export enum StatusTugas {
+  terlambat,
+  belum,
+  sudah,
+}
 
-export type Tugas = CollectionEntry<"tugas">["data"] & { id: TugasId };
-export type ListTugas = Tugas[];
+export type MataKuliahId = CollectionEntry<"mata-kuliah">["id"];
 export type TugasId = CollectionEntry<"tugas">["slug"];
-export type TugasStatus = "normal" | "lewat";
-export type TugasState = "sudah" | "belum" | "telat";
+export type Tugas = CollectionEntry<"tugas">["data"] & { id: TugasId };
 
 export type ListJadwal = Array<
   CollectionEntry<"mata-kuliah">["data"] & {
     id: MataKuliahId;
   }
 >;
-export type ListJadwalMap = Record<(typeof allHari)[number], ListJadwal>;
-export type ListStatusTugas = Array<[TugasId, TugasStatus]>;
-export type ListStatusTugasMap = Record<MataKuliahId, ListStatusTugas>;
+export type MapListJadwal = Record<(typeof allHari)[number], ListJadwal>;
+
+export type ListTugasLewat = Array<[TugasId, boolean]>;
+export type MapListTugasLewat = Record<MataKuliahId, ListTugasLewat>;
+
 export type ListBatasWaktuTugas = Array<[TugasId, Date]>;
 
 export interface BreadcrumbItem {
