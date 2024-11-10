@@ -5,6 +5,7 @@ import svelte from "@astrojs/svelte";
 import tailwind from "@astrojs/tailwind";
 import cloudflare from "@astrojs/cloudflare";
 
+import AstroPWA from "@vite-pwa/astro";
 import auth from "auth-astro";
 
 import { execSync } from "node:child_process";
@@ -18,7 +19,42 @@ const _GITHUB_URL = exec("git remote get-url origin")
 // https://astro.build/config
 export default defineConfig({
   output: "server",
-  integrations: [svelte(), tailwind({ applyBaseStyles: false }), auth()],
+  integrations: [
+    svelte(),
+    tailwind({ applyBaseStyles: false }),
+    auth(),
+    AstroPWA({
+      registerType: "autoUpdate",
+      workbox: {
+        globIgnores: ["**/_worker.js/**/*"],
+        globPatterns: ["**/*.{css,js,html,svg,png,ico,txt}"],
+      },
+      manifest: {
+        start_url: "/",
+        name: "minor-motion",
+        short_name: "minor-motion",
+        description: "Aplikasi tracking tugas",
+        lang: "id-ID",
+        icons: [
+          {
+            src: "/web-app-manifest-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "any maskable",
+          },
+          {
+            src: "/web-app-manifest-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "any maskable",
+          },
+        ],
+        theme_color: "#ffffff",
+        background_color: "#ffffff",
+        display: "standalone",
+      },
+    }),
+  ],
   adapter: cloudflare(),
   vite: {
     // https://github.com/withastro/astro/issues/4416#issuecomment-2208336818
