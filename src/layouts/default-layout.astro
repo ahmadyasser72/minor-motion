@@ -16,11 +16,10 @@ import LoadingIndicator from "astro-loading-indicator/component";
 export interface Props {
   class?: string;
   title: string;
-  description?: string;
   breadcrumbs: BreadcrumbItem[];
 }
 
-const { class: classList, title, description, breadcrumbs } = Astro.props;
+const { class: classList, title, breadcrumbs } = Astro.props;
 
 const loadingImages = Object.values(
   import.meta.glob<{ default: ImageMetadata }>("../assets/loading-*.gif", {
@@ -42,7 +41,6 @@ const loadingImage =
     <meta name="generator" content={Astro.generator} />
 
     <title>{`${title} @ ${Astro.url.hostname}`}</title>
-    {description && <meta name="description" content={description} />}
 
     <link rel="preload" as="image" href={loadingImage.src} />
 
