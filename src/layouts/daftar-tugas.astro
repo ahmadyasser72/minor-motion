@@ -11,9 +11,10 @@ interface Props extends DefaultLayoutProps {
   heading1: string;
   heading2: string;
   allTugas: ListTugas;
+  displaySubject: boolean;
 }
 
-const { heading1, heading2, allTugas } = Astro.props;
+const { heading1, heading2, allTugas, displaySubject } = Astro.props;
 ---
 
 <DefaultLayout {...Astro.props}>
@@ -28,5 +29,5 @@ const { heading1, heading2, allTugas } = Astro.props;
 
   <Separator class="my-4" />
 
-  <GridCardTugas client:load {allTugas} />
+  <GridCardTugas client:load {allTugas} {displaySubject} />
 </DefaultLayout>

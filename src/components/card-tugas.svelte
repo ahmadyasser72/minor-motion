@@ -8,9 +8,10 @@
 
   interface Props {
     data: Tugas;
+    displaySubject: boolean;
   }
 
-  let { data }: Props = $props();
+  let { data, displaySubject }: Props = $props();
 
   let state = $derived($tasks.getTugasState(data));
 </script>
@@ -32,7 +33,7 @@
   </Card.Header>
 
   <Card.Content>
-    <CardTugasContent {state} {data} />
+    <CardTugasContent {state} {data} {displaySubject} />
   </Card.Content>
 
   <Card.Footer>

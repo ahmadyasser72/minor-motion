@@ -9,9 +9,10 @@
 
   interface Props {
     allTugas: ListTugas;
+    displaySubject: boolean;
   }
 
-  let { allTugas }: Props = $props();
+  let { allTugas, displaySubject }: Props = $props();
 
   let sortedAllTugas = $derived(
     [...allTugas].sort(
@@ -24,7 +25,7 @@
 <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
   {#each sortedAllTugas as data (data.id)}
     <div animate:flip={{ duration: 500, easing: expoInOut }}>
-      <CardTugas {data} />
+      <CardTugas {data} {displaySubject} />
     </div>
   {/each}
 </div>

@@ -6,10 +6,6 @@ import { getCollection } from "astro:content";
 
 const allTugas: ListTugas = (await getCollection("tugas"))
   .map(({ slug, data }) => ({ ...data, id: slug }))
-  .map((data) => ({
-    ...data,
-    judul: `${data["mata-kuliah"].id} | ${data.judul}`,
-  }))
   .sort((a, b) => a["batas-waktu"].valueOf() - b["batas-waktu"].valueOf());
 ---
 
@@ -19,4 +15,5 @@ const allTugas: ListTugas = (await getCollection("tugas"))
   heading2="Semua"
   title="Daftar Tugas"
   breadcrumbs={[{ label: "tugas" }]}
+  displaySubject={true}
 />

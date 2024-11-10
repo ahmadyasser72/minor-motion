@@ -9,9 +9,10 @@
   interface Props {
     state: TugasState;
     data: Tugas;
+    displaySubject: boolean;
   }
 
-  let { state, data }: Props = $props();
+  let { state, data, displaySubject }: Props = $props();
 </script>
 
 <div
@@ -19,15 +20,19 @@
 >
   <BadgeTaskState {state} />
 
-  <Badge variant="secondary">
-    {#if data.tipe === "individu"}
-      <User class="w-4 h-4 mr-1" />
-    {:else if data.tipe === "kelompok"}
-      <Users class="w-4 h-4 mr-1" />
-    {/if}
+  {#if displaySubject}
+    <Badge>{data["mata-kuliah"].id}</Badge>
+  {:else}
+    <Badge variant="secondary">
+      {#if data.tipe === "individu"}
+        <User class="w-4 h-4 mr-1" />
+      {:else if data.tipe === "kelompok"}
+        <Users class="w-4 h-4 mr-1" />
+      {/if}
 
-    {data.tipe}
-  </Badge>
+      {data.tipe}
+    </Badge>
+  {/if}
 
   <Badge variant="secondary">
     <ClockAlert class="w-4 h-4 mr-1" />
