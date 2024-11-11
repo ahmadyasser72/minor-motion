@@ -3,7 +3,7 @@ judul: UTS - jawab soal
 tipe: individu
 mata-kuliah: inter-man
 batas-waktu: 2024-11-11T14:00:00+08:00
-link-pengumpulan: https://forms.gle/QSGkZCpcjbwmffvQ9
+link-pengumpulan: https://forms.gle/YNrKn5fPTAAXW8Xi8
 tempat-pengumpulan: google-form
 ---
 
