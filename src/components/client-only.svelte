@@ -3,7 +3,7 @@
 
   interface Props {
     children: Snippet;
-    fallback: Snippet;
+    fallback?: Snippet;
   }
 
   let { children, fallback }: Props = $props();

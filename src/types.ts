@@ -30,8 +30,26 @@ export interface BreadcrumbItem {
   children?: Omit<BreadcrumbItem, "children">[];
 }
 
-export interface State {
-  readonly login?: App.Locals["login"];
+export interface GoogleDriveData {
   completed_tasks: Set<TugasId>;
   last_update: Date;
+}
+
+export interface GoogleUser {
+  readonly name?: string;
+  readonly image?: string;
+}
+
+export interface State extends GoogleDriveData {
+  readonly login?: "local" | "google";
+}
+
+export interface RemoteState {
+  readonly login: State["login"] | "google-invalid";
+
+  readonly name?: string;
+  readonly email?: string;
+  readonly image?: string;
+
+  readonly data?: GoogleDriveData;
 }

@@ -6,11 +6,22 @@ import { Separator } from "$lib/components/ui/separator";
 import DefaultLayout from "$lib/layouts/default-layout.astro";
 import type { Tugas } from "$lib/types";
 
-import { getEntry } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
+
+import type { GetStaticPaths } from "astro";
+
+export const getStaticPaths = (async () => {
+  const allTugas = await getCollection("tugas");
+
+  return allTugas.map(({ slug, data }) => ({
+    params: {
+      mata_kuliah: data["mata-kuliah"].id,
+      tugas: slug.split("/").at(-1)!,
+    },
+  }));
+}) satisfies GetStaticPaths;
 
 const { mata_kuliah, tugas } = Astro.params;
-if (mata_kuliah === undefined || tugas === undefined)
-  throw new Error("link tidak valid");
 
 const entry = await getEntry("tugas", `${mata_kuliah}/${tugas}`);
 if (entry === undefined) throw new Error("tugas tidak ditemukan!");

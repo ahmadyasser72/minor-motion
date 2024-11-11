@@ -1,15 +1,14 @@
-import type { State } from "$lib/types";
+import type { GoogleDriveData } from "$lib/types";
 
+import type { Session } from "@auth/core/types";
 import * as devalue from "devalue";
 
 const dataFilename = import.meta.env.PROD ? "state.json" : "state.dev.json";
 
-export type GoogleDriveData = Omit<State, "login">;
-
 export class GoogleDrive {
   private token: string;
 
-  constructor({ token }: Pick<App.Session, "token">) {
+  constructor({ token }: Pick<Session, "token">) {
     this.token = token;
   }
 

@@ -1,15 +1,23 @@
 ---
 import DaftarTugas from "$lib/layouts/daftar-tugas.astro";
 import type { Tugas } from "$lib/types";
+import { getMataKuliah } from "$lib/utils.content";
 
-import { getEntry } from "astro:content";
-import { getCollection } from "astro:content";
+import { getEntry, getCollection } from "astro:content";
+
+import type { GetStaticPaths } from "astro";
+
+export const getStaticPaths = (async () => {
+  const allMataKuliah = await getMataKuliah();
+
+  return allMataKuliah.map(({ id }) => ({
+    params: { mata_kuliah: id },
+  }));
+}) satisfies GetStaticPaths;
 
 const { mata_kuliah } = Astro.params;
-if (mata_kuliah === undefined) throw new Error("link tidak valid");
 
 const entry = await getEntry("mata-kuliah", mata_kuliah);
-if (entry === undefined) throw new Error("mata kuliah tidak ditemukan");
 
 const allTugas: Tugas[] = (
   await getCollection(

@@ -1,9 +1,7 @@
 ---
-import PageIndexDefault from "$lib/components/page-index-default.astro";
-import PageIndexLoggedIn from "$lib/components/page-index-logged-in.astro";
-import DefaultLayout from "$lib/layouts/default-layout.astro";
+import IndexPage from "$lib/components/index-page.svelte";
 
-const { login, session } = Astro.locals;
+import DefaultLayout from "$lib/layouts/default-layout.astro";
 ---
 
 <DefaultLayout
@@ -11,5 +9,5 @@ const { login, session } = Astro.locals;
   breadcrumbs={[]}
   class="flex flex-col items-center justify-center"
 >
-  {login !== undefined ? <PageIndexLoggedIn {session} /> : <PageIndexDefault />}
+  <IndexPage client:load />
 </DefaultLayout>

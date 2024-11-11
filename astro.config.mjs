@@ -18,16 +18,18 @@ const _GITHUB_URL = exec("git remote get-url origin")
 
 // https://astro.build/config
 export default defineConfig({
-  output: "server",
+  output: "hybrid",
   integrations: [
     svelte(),
     tailwind({ applyBaseStyles: false }),
-    auth(),
+    auth({ injectEndpoints: false }),
     AstroPWA({
-      registerType: "autoUpdate",
+      registerType: "prompt",
       workbox: {
         globIgnores: ["**/_worker.js/**/*"],
         globPatterns: ["**/*.{css,js,html,svg,png,ico,txt}"],
+        navigateFallback: "/",
+        navigateFallbackDenylist: [new RegExp("/api/auth")],
       },
       manifest: {
         start_url: "/",

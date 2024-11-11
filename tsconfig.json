@@ -3,6 +3,7 @@
   "include": ["./src/**/*", "./auth.config.ts"],
   "compilerOptions": {
     "baseUrl": ".",
+    "exactOptionalPropertyTypes": false,
     "types": ["vite-plugin-pwa/info", "vite-plugin-pwa/vanillajs"],
     "paths": {
       "$lib/*": ["./src/*"]

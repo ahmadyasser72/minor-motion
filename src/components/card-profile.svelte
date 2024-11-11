@@ -1,24 +1,19 @@
 <script lang="ts">
-  import * as Card from "$lib/components/ui/card";
-  import { Button } from "$lib/components/ui/button";
-
-  import { User } from "lucide-svelte";
   import ButtonLogout from "./button-logout.svelte";
 
-  interface Props {
-    image: string | undefined;
-    name: string;
-  }
+  import * as Card from "$lib/components/ui/card";
+  import { Button } from "$lib/components/ui/button";
+  import { googleUser } from "$lib/stores";
 
-  let { image, name }: Props = $props();
+  import { User } from "lucide-svelte";
 </script>
 
 <Card.Root class="min-w-64">
   <Card.Header>
     <div class="flex flex-row items-center space-x-2">
-      {#if image !== undefined}
+      {#if $googleUser?.image !== undefined}
         <img
-          src={image}
+          src={$googleUser.image}
           alt="avatar"
           class="w-12 h-12 sm:w-16 sm:h-16 border border-primary rounded-full object-cover"
         />
@@ -28,7 +23,7 @@
         </div>
       {/if}
 
-      <span class="text-lg sm:text-2xl">{name}</span>
+      <span class="text-lg sm:text-2xl">{$googleUser?.name ?? "Anonim"}</span>
     </div>
   </Card.Header>
 

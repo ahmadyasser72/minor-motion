@@ -1,49 +1,22 @@
-import { StatusTugas, type State, type Tugas, type TugasId } from "$lib/types";
-import { debounce } from "$lib/utils";
+import {
+  StatusTugas,
+  type State,
+  type Tugas,
+  type TugasId,
+  type GoogleUser,
+} from "$lib/types";
 
-import { derived, get } from "svelte/store";
+import { derived, writable } from "svelte/store";
 
 import * as devalue from "devalue";
 import { persisted } from "svelte-persisted-store";
-import { toast } from "svelte-sonner";
 
-const state = persisted<State>(
+export const googleUser = writable<GoogleUser>();
+export const state = persisted<State>(
   "state",
   { completed_tasks: new Set(), last_update: new Date(0) },
-  {
-    serializer: devalue,
-    beforeRead: (state) => ({
-      ...state,
-      login: sessionStorage.getItem("login") as State["login"],
-    }),
-  }
+  { serializer: devalue }
 );
-
-const _updateGoogleDriveData = () => {
-  const { login, completed_tasks, last_update } = get(state);
-
-  if (login !== "google") return;
-
-  toast.promise(
-    async () => {
-      const response = await fetch("/api/sync-data", {
-        method: "POST",
-        body: devalue.stringify({ completed_tasks, last_update }),
-        headers: { "content-type": "application/json" },
-      });
-
-      if (!response.ok) throw await response.text();
-    },
-    {
-      duration: 3000,
-      loading: "Sedang sinkronisasi data ke server...",
-      success: "Sinkronisasi selesai!",
-      error: (err) => err as string,
-    }
-  );
-};
-
-const updateGoogleDriveData = debounce(_updateGoogleDriveData, 2000);
 
 export const tasks = derived(state, ($state) => ({
   getTugasState: (data: Pick<Tugas, "id" | "batas-waktu">): StatusTugas => {
@@ -56,16 +29,10 @@ export const tasks = derived(state, ($state) => ({
     $state.completed_tasks.add(id);
     $state.last_update = new Date();
     state.set($state);
-
-    updateGoogleDriveData();
   },
   undo: (id: TugasId) => {
     $state.completed_tasks.delete(id);
     $state.last_update = new Date();
     state.set($state);
-
-    updateGoogleDriveData();
   },
 }));
-
-export { state, _updateGoogleDriveData as updateGoogleDriveData };

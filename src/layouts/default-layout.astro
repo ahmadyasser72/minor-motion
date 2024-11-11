@@ -5,7 +5,6 @@ import { pwaInfo } from "virtual:pwa-info";
 
 import AnalyticsUmami from "$lib/components/analytics-umami.astro";
 import AppBreadcrumb from "$lib/components/app-breadcrumb.astro";
-import AppData from "$lib/components/app-data.astro";
 import AppFooter from "$lib/components/app-footer.svelte";
 
 import { Toaster } from "$lib/components/ui/sonner";
@@ -22,14 +21,6 @@ export interface Props {
 }
 
 const { class: classList, title, breadcrumbs } = Astro.props;
-
-const loadingImages = Object.values(
-  import.meta.glob<{ default: ImageMetadata }>("../assets/loading-*.gif", {
-    eager: true,
-  })
-);
-const loadingImage =
-  loadingImages[Math.floor(Math.random() * loadingImages.length)]!.default;
 ---
 
 <html lang="en" transition:animate="slide">
@@ -51,8 +42,6 @@ const loadingImage =
     <title>{`${title} @ ${Astro.url.hostname}`}</title>
     <meta name="description" content={title} />
 
-    <link rel="preload" as="image" href={loadingImage.src} />
-
     <AnalyticsUmami />
   </head>
   <body>
@@ -61,51 +50,19 @@ const loadingImage =
     >
       <AppBreadcrumb {breadcrumbs} />
 
-      <main id="content" class:list={["flex-1 hidden", classList]}>
+      <main class:list={["flex-1", classList]}>
         <slot />
       </main>
-
-      <div id="loading" class="flex items-center flex-1 self-center">
-        <img
-          class="object-cover max-h-[450px]"
-          alt="loading..."
-          src={loadingImage.src}
-          style={{ height: Math.max(loadingImage.height, 450) + "px" }}
-        />
-      </div>
 
       <AppFooter client:load />
     </div>
 
     <Toaster client:only="svelte" richColors />
-    <AppData />
   </body>
 </html>
 
-<script is:inline>
-  document.addEventListener("astro:before-preparation", () => {
-    document.querySelector("#loading").classList.remove("hidden");
-    document.querySelector("main#content").classList.add("hidden");
-  });
-  document.addEventListener("astro:page-load", () => {
-    document.querySelector("#loading").classList.add("hidden");
-    document.querySelector("main#content").classList.remove("hidden");
-  });
-</script>
-
-<script>
-  import { registerSW } from "virtual:pwa-register";
-
-  registerSW({
-    immediate: true,
-    onRegisteredSW(swScriptUrl) {
-      console.log("SW registered: ", swScriptUrl);
-    },
-    onOfflineReady() {
-      console.log("PWA application ready to work offline");
-    },
-  });
-</script>
+<script src="./pwa.ts"></script>
+<script src="./sync.ts"></script>
 
 <style is:global>
   .astro-loading-indicator {
