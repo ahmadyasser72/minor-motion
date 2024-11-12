@@ -26,13 +26,14 @@ export default defineConfig({
     AstroPWA({
       registerType: "prompt",
       workbox: {
+        // https://github.com/vite-pwa/astro/issues/35#issuecomment-2068031978
         globIgnores: ["**/_worker.js/**/*"],
         globPatterns: ["**/*.{css,js,html,svg,png,ico,txt}"],
-        navigateFallback: "/",
-        navigateFallbackDenylist: [new RegExp("/api/auth")],
+        navigateFallback: "index.html",
+        navigateFallbackDenylist: [new RegExp("/api/")],
       },
       manifest: {
-        start_url: "/",
+        start_url: "/index.html",
         name: "minor-motion",
         short_name: "minor-motion",
         description: "Aplikasi tracking tugas",

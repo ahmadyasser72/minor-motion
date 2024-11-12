@@ -1,5 +1,6 @@
-import * as devalue from "devalue";
 import type { GoogleDriveData, RemoteState, State } from "./types";
+
+import * as devalue from "devalue";
 
 export const fetchRemoteData = async (): Promise<RemoteState> => {
   const response = await fetch("/api/sync-data");
