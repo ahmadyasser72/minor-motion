@@ -6,12 +6,12 @@ import {
   type GoogleUser,
 } from "$lib/types";
 
-import { derived, writable } from "svelte/store";
+import { derived } from "svelte/store";
 
 import * as devalue from "devalue";
 import { persisted } from "svelte-persisted-store";
 
-export const googleUser = writable<GoogleUser>();
+export const googleUser = persisted<GoogleUser>("user-data", {});
 export const state = persisted<State>(
   "state",
   { completed_tasks: new Set(), last_update: new Date(0) },
