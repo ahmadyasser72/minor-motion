@@ -2,12 +2,12 @@
 judul: UTS - Aplikasi Sederhana
 tipe: individu
 mata-kuliah: pbo-2
-batas-waktu: 2024-11-17T22:00:00+08:00
+batas-waktu: 2024-11-24T22:00:00+08:00
 link-pengumpulan: https://elearning.uniska-bjm.ac.id/mod/assign/view.php?id=38901
 tempat-pengumpulan: e-learning
 ---
 
-> [pdf asli](https://b.catgirlsare.sexy/FAFYmvHdSOgs.pdf)
+> https://drive.google.com/file/u/0/d/14StLTzJeMxOnLn8iDLptgkdl0PYDaWiQ/view
 
 Bentuk ujian tengah semester (UTS) adalah pembuatan sebuah aplikasi GUI sederhana;
 
@@ -43,12 +43,12 @@ Aplikasi dapat dipilih dari daftar di bawah:
 | 5   | Dokumentasi Kode              | 10         |
 |     | Total                         | 80         |
 
-> Tantangan (20 poin): Tambahkan fitur untuk mengimpor dan mengekspor data ke dalam format file tertentu (misalnya .txt atau .json).
+> Tantangan (20 poin): Tambahkan fitur untuk mengimpor dan mengekspor data ke dalam format file tertentu (misalnya .txt, .pdf, xls, atau .json)
 
 ## Cara pengumpulan jawaban
 
 - Unggah source project netbeans ke Github dengan format nama repository Nama-NPM-UTS;
 - Unggah video kalian mempresentasikan (demo) program tersebut ke Youtube dengan durasi maksimal 10 menit;
 - Kirimkan tautan repository Github dan Youtube tersebut ke dalam e-learning;
-- Tenggat waktu: Minggu, 17 November 2024. Pukul 22.00 WITA.
+- Tenggat waktu: Lihat di E-Learning.
 - Mahasiswa yang mendapatkan nilai UTS otomatis dianggap hadir pertemuan ke-8
