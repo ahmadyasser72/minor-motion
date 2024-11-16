@@ -1,3 +1,5 @@
+import { dayNames } from "$lib/utils.date";
+
 import { z, defineCollection, reference } from "astro:content";
 
 const time = z.object({
@@ -11,15 +13,7 @@ const mata_kuliah = defineCollection({
     nama: z.string(),
     hidden: z.boolean().optional(),
     dosen: z.string().nullable(),
-    hari: z.enum([
-      "senin",
-      "selasa",
-      "rabu",
-      "kamis",
-      "jum'at",
-      "sabtu",
-      "minggu",
-    ]),
+    hari: z.enum(dayNames),
     start: time,
     end: time,
   }),

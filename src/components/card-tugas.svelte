@@ -6,7 +6,7 @@
   import * as Card from "$lib/components/ui/card";
   import { tasks } from "$lib/stores";
   import { StatusTugas, type Tugas } from "$lib/types";
-  import { formatDate } from "$lib/utils";
+  import { formatDate } from "$lib/utils.date";
 
   import { ClockAlert, User, Users } from "lucide-svelte";
 

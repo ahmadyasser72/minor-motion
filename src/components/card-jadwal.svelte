@@ -4,7 +4,7 @@
   import * as Card from "$lib/components/ui/card";
   import { Separator } from "$lib/components/ui/separator";
   import type { ListJadwal, MapListTugasLewat } from "$lib/types";
-  import { allHari } from "$lib/utils";
+  import { dayNames } from "$lib/utils.date";
 
   interface Props {
     hari: string;
@@ -15,7 +15,7 @@
 
   let {
     hari,
-    active = allHari[new Date().getDay() - 1] === hari,
+    active = dayNames[new Date().getDay() - 1] === hari,
     dailyJadwal,
     allStatusTugasMap,
   }: Props = $props();

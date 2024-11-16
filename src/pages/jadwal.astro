@@ -2,13 +2,13 @@
 import GridCardJadwal from "$lib/components/grid-card-jadwal.svelte";
 import DefaultLayout from "$lib/layouts/default-layout.astro";
 import type { MapListTugasLewat, MapListJadwal } from "$lib/types";
-import { allHari } from "$lib/utils";
+import { dayNames } from "$lib/utils.date";
 import { getMataKuliah } from "$lib/utils.content";
 
 import { getCollection } from "astro:content";
 
 const dailyJadwalMap = Object.fromEntries(
-  allHari.map((hari) => [hari, []])
+  dayNames.map((hari) => [hari, []])
 ) as MapListJadwal;
 
 const allMataKuliah = await getMataKuliah();

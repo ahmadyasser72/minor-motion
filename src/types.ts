@@ -1,4 +1,4 @@
-import type { allHari } from "$lib/utils";
+import type { dayNames } from "$lib/utils.date";
 
 import type { CollectionEntry } from "astro:content";
 
@@ -17,7 +17,7 @@ export type ListJadwal = Array<
     id: MataKuliahId;
   }
 >;
-export type MapListJadwal = Record<(typeof allHari)[number], ListJadwal>;
+export type MapListJadwal = Record<(typeof dayNames)[number], ListJadwal>;
 
 export type ListTugasLewat = Array<[TugasId, boolean]>;
 export type MapListTugasLewat = Record<MataKuliahId, ListTugasLewat>;

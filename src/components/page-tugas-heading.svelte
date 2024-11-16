@@ -4,7 +4,7 @@
   import { Badge } from "$lib/components/ui/badge";
   import { tasks } from "$lib/stores";
   import type { Tugas } from "$lib/types";
-  import { formatDate } from "$lib/utils";
+  import { formatDate } from "$lib/utils.date";
 
   import { BookCheck, ClockAlert, User, Users } from "lucide-svelte";
 
