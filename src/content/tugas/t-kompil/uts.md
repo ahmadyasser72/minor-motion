@@ -2,7 +2,7 @@
 judul: UTS - Buat video presentasi
 tipe: individu
 mata-kuliah: t-kompil
-batas-waktu: 2024-11-18T00:00:00+08:00
+batas-waktu: 2024-11-18T23:59:00+08:00
 link-pengumpulan: https://classroom.google.com/c/NzIyNzc5Mzg5MjM3/a/NzMwNjMxNzc4NjE3/details
 tempat-pengumpulan: google-classroom
 ---
