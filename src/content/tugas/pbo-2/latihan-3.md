@@ -2,7 +2,7 @@
 judul: Latihan 3 - Aplikasi Pengelola Kontak
 tipe: individu
 mata-kuliah: pbo-2
-batas-waktu: 2024-11-17T22:00:00+08:00
+batas-waktu: 2024-11-24T22:00:00+08:00
 link-pengumpulan: https://elearning.uniska-bjm.ac.id/mod/assign/view.php?id=40203
 tempat-pengumpulan: e-learning
 ---
