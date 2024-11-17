@@ -34,11 +34,13 @@
 
     if (list.length === 0) return false;
 
-    let className = "bg-indigo-200";
+    let className =
+      "bg-indigo-200 [&[data-today]:not([data-selected])]:bg-indigo-100";
     if (list.some(({ state }) => state === StatusTugas.terlambat))
-      className = "bg-red-200";
+      className = "bg-red-200 [&[data-today]:not([data-selected])]:bg-red-100";
     else if (list.some(({ state }) => state === StatusTugas.belum))
-      className = "bg-orange-200";
+      className =
+        "bg-orange-200 [&[data-today]:not([data-selected])]:bg-orange-100";
 
     return { list, className };
   };
