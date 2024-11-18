@@ -43,12 +43,12 @@
 
     <Badge variant="secondary">
       <BookCheck class="w-4 h-4 mr-1" />
-      {data["tempat-pengumpulan"]}
+      pengumpulan : {data["tempat-pengumpulan"]}
     </Badge>
 
     <Badge variant="secondary">
       <ClockAlert class="w-4 h-4 mr-1" />
-      {formatDate(data["batas-waktu"])}
+      batas-waktu : {formatDate(data["batas-waktu"])}
     </Badge>
   </div>
 </div>
