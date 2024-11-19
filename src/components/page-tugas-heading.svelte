@@ -48,7 +48,7 @@
 
     <Badge variant="secondary">
       <ClockAlert class="w-4 h-4 mr-1" />
-      batas-waktu : {formatDate(data["batas-waktu"])}
+      {formatDate(data["batas-waktu"])}
     </Badge>
   </div>
 </div>
