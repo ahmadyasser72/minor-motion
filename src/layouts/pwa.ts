@@ -11,10 +11,10 @@ window.addEventListener("load", () => {
       toast.success("Aplikasi sudah bisa bekerja secara offline!");
     },
     onNeedRefresh() {
-      toast.info("Update tersedia! klik reload untuk update", {
-        action: { label: "reload", onClick: () => updateSW() },
+      toast.info("Update tersedia!", {
+        action: { label: "update", onClick: () => updateSW() },
         dismissable: true,
-        duration: Number.POSITIVE_INFINITY,
+        duration: 60_000,
       });
     },
   });
