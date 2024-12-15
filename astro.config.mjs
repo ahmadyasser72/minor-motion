@@ -17,7 +17,8 @@ const _GITHUB_URL = exec("git remote get-url origin")
 
 // https://astro.build/config
 export default defineConfig({
-  output: "hybrid",
+  output: "static",
+  adapter: cloudflare(),
   integrations: [
     svelte(),
     tailwind({ applyBaseStyles: false }),
@@ -119,7 +120,7 @@ export default defineConfig({
       },
     }),
   ],
-  adapter: cloudflare(),
+
   vite: {
     // https://github.com/withastro/astro/issues/4416#issuecomment-2208336818
     define: {
@@ -129,5 +130,9 @@ export default defineConfig({
     },
     // https://docs.astro.build/en/guides/integrations-guide/cloudflare/#nodejs-compatibility
     ssr: { external: ["node:child_process", "node:path"] },
+  },
+
+  legacy: {
+    collections: true,
   },
 });
