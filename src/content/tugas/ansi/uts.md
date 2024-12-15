@@ -7,6 +7,6 @@ link-pengumpulan: https://drive.google.com/drive/folders/1hYTuFeZFHjWD2Vk-wVg0XP
 tempat-pengumpulan: ketua-kelas
 ---
 
-> Diketik saja 
+> Diketik saja
 
 ![IMG-20241113-WA0007](https://github.com/user-attachments/assets/dc3b4cea-a0f0-4d36-8070-78c722289e0a)

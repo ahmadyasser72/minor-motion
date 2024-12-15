@@ -1,8 +1,10 @@
 <script lang="ts">
-  import Ellipsis from "lucide-svelte/icons/ellipsis";
-  import type { WithElementRef, WithoutChildren } from "bits-ui";
-  import type { HTMLAttributes } from "svelte/elements";
   import { cn } from "$lib/utils.js";
+
+  import type { HTMLAttributes } from "svelte/elements";
+
+  import type { WithElementRef, WithoutChildren } from "bits-ui";
+  import Ellipsis from "lucide-svelte/icons/ellipsis";
 
   let {
     ref = $bindable(null),

@@ -1,9 +1,9 @@
 import {
   StatusTugas,
+  type GoogleUser,
   type State,
   type Tugas,
   type TugasId,
-  type GoogleUser,
 } from "$lib/types";
 
 import { derived } from "svelte/store";

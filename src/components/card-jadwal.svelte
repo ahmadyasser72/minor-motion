@@ -22,7 +22,7 @@
 </script>
 
 <Card.Root
-  class="border-primary {active ? 'border-solid border-2' : 'border-dashed'}"
+  class="border-primary {active ? 'border-2 border-solid' : 'border-dashed'}"
 >
   <Card.Header>
     <Card.Title class="uppercase">{hari}</Card.Title>

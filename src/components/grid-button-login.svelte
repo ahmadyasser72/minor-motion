@@ -1,6 +1,5 @@
 <script lang="ts">
   import Google from "$lib/components/icons/google.svelte";
-
   import { Button } from "$lib/components/ui/button";
 
   import { signIn } from "auth-astro/client";
@@ -15,14 +14,14 @@
   };
 </script>
 
-<div class="grid gap-2 w-full max-w-sm">
+<div class="grid w-full max-w-sm gap-2">
   <Button onclick={loginGoogle} class="bg-indigo-600 hover:bg-indigo-800">
-    <Google class="w-4 h-4 mr-2" />
+    <Google class="mr-2 h-4 w-4" />
     Google
   </Button>
 
   <Button onclick={loginLocal}>
-    <Monitor class="w-4 h-4 mr-2" />
+    <Monitor class="mr-2 h-4 w-4" />
     Lokal
   </Button>
 </div>

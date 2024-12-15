@@ -1,6 +1,5 @@
 <script lang="ts">
   import ClientOnly from "$lib/components/client-only.svelte";
-
   import * as Breadcrumb from "$lib/components/ui/breadcrumb";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
   import type { BreadcrumbItem } from "$lib/types";
@@ -34,7 +33,7 @@
               {:else}
                 <Breadcrumb.Page class="flex items-center">
                   {label}
-                  <ChevronDown class="h-4 w-4 ml-1" />
+                  <ChevronDown class="ml-1 h-4 w-4" />
                 </Breadcrumb.Page>
               {/if}
               <span class="sr-only">Toggle menu</span>

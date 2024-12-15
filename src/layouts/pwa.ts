@@ -1,5 +1,4 @@
 import { toast } from "svelte-sonner";
-
 import { registerSW } from "virtual:pwa-register";
 
 window.addEventListener("load", () => {

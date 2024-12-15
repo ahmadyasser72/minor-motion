@@ -1,15 +1,15 @@
 <script lang="ts">
-  import {
-    type CalendarDaySnippetProps,
-    Calendar as CalendarPrimitive,
-    type WithoutChildrenOrChild,
-  } from "bits-ui";
   import * as Calendar from "./index.js";
+
   import { cn } from "$lib/utils.js";
 
-  import type { Snippet } from "svelte";
-
   import type { DateValue } from "@internationalized/date";
+  import {
+    Calendar as CalendarPrimitive,
+    type CalendarDaySnippetProps,
+    type WithoutChildrenOrChild,
+  } from "bits-ui";
+  import type { Snippet } from "svelte";
 
   interface Props {
     day: Snippet<[Record<string, unknown>, CalendarDaySnippetProps, DateValue]>;

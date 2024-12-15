@@ -1,8 +1,9 @@
-import { state as localState, googleUser } from "$lib/stores";
+import { googleUser, state as localState } from "$lib/stores";
+
+import { get } from "svelte/store";
 import { actions } from "astro:actions";
 
 import { signIn } from "auth-astro/client";
-import { get } from "svelte/store";
 
 document.addEventListener("astro:page-load", async () => {
   // jangan sinkronisasi data bila offline

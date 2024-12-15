@@ -3,6 +3,7 @@
 
   import { Badge } from "$lib/components/ui/badge";
   import type { MapListJadwal, MapListTugasLewat } from "$lib/types";
+
   import { CircleAlert, Info } from "lucide-svelte";
 
   interface Props {
@@ -14,17 +15,17 @@
 </script>
 
 <div class="flex justify-end space-x-2">
-  <Badge class="uppercase bg-indigo-600 hover:bg-indigo-800">
-    <Info class="w-4 h-4 mr-1" />
+  <Badge class="bg-indigo-600 uppercase hover:bg-indigo-800">
+    <Info class="mr-1 h-4 w-4" />
     tugas
   </Badge>
-  <Badge class="uppercase bg-red-600 hover:bg-red-800">
-    <CircleAlert class="mr-1 w-4 h-4" />
+  <Badge class="bg-red-600 uppercase hover:bg-red-800">
+    <CircleAlert class="mr-1 h-4 w-4" />
     tugas (telat)
   </Badge>
 </div>
 
-<div class="w-full grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+<div class="mt-2 grid w-full grid-cols-1 gap-4 md:grid-cols-2">
   {#each Object.entries(dailyJadwalMap) as [hari, dailyJadwal]}
     <CardJadwal {hari} {dailyJadwal} {allStatusTugasMap} />
   {/each}

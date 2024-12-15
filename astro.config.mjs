@@ -1,14 +1,13 @@
 // @ts-check
+import { execSync } from "node:child_process";
+
 import { defineConfig } from "astro/config";
 
+import cloudflare from "@astrojs/cloudflare";
 import svelte from "@astrojs/svelte";
 import tailwind from "@astrojs/tailwind";
-import cloudflare from "@astrojs/cloudflare";
-
 import AstroPWA from "@vite-pwa/astro";
 import auth from "auth-astro";
-
-import { execSync } from "node:child_process";
 
 const exec = (/** @type {string} */ cmd) => execSync(cmd).toString().trim();
 const _GIT_HASH = exec("git rev-parse --short HEAD");

@@ -15,4 +15,3 @@ Soal UTS:
 ![image](https://github.com/user-attachments/assets/e6c6be98-471f-4238-a6f1-ce0f57af2193)
 ![image](https://github.com/user-attachments/assets/9bfeb04e-bfa5-4ba7-9cd2-c21fdc9185cc)
 ![image](https://github.com/user-attachments/assets/4fc7a7b1-041a-47b5-adf2-99527119c14b)
-

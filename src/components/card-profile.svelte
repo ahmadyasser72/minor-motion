@@ -1,8 +1,8 @@
 <script lang="ts">
   import ButtonLogout from "./button-logout.svelte";
 
-  import * as Card from "$lib/components/ui/card";
   import { Button } from "$lib/components/ui/button";
+  import * as Card from "$lib/components/ui/card";
   import { googleUser } from "$lib/stores";
 
   import { User } from "lucide-svelte";
@@ -15,11 +15,11 @@
         <img
           src={$googleUser.image}
           alt="avatar"
-          class="w-12 h-12 sm:w-16 sm:h-16 border border-primary rounded-full object-cover"
+          class="h-12 w-12 rounded-full border border-primary object-cover sm:h-16 sm:w-16"
         />
       {:else}
-        <div class="border border-primary rounded-full">
-          <User class="w-12 h-12 sm:w-16 sm:h-16" />
+        <div class="rounded-full border border-primary">
+          <User class="h-12 w-12 sm:h-16 sm:w-16" />
         </div>
       {/if}
 

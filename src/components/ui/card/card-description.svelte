@@ -1,7 +1,9 @@
 <script lang="ts">
-  import type { WithElementRef } from "bits-ui";
-  import type { HTMLAttributes } from "svelte/elements";
   import { cn } from "$lib/utils.js";
+
+  import type { HTMLAttributes } from "svelte/elements";
+
+  import type { WithElementRef } from "bits-ui";
 
   let {
     ref = $bindable(null),
@@ -13,7 +15,7 @@
 
 <p
   bind:this={ref}
-  class={cn("text-muted-foreground text-sm", className)}
+  class={cn("text-sm text-muted-foreground", className)}
   {...restProps}
 >
   {@render children?.()}

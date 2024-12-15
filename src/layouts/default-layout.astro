@@ -1,18 +1,16 @@
 ---
 import "$lib/styles/app.css";
 
-import { pwaInfo } from "virtual:pwa-info";
-
 import AnalyticsUmami from "$lib/components/analytics-umami.astro";
 import AppBreadcrumb from "$lib/components/app-breadcrumb.astro";
 import AppFooter from "$lib/components/app-footer.svelte";
-
 import { Toaster } from "$lib/components/ui/sonner";
 import type { BreadcrumbItem } from "$lib/types";
 
+import LoadingIndicator from "astro-loading-indicator/component";
 import { ViewTransitions } from "astro:transitions";
 
-import LoadingIndicator from "astro-loading-indicator/component";
+import { pwaInfo } from "virtual:pwa-info";
 
 export interface Props {
   class?: string;
@@ -48,7 +46,7 @@ const { class: classList, title, breadcrumbs } = Astro.props;
   </head>
   <body>
     <div
-      class="flex flex-col justify-center container lg:w-3/4 min-h-[100vh] py-8"
+      class="container flex min-h-[100vh] flex-col justify-center py-8 lg:w-3/4"
     >
       <AppBreadcrumb {breadcrumbs} />
 

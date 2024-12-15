@@ -15,6 +15,6 @@
 </script>
 
 <Button onclick={logOut} variant="outline">
-  <LogOut class="w-4 h-4 mr-2" />
+  <LogOut class="mr-2 h-4 w-4" />
   Logout
 </Button>

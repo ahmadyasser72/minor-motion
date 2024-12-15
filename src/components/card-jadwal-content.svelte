@@ -1,18 +1,18 @@
 <script lang="ts">
   import ClientOnly from "./client-only.svelte";
 
-  import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
   import { Badge } from "$lib/components/ui/badge";
+  import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
   import { ScrollArea } from "$lib/components/ui/scroll-area";
   import { tasks } from "$lib/stores";
   import type { ListJadwal, ListTugasLewat, TugasId } from "$lib/types";
 
   import {
     CircleAlert,
-    type Icon as IconType,
     Info,
     LoaderCircle,
     SquareArrowOutUpRight,
+    type Icon as IconType,
   } from "lucide-svelte";
 
   interface Props {
@@ -48,7 +48,7 @@
 
   <Badge class="uppercase" href="/tugas/{jadwal.id}">
     {jadwal.id}
-    <SquareArrowOutUpRight class="ml-1 w-4 h-4" />
+    <SquareArrowOutUpRight class="ml-1 h-4 w-4" />
   </Badge>
 
   {#snippet tugasBadgeDropdown(
@@ -60,7 +60,7 @@
       <DropdownMenu.Trigger>
         {#snippet child({ props })}
           <Badge class={badgeClass} {...props}>
-            <Icon class="mr-1 w-4 h-4" />
+            <Icon class="mr-1 h-4 w-4" />
             {tugas.length}
           </Badge>
         {/snippet}
@@ -97,7 +97,7 @@
     {/if}
 
     {#snippet fallback()}
-      <LoaderCircle class="ml-1 w-4 h-4 animate-spin" />
+      <LoaderCircle class="ml-1 h-4 w-4 animate-spin" />
     {/snippet}
   </ClientOnly>
 </div>

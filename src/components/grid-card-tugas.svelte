@@ -22,7 +22,7 @@
   );
 </script>
 
-<div class="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
   {#each sortedAllTugas as data (data.id)}
     <div animate:flip={{ duration: 500, easing: expoInOut }}>
       <CardTugas {data} {displaySubject} />

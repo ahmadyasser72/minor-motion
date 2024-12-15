@@ -19,13 +19,13 @@
 
 <div>
   <h2
-    class="scroll-m-20 pb-2 text-3xl text-center sm:text-start font-semibold tracking-tight transition-colors first:mt-0"
+    class="scroll-m-20 pb-2 text-center text-3xl font-semibold tracking-tight transition-colors first:mt-0 sm:text-start"
   >
     {data.judul}
   </h2>
 
   <div
-    class="uppercase flex flex-wrap items-center justify-center sm:justify-start gap-1"
+    class="flex flex-wrap items-center justify-center gap-1 uppercase sm:justify-start"
   >
     <BadgeStatusTugas status={state} />
 
@@ -33,21 +33,21 @@
 
     <Badge variant="secondary">
       {#if data.tipe === "individu"}
-        <User class="w-4 h-4 mr-1" />
+        <User class="mr-1 h-4 w-4" />
       {:else if data.tipe === "kelompok"}
-        <Users class="w-4 h-4 mr-1" />
+        <Users class="mr-1 h-4 w-4" />
       {/if}
 
       {data.tipe}
     </Badge>
 
     <Badge variant="secondary">
-      <BookCheck class="w-4 h-4 mr-1" />
+      <BookCheck class="mr-1 h-4 w-4" />
       pengumpulan : {data["tempat-pengumpulan"]}
     </Badge>
 
     <Badge variant="secondary">
-      <ClockAlert class="w-4 h-4 mr-1" />
+      <ClockAlert class="mr-1 h-4 w-4" />
       {formatDate(data["batas-waktu"])}
     </Badge>
   </div>

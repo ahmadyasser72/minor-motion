@@ -23,13 +23,13 @@
 <Card.Root>
   <Card.Header>
     <Card.Title
-      class="text-ellipsis hover:text-clip whitespace-nowrap overflow-hidden"
+      class="overflow-hidden text-ellipsis whitespace-nowrap hover:text-clip"
     >
       <a
         href="/tugas/{data.id}"
         class={status === StatusTugas.sudah
           ? "line-through"
-          : "transition-colors duration-300 ease-in-out hover:text-card underline hover:no-underline hover:bg-indigo-600"}
+          : "underline transition-colors duration-300 ease-in-out hover:bg-indigo-600 hover:text-card hover:no-underline"}
       >
         {data.judul}
       </a>
@@ -38,7 +38,7 @@
 
   <Card.Content>
     <div
-      class="uppercase flex flex-wrap items-center justify-center sm:justify-start gap-1"
+      class="flex flex-wrap items-center justify-center gap-1 uppercase sm:justify-start"
     >
       <BadgeStatusTugas {status} />
 
@@ -47,9 +47,9 @@
       {:else}
         <Badge variant="secondary">
           {#if data.tipe === "individu"}
-            <User class="w-4 h-4 mr-1" />
+            <User class="mr-1 h-4 w-4" />
           {:else if data.tipe === "kelompok"}
-            <Users class="w-4 h-4 mr-1" />
+            <Users class="mr-1 h-4 w-4" />
           {/if}
 
           {data.tipe}
@@ -57,14 +57,14 @@
       {/if}
 
       <Badge variant="secondary">
-        <ClockAlert class="w-4 h-4 mr-1" />
+        <ClockAlert class="mr-1 h-4 w-4" />
         {formatDate(data["batas-waktu"])}
       </Badge>
     </div>
   </Card.Content>
 
   <Card.Footer>
-    <div class="w-full flex justify-end space-x-1">
+    <div class="flex w-full justify-end space-x-1">
       <ButtonToggleStatusTugas class="flex-1" id={data.id} />
     </div>
   </Card.Footer>

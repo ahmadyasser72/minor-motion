@@ -1,14 +1,12 @@
 ---
 import PageTugasActions from "$lib/components/page-tugas-actions.svelte";
 import PageTugasHeading from "$lib/components/page-tugas-heading.svelte";
-
 import { Separator } from "$lib/components/ui/separator";
 import DefaultLayout from "$lib/layouts/default-layout.astro";
 import type { Tugas } from "$lib/types";
 
-import { getCollection, getEntry } from "astro:content";
-
 import type { GetStaticPaths } from "astro";
+import { getCollection, getEntry } from "astro:content";
 
 export const getStaticPaths = (async () => {
   const allTugas = await getCollection("tugas");
@@ -52,7 +50,7 @@ const { Content } = await entry.render();
 
 <style is:global>
   .content h2 {
-    @apply scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight mt-8 first:mt-0;
+    @apply mt-8 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0;
   }
 
   .content h3 {
@@ -64,7 +62,7 @@ const { Content } = await entry.render();
   }
 
   .content a {
-    @apply text-indigo-700 underline break-all;
+    @apply break-all text-indigo-700 underline;
   }
 
   .content blockquote {
@@ -72,7 +70,7 @@ const { Content } = await entry.render();
   }
 
   .content img {
-    @apply p-2 mx-auto border shadow-sm;
+    @apply mx-auto border p-2 shadow-sm;
   }
 
   .content :is(ol, ul) {
@@ -96,11 +94,11 @@ const { Content } = await entry.render();
   }
 
   .content tr {
-    @apply hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors;
+    @apply border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted;
   }
 
   .content th {
-    @apply text-muted-foreground h-12 px-4 text-left align-middle font-medium [&:has([role=checkbox])]:pr-0;
+    @apply h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0;
   }
 
   .content tbody {

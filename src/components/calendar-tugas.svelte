@@ -58,7 +58,7 @@
     weekdayFormat="short"
     weekStartsOn={1}
     locale="id-ID"
-    class="border rounded-md"
+    class="rounded-md border"
   >
     {#snippet day(props, data, date)}
       {@const tugas = getTugasByDate(date)}

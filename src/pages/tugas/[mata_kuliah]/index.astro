@@ -3,9 +3,8 @@ import DaftarTugas from "$lib/layouts/daftar-tugas.astro";
 import type { Tugas } from "$lib/types";
 import { getMataKuliah } from "$lib/utils.content";
 
-import { getEntry, getCollection } from "astro:content";
-
 import type { GetStaticPaths } from "astro";
+import { getCollection, getEntry } from "astro:content";
 
 export const getStaticPaths = (async () => {
   const allMataKuliah = await getMataKuliah();

@@ -8,6 +8,6 @@
 {#if $state.login !== undefined}
   <CardProfile />
 {:else}
-  <p class="text-xl text-center mb-4">metode penyimpanan data</p>
+  <p class="mb-4 text-center text-xl">metode penyimpanan data</p>
   <GridButtonLogin />
 {/if}

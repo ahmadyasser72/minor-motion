@@ -16,17 +16,17 @@
 {#if $tasks.isDone(id)}
   <Button
     onclick={() => $tasks.undo(id)}
-    class="uppercase bg-indigo-500 hover:bg-indigo-700 {className}"
+    class="bg-indigo-500 uppercase hover:bg-indigo-700 {className}"
   >
-    <Undo2 class="mr-1 w-4 h-4" />
+    <Undo2 class="mr-1 h-4 w-4" />
     undo
   </Button>
 {:else}
   <Button
     onclick={() => $tasks.done(id)}
-    class="uppercase bg-indigo-600 hover:bg-indigo-800 {className}"
+    class="bg-indigo-600 uppercase hover:bg-indigo-800 {className}"
   >
-    <Check class="mr-1 w-4 h-4" />
+    <Check class="mr-1 h-4 w-4" />
     done
   </Button>
 {/if}
