@@ -39,7 +39,7 @@
       {/if}
 
       <span class="text-lg sm:text-2xl"
-        >{$googleUser?.name ?? (offline ? "Offline" : "Anonim")}</span
+        >{offline ? "Offline" : ($googleUser?.name ?? "Anonim")}</span
       >
     </div>
   </Card.Header>
