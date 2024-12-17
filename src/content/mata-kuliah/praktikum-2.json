@@ -1,0 +1,14 @@
+{
+  "hidden": true,
+  "nama": "Praktikum Web",
+  "dosen": null,
+  "hari": "senin",
+  "start": {
+    "hour": 0,
+    "minute": 0
+  },
+  "end": {
+    "hour": 0,
+    "minute": 0
+  }
+}
