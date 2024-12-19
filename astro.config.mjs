@@ -19,18 +19,18 @@ const _GITHUB_URL = exec("git remote get-url origin")
 export default defineConfig({
   output: "static",
   adapter: cloudflare(),
+  trailingSlash: "never",
   integrations: [
     svelte(),
     tailwind({ applyBaseStyles: false }),
     auth({ injectEndpoints: false }),
     AstroPWA({
-      registerType: "prompt",
+      registerType: "autoUpdate",
       workbox: {
         // https://github.com/vite-pwa/astro/issues/35#issuecomment-2068031978
         globIgnores: ["**/_worker.js/**/*"],
         globPatterns: ["**/*.{css,js,html,svg,png,ico,txt}"],
-        navigateFallback: "/",
-        navigateFallbackDenylist: [new RegExp("/api/")],
+        cleanupOutdatedCaches: false,
       },
       manifest: {
         id: "/",
