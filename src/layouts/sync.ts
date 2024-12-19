@@ -28,7 +28,10 @@ document.addEventListener("astro:page-load", async () => {
   const local = get(localState);
   if (data === undefined || data.last_update < local.last_update) {
     console.log("[sync] local >> google-drive");
-    await actions.sync.set.orThrow(local);
+    await actions.sync.set.orThrow({
+      completed_tasks: [...local.completed_tasks],
+      last_update: local.last_update.toISOString(),
+    });
   } else if (data.last_update > local.last_update) {
     console.log("[sync] google-drive >> local");
     localState.set({ ...local, ...data });

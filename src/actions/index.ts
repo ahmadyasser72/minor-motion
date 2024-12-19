@@ -35,22 +35,22 @@ export const server = {
     }),
     set: defineAction({
       input: z.object({
-        completed_tasks: z.set(z.string()),
-        last_update: z.date(),
+        completed_tasks: z.array(z.string()),
+        last_update: z.string().datetime(),
       }),
       handler: async ({ completed_tasks, last_update }, { request }) => {
         const session = (await getSession(request)) ?? false;
         if (!session) throw new ActionError({ code: "UNAUTHORIZED" });
 
         const allTugasId = (await getCollection("tugas")).map((it) => it.slug);
-        for (const id of completed_tasks.values()) {
+        for (const id of completed_tasks) {
           if (!allTugasId.includes(id as TugasId))
             throw new ActionError({ code: "BAD_REQUEST" });
         }
 
         const data = {
-          completed_tasks,
-          last_update,
+          completed_tasks: new Set(...completed_tasks),
+          last_update: new Date(last_update),
         } as GoogleDriveData;
 
         const drive = new GoogleDrive(session);
