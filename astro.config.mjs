@@ -33,6 +33,7 @@ export default defineConfig({
         globIgnores: ["**/_worker.js/**/*"],
         globPatterns: ["**/*.{css,js,html,svg,png,ico,txt}"],
         cleanupOutdatedCaches: false,
+        navigateFallbackDenylist: [/^\/api/],
       },
       manifest: {
         id: "/",
