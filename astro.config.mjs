@@ -17,6 +17,7 @@ const _GITHUB_URL = exec("git remote get-url origin")
 
 // https://astro.build/config
 export default defineConfig({
+  build: { format: "file" },
   output: "static",
   adapter: cloudflare(),
   trailingSlash: "never",
@@ -26,6 +27,7 @@ export default defineConfig({
     auth({ injectEndpoints: false }),
     AstroPWA({
       registerType: "autoUpdate",
+      experimental: {},
       workbox: {
         // https://github.com/vite-pwa/astro/issues/35#issuecomment-2068031978
         globIgnores: ["**/_worker.js/**/*"],
