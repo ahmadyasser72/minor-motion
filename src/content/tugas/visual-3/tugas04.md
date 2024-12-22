@@ -1,9 +1,9 @@
 ---
-judul: tugas04 - CRUD 2 tabel
+judul: tugas04 - Database Lokal (sqlite)
 tipe: individu
 mata-kuliah: visual-3
-batas-waktu: 2024-12-26T00:00:00+08:00
-link-pengumpulan: null
+batas-waktu: 2024-12-26T07:00:00+08:00
+link-pengumpulan: https://elearning.uniska-bjm.ac.id/mod/assign/view.php?id=53919
 tempat-pengumpulan: e-learning
 ---
 
