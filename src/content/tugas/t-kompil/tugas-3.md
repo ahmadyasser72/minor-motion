@@ -2,7 +2,7 @@
 judul: Tugas 3 - Buat video demonstrasi error handling
 tipe: individu
 mata-kuliah: t-kompil
-batas-waktu: 2024-12-26T00:00:00+08:00
+batas-waktu: 2025-01-02T00:00:00+08:00
 link-pengumpulan: null
 tempat-pengumpulan: google-classroom
 ---
