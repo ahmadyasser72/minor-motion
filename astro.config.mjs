@@ -10,7 +10,6 @@ import AstroPWA from "@vite-pwa/astro";
 import auth from "auth-astro";
 
 const exec = (/** @type {string} */ cmd) => execSync(cmd).toString().trim();
-const _GIT_HASH = exec("git rev-parse --short HEAD");
 const _GITHUB_URL = exec("git remote get-url origin")
   .replace(/.*@/, "https://")
   .replace(".git", "");
@@ -125,10 +124,9 @@ export default defineConfig({
   ],
 
   vite: {
-    // https://github.com/withastro/astro/issues/4416#issuecomment-2208336818
     define: {
+      // https://github.com/withastro/astro/issues/4416#issuecomment-2208336818
       "process.env": process.env,
-      "import.meta.env._GIT_HASH": JSON.stringify(_GIT_HASH),
       "import.meta.env._GITHUB_URL": JSON.stringify(_GITHUB_URL),
     },
     // https://docs.astro.build/en/guides/integrations-guide/cloudflare/#nodejs-compatibility
