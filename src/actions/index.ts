@@ -23,6 +23,13 @@ export const server = {
 
         const drive = new GoogleDrive(session);
         const data = await drive.fetchData();
+        console.log(data);
+
+        const allTugasId = (await getCollection("tugas")).map((it) => it.slug);
+        if (data !== undefined)
+          data.completed_tasks = new Set(
+            [...data.completed_tasks].filter((id) => allTugasId.includes(id))
+          );
 
         return {
           data,
@@ -49,7 +56,7 @@ export const server = {
         }
 
         const data = {
-          completed_tasks: new Set(...completed_tasks),
+          completed_tasks: new Set([...completed_tasks]),
           last_update: new Date(last_update),
         } as GoogleDriveData;
 
