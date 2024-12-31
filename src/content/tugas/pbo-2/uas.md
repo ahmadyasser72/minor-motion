@@ -2,7 +2,7 @@
 judul: UAS - Tugas Besar
 tipe: individu
 mata-kuliah: pbo-2
-batas-waktu: 2025-01-05T22:00:00+08:00
+batas-waktu: 2025-01-12T22:00:00+08:00
 link-pengumpulan: https://elearning.uniska-bjm.ac.id/mod/assign/view.php?id=50071
 tempat-pengumpulan: e-learning
 ---
