@@ -2,7 +2,7 @@
 judul: Tugas 2 - Review aplikasi
 tipe: individu
 mata-kuliah: inter-man
-batas-waktu: 2025-01-06T00:00:00+08:00
+batas-waktu: 2025-01-13T00:00:00+08:00
 link-pengumpulan: null
 tempat-pengumpulan: langsung
 ---
