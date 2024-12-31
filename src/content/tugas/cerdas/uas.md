@@ -1,8 +1,8 @@
 ---
-judul: Tugas 2 - Review artikel ilmiah Machine learning atau Data Mining
+judul: UAS - Review artikel ilmiah Machine learning atau Data Mining
 tipe: individu
 mata-kuliah: cerdas
-batas-waktu: 2025-01-07T00:00:00+08:00
+batas-waktu: 2025-01-14T00:00:00+08:00
 link-pengumpulan: mailto:mayangsari.penugasan@gmail.com
 tempat-pengumpulan: langsung
 ---
