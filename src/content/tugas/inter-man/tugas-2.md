@@ -9,9 +9,9 @@ tempat-pengumpulan: langsung
 
 Review aplikasi bebas (kecuali Instagram dan Mobile Legend), review poin-poin berikut berupa screenshot beserta penjelasan pakai bahasa sendiri:
 
-1. User model
-2. Pengaturan bahasa
-3. System feedback
+1. Model pengguna
+2. Bahasa perintah
+3. Umpan balik
 4. Tampilan informasi
 
 Kerjakan di word. Format pengerjaan halaman pertama sampul seperti makalah, halaman 2 dan seterusnya langsung isikan review-nya.
