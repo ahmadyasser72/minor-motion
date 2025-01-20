@@ -3,7 +3,7 @@ judul: UTS - Analisis studi kasus sistem informasi
 tipe: individu
 mata-kuliah: ansi
 batas-waktu: 2025-01-22T14:00:00+08:00
-link-pengumpulan: null
+link-pengumpulan: https://forms.gle/Bv9wKeG54VbB46mM9
 tempat-pengumpulan: ketua-kelas
 ---
 
