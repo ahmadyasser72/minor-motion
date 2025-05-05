@@ -2,7 +2,7 @@
 judul: Tugas video white/black box
 tipe: individu
 mata-kuliah: testing
-batas-waktu: 2025-06-14T23:59:00+08:00
+batas-waktu: 2025-05-14T23:59:00+08:00
 link-pengumpulan: null
 tempat-pengumpulan: google-classroom
 ---
